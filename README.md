@@ -1,2 +1,3 @@
-# pro_app
-End user application
+# ПРО
+Прототип мобильного приложения
+
