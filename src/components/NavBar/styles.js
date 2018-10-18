@@ -7,7 +7,7 @@ export default props =>
 
     container: StyleSheet.flatten([
       {
-        backgroundColor: styles.COLOR_GREY_LIGHT,
+        backgroundColor: styles.COLOR_4_LIGHT,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-end',

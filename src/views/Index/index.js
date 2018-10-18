@@ -22,7 +22,7 @@ class Index extends Component {
     };
 
     state = {
-        loading: true
+        loading: false
     }
 
     componentDidMount(){
@@ -30,7 +30,7 @@ class Index extends Component {
             this.setState({
                 loading: false
             })
-        }, 3000)
+        }, 2000)
     }
 
     render() {

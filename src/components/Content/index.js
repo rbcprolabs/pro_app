@@ -16,13 +16,12 @@ class Content extends Component {
 
     static propTypes = {
         style: PropTypes.object,
-        disableMargin: PropTypes.bool,
         showLoading: PropTypes.bool,
-        afterLoading: PropTypes.func
+        bottomPart: PropTypes.element,
+        afterLoading: PropTypes.func,
     }
 
     static defaultProps = {
-        disableMargin: false,
         statusBarHeight: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight,
     };
 
@@ -32,12 +31,14 @@ class Content extends Component {
 
         return (
             <View style={style.container} {...props}>
+                {props.topPart}
                 <ScrollView bounces={false}
                     // style={style.container}
                     // {...props}
                 >
                     {props.children}
                 </ScrollView>
+                {props.bottomPart}
                 <Loading
                     show={props.showLoading}
                     afterClose={props.afterLoading}

@@ -24,7 +24,7 @@ export default props =>
 
     overlay: StyleSheet.flatten([
       {
-        backgroundColor: '#000',
+        backgroundColor: styles.COLOR_2,
         position: 'absolute',
         left: 0,
         right: 0,
@@ -37,7 +37,7 @@ export default props =>
     text: StyleSheet.flatten([
       {
         fontSize: styles.FONT_SIZE,
-        color: styles.COLOR_GREY,
+        color: styles.COLOR_4,
         fontWeight: '500',
         zIndex: 2,
         position: 'relative'
@@ -54,7 +54,7 @@ export default props =>
     logo: StyleSheet.flatten([
       {
         fontSize: styles.FONT_SIZE*2,
-        color: '#fff',
+        color: styles.COLOR_1,
         fontWeight: '700',
         textTransform: 'uppercase'
       },
@@ -62,7 +62,7 @@ export default props =>
 
     logoHighlight: StyleSheet.flatten([
       {
-        color: styles.COLOR_RED
+        color: styles.COLOR_3
       },
     ]),
 
@@ -75,7 +75,7 @@ export default props =>
 
     colorGray: StyleSheet.flatten([
       {
-        color: styles.COLOR_GREY
+        color: styles.COLOR_4
       },
     ]),
 

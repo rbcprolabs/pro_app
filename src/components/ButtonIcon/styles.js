@@ -22,7 +22,7 @@ export default props =>
       {
         fontSize: styles.GUTTER * 2,
         
-        color: styles.COLOR_GREY
+        color: styles.COLOR_4
       },
       props.iconStyle && {
         ...props.iconStyle

@@ -13,11 +13,14 @@ import ReduxContainer from 'app/bootstrap/Redux';
 import { apiUrl, apiKey } from 'app/config/api'
 
 import * as routes from "app/config/sceneKeys";
+import * as styles from 'app/config/style';
+
 
 import NavBar from "app/components/NavBar";
 
 // Redux
 import Index from 'app/views/Index';
+import Categories from 'app/views/Categories';
 
 // END Redux
 
@@ -39,17 +42,23 @@ export default class App extends Component {
 
         return (
             <ReduxContainer>
-                <Router sceneStyle={{ backgroundColor: "#000" }}> 
-                            <Stack key="root">
-                                <Scene
-                                    key={routes.INDEX.key}
-                                    title={routes.INDEX.title}
-                                    component={Index}
-                                    navBar={NavBar}
-                                    initial
-                                />
+                <Router sceneStyle={{ backgroundColor: styles.COLOR_1 }}>
+                    <Stack key="root">
+                        <Scene
+                            key={routes.INDEX.key}
+                            title={routes.INDEX.title}
+                            component={Index}
+                            navBar={NavBar}
+                        />
+                        <Scene
+                            key={routes.CATEGORIES.key}
+                            title={routes.CATEGORIES.title}
+                            component={Categories}
+                            hideNavBar={true}
+                            initial
+                        />
 
-                            </Stack>
+                    </Stack>
                 </Router>
             </ReduxContainer>
         );
