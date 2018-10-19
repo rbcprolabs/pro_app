@@ -1,12 +1,8 @@
 import { combineReducers } from "redux";
-// import products from './products';
 import categories from './categories';
-// import search from './search';
-// import basket from './basket';
+import articles from './articles';
 
 export default combineReducers({
     categories,
-    // products,
-    // search,
-    // basket
+    articles,
 });

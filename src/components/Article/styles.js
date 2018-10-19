@@ -3,16 +3,21 @@ import * as styles from 'app/config/style';
 
 export default props =>
   StyleSheet.create({
-    container: StyleSheet.flatten([
+    wrap: StyleSheet.flatten([
       {
-        position: 'relative',
-        paddingVertical: styles.INTENT-5,
-        paddingHorizontal: styles.INTENT-2,
-        aspectRatio: 1,
-        borderRadius: styles.RADIUS+3,
+        paddingVertical: styles.INTENT,
+        paddingHorizontal: styles.INTENT - 4,
+        backgroundColor: styles.COLOR_1,
+        borderRadius: styles.RADIUS,
       },
       props.style && {
         ...props.style
+      },
+    ]),
+
+    container: StyleSheet.flatten([
+      {
+        paddingHorizontal: styles.INTENT - 8,
       },
     ]),
 

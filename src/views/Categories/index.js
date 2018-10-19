@@ -10,6 +10,7 @@ import {
 import {
     Actions
 } from 'react-native-router-flux';
+
 import Content from 'app/components/Content';
 import Category from 'app/components/Category';
 import Button from 'app/components/Button';
@@ -27,13 +28,13 @@ class Categories extends Component {
         loading: false
     }
 
-    // componentDidMount(){
-    //     setTimeout(()=>{
-    //         this.setState({
-    //             loading: false
-    //         })
-    //     }, 2000)
-    // }
+    componentDidMount() {
+        // setTimeout(()=>{
+        //     this.setState({
+        //         loading: false
+        //     })
+        // }, 2000)
+    }
 
     categories = [
         {
@@ -104,6 +105,19 @@ class Categories extends Component {
 
     onPress = (id) => {
         console.log('presses id ', id)
+        // const client = contentful.createClient({
+        //     space: 'tu25wwmnykjr',
+        //     accessToken: '12fe425427e6969dd7df6c41b21de307d1d74c2d971421bcf9dd22edaf0eccb4'
+        // });
+        // console.log('client ', client)
+        // client.getEntries().then(entries => {
+        //     entries.items.forEach(entry => {
+        //         console.log('entry ', entry)
+        //         if (entry.fields) {
+        //             console.log('entry.fields ', entry.fields)
+        //         }
+        //     })
+        // })
     }
 
     topPart = (style) => (
@@ -126,13 +140,11 @@ class Categories extends Component {
 
 function mapStateToProps(state) {
     return {
-        //   products: state.products
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        //   getProducts: bindActionCreators(getProducts, dispatch),
 
     }
 }

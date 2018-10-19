@@ -36,7 +36,7 @@ export default props =>
       {
         flexShrink: 0,
         flexGrow: 0,
-        flexBasis: 26 + styles.GUTTER * 2
+        flexBasis: 26 + styles.INTENT * 2
       },
       !props.leftContentShow &&
       !props.rightContentShow && {

@@ -14,8 +14,8 @@ export default props =>
         justifyContent: 'space-between',
         alignItems: 'center',
         zIndex: 5,
-        paddingHorizontal: styles.GUTTER,
-        paddingVertical: styles.GUTTER*3,
+        paddingHorizontal: styles.INTENT,
+        paddingVertical: styles.INTENT*3,
       },
       props.style && {
         ...props.style

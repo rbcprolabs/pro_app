@@ -20,7 +20,7 @@ export default props =>
 
     icon: StyleSheet.flatten([
       {
-        fontSize: styles.GUTTER * 2,
+        fontSize: styles.INTENT * 2,
         
         color: styles.COLOR_4
       },
@@ -34,7 +34,7 @@ export default props =>
         position: 'absolute',
         right: -3,
         top: -5,
-        fontSize: styles.GUTTER * 2,
+        fontSize: styles.INTENT * 2,
       }
     ]),
   });

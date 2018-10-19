@@ -15,7 +15,8 @@ export default props =>
     categoriesContainer: StyleSheet.flatten([
       {
         flexWrap: 'wrap',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        paddingHorizontal: styles.INTENT / 4,
       }
 
     ]),
@@ -25,8 +26,8 @@ export default props =>
         flexShrink: 0,
         flexGrow: 0,
         flexBasis: '50%',
-        paddingHorizontal: 5,
-        paddingBottom: 10
+        paddingHorizontal: styles.INTENT / 4,
+        paddingBottom: styles.INTENT / 2
       }
 
     ]),
@@ -44,26 +45,27 @@ export default props =>
       {
         textTransform: 'uppercase',
         color: styles.COLOR_4,
-        fontSize: styles.FONT_SIZE,
-        paddingBottom: styles.GUTTER - 10
+        fontSize: styles.FONT_SIZE - 4,
+        fontWeight: '500',
+        paddingBottom: styles.INTENT - 10
       }
 
     ]),
 
     topPart: StyleSheet.flatten([
       {
-        paddingHorizontal: styles.GUTTER,
-        paddingTop: styles.GUTTER * 3,
-        paddingBottom: styles.GUTTER,
+        paddingHorizontal: styles.INTENT,
+        paddingTop: styles.INTENT * 3,
+        paddingBottom: styles.INTENT,
       }
 
     ]),
 
     bottomPart: StyleSheet.flatten([
       {
-        paddingHorizontal: styles.GUTTER,
-        paddingTop: styles.GUTTER,
-        paddingBottom: styles.GUTTER * 2
+        paddingHorizontal: styles.INTENT + 4,
+        paddingTop: styles.INTENT,
+        paddingBottom: styles.INTENT * 2
       }
 
     ]),

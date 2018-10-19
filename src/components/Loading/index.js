@@ -23,8 +23,13 @@ export default class Loading extends Component {
   state = {
     words: [
       'новости',
-      'интриги',
-      'расследования',
+      'аналитика',
+      'компании',
+      'кейсы',
+      'персоны',
+      'отрасли',
+      'события',
+      'показатели'
     ],
     selectedWord: ''
   }
@@ -95,7 +100,7 @@ export default class Loading extends Component {
       if (!state.words[i]) {
         i = 0
       }
-    }, 600)
+    }, 1000)
   }
 
 

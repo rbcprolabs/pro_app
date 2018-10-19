@@ -6,21 +6,21 @@ import {
     Router,
 } from 'react-native-router-flux';
 
-import axios from 'axios';
-
 import ReduxContainer from 'app/bootstrap/Redux';
-
-import { apiUrl, apiKey } from 'app/config/api'
 
 import * as routes from "app/config/sceneKeys";
 import * as styles from 'app/config/style';
 
 
 import NavBar from "app/components/NavBar";
+// import * as contentful from 'contentful'
+// const contentful = require('contentful')
+
 
 // Redux
 import Index from 'app/views/Index';
 import Categories from 'app/views/Categories';
+import Articles from 'app/views/Articles';
 
 // END Redux
 
@@ -29,16 +29,9 @@ import Categories from 'app/views/Categories';
 export default class App extends Component {
 
     render() {
-        // const width = Dimensions.get('screen').width * .8;
+
         // For network debug
         GLOBAL.XMLHttpRequest = GLOBAL.originalXMLHttpRequest || GLOBAL.XMLHttpRequest;
-
-        // axios.create({
-        //     timeout: 4000
-        // });
-        // axios.defaults.baseURL = apiUrl;
-        // axios.defaults.headers.apiKey = apiKey;
-        // axios.defaults.method = 'post';
 
         return (
             <ReduxContainer>
@@ -56,6 +49,13 @@ export default class App extends Component {
                             component={Categories}
                             hideNavBar={true}
                             initial
+                        />
+                        <Scene
+                            key={routes.ARTICLES.key}
+                            title={routes.ARTICLES.title}
+                            component={Articles}
+                            hideNavBar={true}
+
                         />
 
                     </Stack>

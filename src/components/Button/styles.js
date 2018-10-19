@@ -6,8 +6,8 @@ export default props =>
     btn: StyleSheet.flatten([
       {
         height: styles.FIELD_HEIGHT,
-        paddingLeft: styles.GUTTER,
-        paddingRight: styles.GUTTER,
+        paddingLeft: styles.INTENT,
+        paddingRight: styles.INTENT,
         justifyContent: 'center',
         alignSelf: 'stretch',
         alignItems: 'center',
@@ -15,11 +15,11 @@ export default props =>
         borderRadius: styles.RADIUS,
         borderColor: styles.COLOR_2,
         backgroundColor: styles.COLOR_2,
-        marginBottom: styles.GUTTER
+        marginBottom: styles.INTENT
       },
 
       props.style && {
-        ...props.style 
+        ...props.style
       },
 
       props.isWhite && {
