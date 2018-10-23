@@ -110,7 +110,7 @@ export default class Category extends Component {
               </View>
             }
 
-            {data.theme == 'dark' &&
+            {data.type == 'selected' &&
               <View style={style.topViewContainer}>
                 {data.tags.map(tag =>
                   <Tag
@@ -179,7 +179,7 @@ export default class Category extends Component {
               style={[
                 style.footer,
               ]}>
-              {data.theme !== 'dark' &&
+              {data.type !== 'selected' &&
 
                 data.tags.map(tag =>
                   <Tag

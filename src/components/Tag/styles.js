@@ -14,7 +14,7 @@ export default props =>
         borderRadius: styles.RADIUS * 2,
         backgroundColor: styles.COLOR_2,
         height: 32,
-        paddingHorizontal: styles.INTENT-4,
+        paddingHorizontal: styles.INTENT - 4,
         alignItems: 'center'
       },
       props.style && {
@@ -38,13 +38,14 @@ export default props =>
         fontWeight: '500',
         color: styles.COLOR_2
       },
-      props.convert || props.type == 'ellipse' && {
+      props.convert && {
         color: styles.COLOR_1
       },
       props.type == 'ellipse' && {
         fontSize: styles.FORN_SIZE - 2,
         fontWeight: '500',
-        marginTop: 0
+        marginTop: 0,
+        color: styles.COLOR_1
       },
       props.description && {
         fontWeight: '500',
@@ -60,9 +61,12 @@ export default props =>
       props.active && {
         color: styles.COLOR_2
       },
-      props.convert || props.type == 'ellipse' && {
+      props.convert && {
         color: styles.COLOR_1
       },
+      props.type == 'ellipse' && {
+        color: styles.COLOR_1
+      }
     ]),
   });
 

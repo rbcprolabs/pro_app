@@ -16,7 +16,7 @@ export default {
           ...data,
         }
       })
-        .then(res => res.data)
+        .then(res => res)
         .catch(() => {
           return Promise.reject({
             'status': false,

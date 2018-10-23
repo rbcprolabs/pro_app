@@ -13,6 +13,7 @@ import {
 import { getArticles } from 'app/redux/actions/articles'
 import Content from 'app/components/Content';
 import Article from 'app/components/Article';
+import Button from 'app/components/Button';
 
 // import * as contentful from 'contentful'
 

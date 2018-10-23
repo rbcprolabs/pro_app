@@ -15,7 +15,7 @@ export default props =>
         borderBottomLeftRadius: styles.RADIUS,
         flexBasis: '100%'
       },
-      props.data.theme == 'dark' && {
+      props.data.type == 'selected' && {
         backgroundColor: styles.COLOR_2,
       },
       props.style && {
@@ -64,7 +64,7 @@ export default props =>
         color: styles.COLOR_2,
         marginTop: 4
       },
-      props.data.theme == 'dark' && {
+      props.data.type == 'selected' && {
         color: styles.COLOR_1,
       },
     ]),
