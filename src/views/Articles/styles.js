@@ -5,7 +5,7 @@ export default props =>
   StyleSheet.create({
     container: StyleSheet.flatten([
       {
-        // marginTop: 160
+        paddingTop: 40,
         // ...stylesGlobal.container,
         backgroundColor: styles.COLOR_5,
         flex: 1

@@ -48,14 +48,14 @@ export default class App extends Component {
                             title={routes.CATEGORIES.title}
                             component={Categories}
                             hideNavBar={true}
-                            initial
+                            
                         />
                         <Scene
                             key={routes.ARTICLES.key}
                             title={routes.ARTICLES.title}
                             component={Articles}
                             hideNavBar={true}
-
+                            initial
                         />
 
                     </Stack>
