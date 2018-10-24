@@ -32,7 +32,7 @@ export default props =>
       {
         fontSize: styles.FORN_SIZE - 2,
         color: styles.COLOR_4,
-        marginTop: 1
+        marginTop: 1,
       },
       props.active && {
         fontWeight: '500',

@@ -1,16 +1,37 @@
 import { ARTICLES } from '../types';
-import Contentful from 'app/bootstrap/Contentful'
+import uuid from 'uuid/v1';
+import Contentful from 'app/bootstrap/Contentful';
+import Formatter from 'app/services/Formatter';
 
 
 export const getArticles = () => dispatch =>
 
-  Contentful().getContentType('article')
+  Contentful().getEntries({
+    'content_type': 'article'
+  })
     .then(
       resp => {
         console.log('resp ', resp)
+        const list = [];
+
+        resp.items.map(item => {
+          const { fields } = item;
+          fields.tags = [];
+
+
+          fields.id = uuid();
+
+          fields.companies ? fields.tags.push(Formatter.createTags(fields.companies)) : false;
+          fields.persons ? fields.tags.push(Formatter.createTags(fields.persons)) : false;
+          fields.indicators ? fields.tags.push(Formatter.createTags(fields.indicators)) : false;
+          fields.industries ? fields.tags.push(Formatter.createTags(fields.industries)) : false;
+
+          list.push(fields);
+        })
+
         dispatch({
           type: ARTICLES.get,
-          list: resp.list
+          list
         })
       }
     )

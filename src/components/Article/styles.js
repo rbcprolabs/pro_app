@@ -15,7 +15,7 @@ export default props =>
         borderBottomLeftRadius: styles.RADIUS,
         flexBasis: '100%'
       },
-      props.data.type == 'selected' && {
+      props.type == 'selected' && {
         backgroundColor: styles.COLOR_2,
       },
       props.style && {
@@ -64,7 +64,7 @@ export default props =>
         color: styles.COLOR_2,
         marginTop: 4
       },
-      props.data.type == 'selected' && {
+      props.type == 'selected' && {
         color: styles.COLOR_1,
       },
     ]),
@@ -81,7 +81,7 @@ export default props =>
       {
         fontSize: styles.FONT_SIZE,
         color: styles.COLOR_2,
-        paddingTop: styles.INTENT
+        // paddingTop: styles.INTENT
       },
     ]),
 

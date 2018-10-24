@@ -7,6 +7,9 @@ import {
 } from 'react-native';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import PropTypes from 'prop-types';
+import uuid from 'uuid/v1';
+import moment from 'moment';
+
 
 import Tag from 'app/components/Tag';
 // import Icon from 'app/components/Icon';
@@ -26,6 +29,7 @@ export default class Category extends Component {
       descriptions: PropTypes.array,
       bookmark: PropTypes.bool,
     }),
+    type: PropTypes.string,
     onPress: PropTypes.func,
 
     // styling
@@ -42,7 +46,24 @@ export default class Category extends Component {
     super(props);
 
     this.state = {
-      imageWidth: 0
+      imageWidth: 0,
+      types: {
+        default: {
+          tags: 'bottom',
+          date: 'top',
+          description: false
+        },
+        selected: {
+          tags: 'top',
+          date: 'bottom',
+          description: false
+        },
+        withDescription: {
+          tags: 'bottom',
+          date: 'bottom',
+          description: true
+        }
+      }
     }
   }
 
@@ -57,6 +78,8 @@ export default class Category extends Component {
   render() {
     const { props, state } = this;
     const { data } = props;
+    const view = state.types[props.type];
+    const published = `${moment(data.published).format('DD.MM.YY, h:mm')} | ${data.source}`;
     const style = styles(props);
 
     return (
@@ -99,29 +122,29 @@ export default class Category extends Component {
               </TouchableOpacity>
             }
 
-            {data.dateInfo &&
+            {view.date == 'top' &&
 
               <View
                 style={[
                   style.header,
                 ]}>
                 <View style={style.headerLine} />
-                <Text style={style.headerText}>{data.dateInfo}</Text>
+                <Text style={style.headerText}>{published}</Text>
               </View>
             }
 
-            {data.type == 'selected' &&
+            {view.tags == 'top'
+              && data.tags.length > 0 &&
               <View style={style.topViewContainer}>
-                {data.tags.map(tag =>
-                  <Tag
-                    key={tag.id}
-                    active={tag.active}
-                    text={tag.text}
-                    description={tag.description}
-                    convert={true}
-                    style={{ marginTop: 0 }}
-                  />
-                )}
+                {/* {data.tags.map(tag => */}
+                <Tag
+                  // active={data.tags[0].active}
+                  text={data.tags[0].text}
+                  description={data.tags[0].description}
+                  convert={true}
+                  style={{ marginTop: 0 }}
+                />
+                {/* )} */}
               </View>
             }
 
@@ -134,18 +157,20 @@ export default class Category extends Component {
               {data.title &&
                 <Text style={style.title}>{data.title}</Text>
               }
-              {data.subTitle &&
-                <Text style={style.subTitle}>{data.subTitle}</Text>
+              {view.date == 'bottom' &&
+                <Text style={style.subTitle}>{published}</Text>
               }
 
-              {data.description &&
+              {view.description && data.indicators &&
                 <Text style={[
                   style.description,
                   style.descriptionСontainer
                 ]}>
-                  {data.description}
+                  {data.indicators}
                 </Text>
               }
+
+              {/* 1,2,3 */}
               {data.descriptions &&
                 data.descriptions.map((item, index) =>
                   <View
@@ -171,6 +196,8 @@ export default class Category extends Component {
                   </View>
                 )
               }
+              {/* 1,2,3 */}
+
 
             </View>
             {/* END Content part */}
@@ -179,12 +206,12 @@ export default class Category extends Component {
               style={[
                 style.footer,
               ]}>
-              {data.type !== 'selected' &&
-
+              {view.tags == 'bottom'
+                && data.tags.length > 0 &&
                 data.tags.map(tag =>
                   <Tag
-                    key={tag.id}
-                    active={tag.active}
+                    key={uuid()}
+                    // active={tag.active}
                     description={tag.description}
                     text={tag.text}
                   />
@@ -195,6 +222,27 @@ export default class Category extends Component {
         </View>
       </View>
     )
+  }
+  // TODO: написать универсальный генератор рандомных тегов
+  getTagsIndexes = (array, count) => {
+    const { state } = this;
+    // const getNumber = Math.floor(Math.random() * max);
+    // const arr = [];
+
+    // for (let i=0; n<=count; i++)
+    // {
+    //   var i = Math.floor((Math.random() * (array.length-n)) + 1);
+    //   arr.push(i);
+    //   a[i] = a[20-n];
+    // }
+
+
+
+
+    // this.setState({
+    //   tagsShow: state.tagsShow.push()
+    // })
+
   }
 
   onPress = () => {

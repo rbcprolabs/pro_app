@@ -6,9 +6,6 @@ export const PADDING = INTENT - 4;
 
 export const FIELD_HEIGHT = 50;
 
-
-export const FONT_NAME = 'Geometria-Medium';
-
 const COLOR_RED = '#ce2b5a';
 const COLOR_BLACK = '#000000';
 const COLOR_GREY = '#a1a1a1';
