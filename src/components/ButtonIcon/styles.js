@@ -20,21 +20,10 @@ export default props =>
 
     icon: StyleSheet.flatten([
       {
-        fontSize: styles.INTENT * 2,
         
-        color: styles.COLOR_4
       },
       props.iconStyle && {
         ...props.iconStyle
-      }
-    ]),
-
-    badge: StyleSheet.flatten([
-      {
-        position: 'absolute',
-        right: -3,
-        top: -5,
-        fontSize: styles.INTENT * 2,
       }
     ]),
   });

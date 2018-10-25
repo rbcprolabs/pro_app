@@ -14,11 +14,17 @@ class Button extends Component {
 
   static propTypes = {
     text: PropTypes.string.isRequired,
+    type: PropTypes.string,
     onPress: PropTypes.func,
     // styling
     isWhite: PropTypes.bool,
     isGreen: PropTypes.bool,
     isBlue: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    type: '1',
+
   }
 
   render() {

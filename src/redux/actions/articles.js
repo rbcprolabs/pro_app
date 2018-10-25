@@ -21,11 +21,11 @@ export const getArticles = () => dispatch =>
 
           fields.id = uuid();
 
-          fields.companies ? fields.tags.push(Formatter.createTags(fields.companies)) : false;
-          fields.persons ? fields.tags.push(Formatter.createTags(fields.persons)) : false;
-          fields.indicators ? fields.tags.push(Formatter.createTags(fields.indicators)) : false;
-          fields.industries ? fields.tags.push(Formatter.createTags(fields.industries)) : false;
-
+          fields.companies ? fields.tags=[...fields.tags, ...Formatter.createTags(fields.companies)] : false;
+          fields.persons ? fields.tags=[...fields.tags, ...Formatter.createTags(fields.persons)] : false;
+          fields.indicators ? fields.tags=[...fields.tags, ...Formatter.createTags(fields.indicators)] : false;
+          fields.industries ? fields.tags=[...fields.tags, ...Formatter.createTags(fields.industries)] : false;
+       
           list.push(fields);
         })
 

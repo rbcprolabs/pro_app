@@ -22,14 +22,14 @@ export default class Category extends Component {
     data: PropTypes.shape({
       title: PropTypes.string,
       image: PropTypes.string,
-      dateInfo: PropTypes.string,
       description: PropTypes.string,
-      subTitle: PropTypes.string,
-      tags: PropTypes.array,
       descriptions: PropTypes.array,
-      bookmark: PropTypes.bool,
+      date: PropTypes.string,
+      tags: PropTypes.array,
     }),
+    bookmark: PropTypes.bool,
     type: PropTypes.string,
+    onPressTag: PropTypes.func,
     onPress: PropTypes.func,
 
     // styling
@@ -46,7 +46,8 @@ export default class Category extends Component {
     super(props);
 
     this.state = {
-      imageWidth: 0,
+      countTags: 2,
+      tagsIndexes: [0, 1, 2],
       types: {
         default: {
           tags: 'bottom',
@@ -67,13 +68,10 @@ export default class Category extends Component {
     }
   }
 
-  // componentWillMount() {
-  //   const imageWidth = Dimensions.get('window').width - (stylesConfig.GUTTER * 10);
-  //   this.setState({
-  //     imageWidth
-  //   });
-  //   // this.setImageParams()
-  // }
+  componentWillMount() {
+    const { props, state } = this;
+    // this.getTagsIndexes(props.data.tags, state.countTags)
+  }
 
   render() {
     const { props, state } = this;
@@ -107,7 +105,8 @@ export default class Category extends Component {
               style.container,
             ]}>
 
-            {data.bookmark &&
+            {props.bookmark &&
+              // TODO: заменить на ButtonIcon
               <TouchableOpacity
                 style={style.bookmark}
                 activeOpacity={.9}
@@ -143,6 +142,10 @@ export default class Category extends Component {
                   description={data.tags[0].description}
                   convert={true}
                   style={{ marginTop: 0 }}
+                  onPress={() => this.onPressTag({
+                    title: data.tags[0].text,
+                    image: data.origin
+                  })}
                 />
                 {/* )} */}
               </View>
@@ -208,13 +211,31 @@ export default class Category extends Component {
               ]}>
               {view.tags == 'bottom'
                 && data.tags.length > 0 &&
+                // state.tagsIndexes.map(i =>
+                //   data.tags[i]
+                //     ?
+                //     <Tag
+                //       key={uuid()}
+                //       // active={tag.active}
+                //       description={data.tags[i].description}
+                //       text={data.tags[i].text}
+                //     />
+                //     :
+                //     false
+                // )
                 data.tags.map(tag =>
+
                   <Tag
                     key={uuid()}
                     // active={tag.active}
                     description={tag.description}
                     text={tag.text}
+                    onPress={() => this.onPressTag({
+                      title: tag.text,
+                      image: data.origin
+                    })}
                   />
+
                 )
               }
             </View>
@@ -223,35 +244,33 @@ export default class Category extends Component {
       </View>
     )
   }
-  // TODO: написать универсальный генератор рандомных тегов
+
   getTagsIndexes = (array, count) => {
-    const { state } = this;
-    // const getNumber = Math.floor(Math.random() * max);
-    // const arr = [];
+    const indexes = [];
+    const getIndexes = () => {
+      const index = Math.floor(Math.random() * array.length);
 
-    // for (let i=0; n<=count; i++)
-    // {
-    //   var i = Math.floor((Math.random() * (array.length-n)) + 1);
-    //   arr.push(i);
-    //   a[i] = a[20-n];
-    // }
-
+      if (indexes.length < count) {
+        indexes.find(tag => tag == index) ? getIndexes() : indexes.push(index);
+        getIndexes();
+      }
+    }
 
 
+    getIndexes();
 
-    // this.setState({
-    //   tagsShow: state.tagsShow.push()
-    // })
-
+    this.setState({
+      tagsIndexes: indexes
+    })
   }
 
-  onPress = () => {
+  onPressTag = (data) => {
     const { props, state } = this;
 
 
 
-    if (props.onPress) {
-      props.onPress()
+    if (props.onPressTag) {
+      props.onPressTag(data)
     }
   }
 }

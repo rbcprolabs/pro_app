@@ -6,8 +6,7 @@ export default props =>
     btn: StyleSheet.flatten([
       {
         height: styles.FIELD_HEIGHT,
-        paddingLeft: styles.INTENT,
-        paddingRight: styles.INTENT,
+        paddingHorizontal: styles.INTENT,
         justifyContent: 'center',
         alignSelf: 'stretch',
         alignItems: 'center',
@@ -18,17 +17,17 @@ export default props =>
         marginBottom: styles.INTENT
       },
 
+      props.type == '2' && {
+        backgroundColor: styles.COLOR_3,
+        height: styles.FIELD_HEIGHT - 18,
+        paddingHorizontal: styles.INTENT - 7,
+        borderRadius: styles.RADIUS / 2,
+      },
+
       props.style && {
         ...props.style
       },
 
-      props.isWhite && {
-        backgroundColor: 'transparent',
-      },
-      props.isGreen && {
-        backgroundColor: styles.COLOR_GREEN,
-        borderColor: styles.COLOR_GREEN
-      }
     ]),
 
     text: StyleSheet.flatten([
@@ -37,16 +36,11 @@ export default props =>
         fontSize: styles.FONT_SIZE,
         fontWeight: '500',
       },
-      props.isWhite && {
-        color: styles.COLOR_3,
+      props.type == '2' && {
+        color: styles.COLOR_1,
+        fontSize: styles.FONT_SIZE - 5,
+        fontWeight: '600',
       },
-      props.styleType == 'big' && {
-        fontSize: styles.FONT_SIZE + 2,
-      },
-      props.isBlue && {
-        color: styles.COLOR_BLUE_LIGHT,
-        fontWeight: '400',
-      }
     ])
   });
 

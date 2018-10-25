@@ -17,6 +17,11 @@ export const ARTICLES = {
   title: "Лента"
 };
 
+export const ARTICLES_DETAIL_LIST = {
+  key: "ARTICLES_DETAIL_LIST",
+  title: "Детальная лента"
+};
+
 export const FAVORITES = {
   key: "FAVORITES",
   title: "Избранное"

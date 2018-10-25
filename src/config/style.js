@@ -11,6 +11,7 @@ const COLOR_BLACK = '#000000';
 const COLOR_GREY = '#a1a1a1';
 const COLOR_GREY_MIDDLE = '#ababab';
 const COLOR_GREY_LIGHT = '#f0f0f0';
+const COLOR_GREY_LIGHTER = '#d4d4d4';
 const COLOR_WHITE = '#ffffff';
 const COLOR_BROWN_LIGHT = '#c7b0b7';
 
@@ -22,4 +23,5 @@ export const COLOR_4 = COLOR_GREY;
 export const COLOR_5 = COLOR_GREY_LIGHT;
 export const COLOR_6 = COLOR_BROWN_LIGHT;
 export const COLOR_7 = COLOR_GREY_MIDDLE;
+export const COLOR_8 = COLOR_GREY_LIGHTER;
 

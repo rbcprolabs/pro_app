@@ -3,9 +3,9 @@ import {
   TouchableOpacity
 } from 'react-native';
 import PropTypes from 'prop-types';
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-// import NumberBadge from 'app/components/NumberBadge';
-// import Icon from 'app/components/Icon';
+import * as configStyles from 'app/config/style';
 import styles from './styles';
 
 export default class ButtonIcon extends Component {
@@ -15,14 +15,19 @@ export default class ButtonIcon extends Component {
 
   static propTypes = {
     name: PropTypes.string,
+    size: PropTypes.number,
+    color: PropTypes.string,
 
-    newCount: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
+  
     // styling
     style: PropTypes.object,
     iconStyle: PropTypes.object
+  }
+
+  static defaultProps = {
+    size: configStyles.FONT_SIZE,
+    name: 'ios-star',
+
   }
 
   render() {
@@ -36,18 +41,12 @@ export default class ButtonIcon extends Component {
         style={style.btn}
         activeOpacity={.8}
       >
-
-        {/* <Icon
+        <Ionicons
           name={props.name}
-          style={props.style}
-        /> */}
-
-        {/* {props.newCount &&
-          <NumberBadge
-            number={props.newCount}
-            style={style.badge}
-          />
-        } */}
+          size={props.size}
+          color={props.color}
+          style={style.icon}
+        />
 
       </TouchableOpacity>
     )

@@ -14,8 +14,7 @@ import { getArticles } from 'app/redux/actions/articles'
 import Content from 'app/components/Content';
 import Article from 'app/components/Article';
 
-// import * as contentful from 'contentful'
-
+import * as routes from "app/config/sceneKeys";
 
 import styles from './styles';
 
@@ -30,12 +29,15 @@ class Articles extends Component {
     }
 
     componentDidMount() {
+        const { props } = this;
         // setTimeout(()=>{
         //     this.setState({
         //         loading: false
         //     })
         // }, 2000)
-        this.props.getArticles();
+        if (props.articles.length == 0) {
+            props.getArticles();
+        }
         console.log('componentDidMount')
 
 
@@ -61,6 +63,7 @@ class Articles extends Component {
                             key={article.id}
                             data={article}
                             type={types[Math.floor(Math.random() * types.length)]}
+                            onPressTag={this.onPressTag}
                         />
                     )}
                 </View>
@@ -68,9 +71,8 @@ class Articles extends Component {
         );
     }
 
-    onPress = (id) => {
-        console.log('presses id ', id)
-
+    onPressTag = (data) => {
+        Actions.push(routes.ARTICLES_DETAIL_LIST.key, {...data});
     }
 
 }
