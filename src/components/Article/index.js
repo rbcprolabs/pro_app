@@ -5,21 +5,26 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import Ionicons from "react-native-vector-icons/Ionicons";
+import {
+  Actions
+} from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v1';
 import moment from 'moment';
+import { find } from 'lodash';
 
 
 import Tag from 'app/components/Tag';
-// import Icon from 'app/components/Icon';
+import ButtonIcon from 'app/components/ButtonIcon';
+
 import styles from './styles';
+import * as routes from "app/config/sceneKeys";
 import * as configStyles from 'app/config/style';
 
-export default class Category extends Component {
+export default class Article extends Component {
 
   static propTypes = {
-    data: PropTypes.shape({
+    article: PropTypes.shape({
       title: PropTypes.string,
       image: PropTypes.string,
       description: PropTypes.string,
@@ -27,8 +32,11 @@ export default class Category extends Component {
       date: PropTypes.string,
       tags: PropTypes.array,
     }),
+    followList: PropTypes.array,
+    favorites: PropTypes.array,
     bookmark: PropTypes.bool,
     type: PropTypes.string,
+    setFavorite: PropTypes.func,
     onPressTag: PropTypes.func,
     onPress: PropTypes.func,
 
@@ -38,8 +46,8 @@ export default class Category extends Component {
   }
 
   static defaultProps = {
-
-
+    favorites: [],
+    followList: [],
   }
 
   constructor(props) {
@@ -75,25 +83,25 @@ export default class Category extends Component {
 
   render() {
     const { props, state } = this;
-    const { data } = props;
+    const { article } = props;
     const view = state.types[props.type];
-    const published = `${moment(data.published).format('DD.MM.YY, h:mm')} | ${data.source}`;
+    const published = `${moment(article.published).format('DD.MM.YY, h:mm')} | ${article.source}`;
     const style = styles(props);
 
     return (
       <View style={style.globalContainer}>
         {/* Image part */}
-        {data.image &&
+        {article.image &&
           <ImageBackground
-            source={{ uri: data.image }}
+            source={{ uri: article.image }}
             style={{ width: '100%', height: 232 }}
           />
         }
-        {data.tagTop &&
+        {article.tagTop &&
           <Tag
             type='ellipse'
-            active={data.tagTop.active}
-            text={data.tagTop.text}
+            tag={article.tagTop}
+            active={find(props.followList, article.tagTop) ? true : false}
             style={style.tagTop}
           />
         }
@@ -104,21 +112,14 @@ export default class Category extends Component {
             style={[
               style.container,
             ]}>
-
             {props.bookmark &&
-              // TODO: заменить на ButtonIcon
-              <TouchableOpacity
+              <ButtonIcon
+                name={"ios-bookmark"}
+                color={find(props.favorites, article) ? configStyles.COLOR_3 : configStyles.COLOR_6}
+                size={34}
                 style={style.bookmark}
-                activeOpacity={.9}
-                onPress={this.onPress}
-              >
-                <Ionicons
-                  name={"ios-bookmark"}
-                  size={34}
-                  color={configStyles.COLOR_6}
-                  style={style.bookmarkIcon}
-                />
-              </TouchableOpacity>
+                onPress={this.onPressFavorite}
+              />
             }
 
             {view.date == 'top' &&
@@ -133,18 +134,17 @@ export default class Category extends Component {
             }
 
             {view.tags == 'top'
-              && data.tags.length > 0 &&
+              && article.tags.length > 0 &&
               <View style={style.topViewContainer}>
-                {/* {data.tags.map(tag => */}
+                {/* {article.tags.map(tag => */}
                 <Tag
-                  // active={data.tags[0].active}
-                  text={data.tags[0].text}
-                  description={data.tags[0].description}
+                  tag={article.tags[0]}
+                  active={find(props.followList, article.tags[0]) ? true : false}
                   convert={true}
                   style={{ marginTop: 0 }}
                   onPress={() => this.onPressTag({
-                    title: data.tags[0].text,
-                    image: data.origin
+                    tag: article.tags[0],
+                    image: article.origin
                   })}
                 />
                 {/* )} */}
@@ -157,25 +157,30 @@ export default class Category extends Component {
                 style.content,
               ]}>
 
-              {data.title &&
-                <Text style={style.title}>{data.title}</Text>
+              {article.title &&
+                <TouchableOpacity
+                  onPress={this.onPressTitle}
+                  activeOpacity={.9}
+                >
+                  <Text style={style.title}>{article.title}</Text>
+                </TouchableOpacity>
               }
               {view.date == 'bottom' &&
                 <Text style={style.subTitle}>{published}</Text>
               }
 
-              {view.description && data.indicators &&
+              {view.description && article.indicators &&
                 <Text style={[
                   style.description,
                   style.descriptionСontainer
                 ]}>
-                  {data.indicators}
+                  {article.indicators}
                 </Text>
               }
 
               {/* 1,2,3 */}
-              {data.descriptions &&
-                data.descriptions.map((item, index) =>
+              {article.descriptions &&
+                article.descriptions.map((item, index) =>
                   <View
                     key={item.id}
                     style={[
@@ -210,29 +215,27 @@ export default class Category extends Component {
                 style.footer,
               ]}>
               {view.tags == 'bottom'
-                && data.tags.length > 0 &&
+                && article.tags.length > 0 &&
                 // state.tagsIndexes.map(i =>
-                //   data.tags[i]
+                //   article.tags[i]
                 //     ?
                 //     <Tag
                 //       key={uuid()}
                 //       // active={tag.active}
-                //       description={data.tags[i].description}
-                //       text={data.tags[i].text}
+                //       description={article.tags[i].description}
+                //       text={article.tags[i].text}
                 //     />
                 //     :
                 //     false
                 // )
-                data.tags.map(tag =>
-
+                article.tags.map(tag =>
                   <Tag
                     key={uuid()}
-                    // active={tag.active}
-                    description={tag.description}
-                    text={tag.text}
+                    tag={tag}
+                    active={find(props.followList, tag) ? true : false}
                     onPress={() => this.onPressTag({
-                      title: tag.text,
-                      image: data.origin
+                      tag: tag,
+                      image: article.origin
                     })}
                   />
 
@@ -264,13 +267,23 @@ export default class Category extends Component {
     })
   }
 
-  onPressTag = (data) => {
+  onPressTag = tag => {
     const { props, state } = this;
 
-
-
     if (props.onPressTag) {
-      props.onPressTag(data)
+      props.onPressTag(tag)
     }
+  }
+
+  onPressTitle = () => {
+    const { props } = this;
+
+    Actions.push(routes.ARTICLE_DETAIL.key, props.article);
+  }
+
+  onPressFavorite = () => {
+    const { props } = this;
+
+    props.setFavorite(props.article)
   }
 }

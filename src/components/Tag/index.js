@@ -6,26 +6,28 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
+
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import styles from './styles';
 import * as configStyles from 'app/config/style';
 
 
-export default class ButtonIcon extends Component {
+export default class Tag extends Component {
   constructor(props) {
     super(props);
   }
 
   static propTypes = {
+    tag: PropTypes.shape({
+      text: PropTypes.string,
+      description: PropTypes.string,
+    }),
     iconName: PropTypes.string,
     type: PropTypes.string,
-    text: PropTypes.string,
-    description: PropTypes.string,
     active: PropTypes.bool,
-    iconSize: PropTypes.number,
     convert: PropTypes.bool,
-
+    iconSize: PropTypes.number,
 
     // styling
     style: PropTypes.object,
@@ -40,8 +42,10 @@ export default class ButtonIcon extends Component {
 
   }
 
+  
   render() {
-    const { props } = this;
+    const { props, state } = this;
+    const { tag } = props;
     const style = styles(props);
     let colorIcon = configStyles.COLOR_4;
 
@@ -66,9 +70,9 @@ export default class ButtonIcon extends Component {
           style={style.icon}
         />
         <View style={style.textContainer}>
-          <Text style={style.text}>{props.text}</Text>
-          {props.description &&
-            <Text style={style.description}>{props.description}</Text>
+          <Text style={style.text}>{tag.text}</Text>
+          {tag.description &&
+            <Text style={style.description}>{tag.description}</Text>
           }
         </View>
       </TouchableOpacity>

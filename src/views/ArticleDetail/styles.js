@@ -6,7 +6,7 @@ export default props =>
     container: StyleSheet.flatten([
       {
         // ...stylesGlobal.container,
-        backgroundColor: styles.COLOR_5,
+        backgroundColor: styles.COLOR_1,
         flex: 1
       }
 
@@ -18,7 +18,7 @@ export default props =>
         flexDirection: 'row',
         paddingTop: styles.INTENT,
         paddingBottom: styles.MARGIN * 6,
-        paddingHorizontal: styles.INTENT / 4,
+        paddingHorizontal: styles.INTENT,
       }
 
     ]),
@@ -35,8 +35,8 @@ export default props =>
     header: StyleSheet.flatten([
       {
         paddingTop: styles.MARGIN * 3,
-        paddingBottom: styles.INTENT - 2,
-        paddingHorizontal: styles.MARGIN,
+        paddingBottom: styles.INTENT + 5,
+        paddingHorizontal: styles.INTENT,
         backgroundColor: styles.COLOR_1,
         borderBottomWidth: 1,
         borderColor: styles.COLOR_8
@@ -46,9 +46,26 @@ export default props =>
 
     title: StyleSheet.flatten([
       {
-        fontSize: styles.FONT_SIZE + 11,
+        fontSize: styles.FONT_SIZE + 4,
         color: styles.COLOR_2,
-        fontWeight: '700'
+        fontWeight: '600'
+      }
+
+    ]),
+
+    date: StyleSheet.flatten([
+      {
+        fontSize: styles.FONT_SIZE - 4,
+        color: styles.COLOR_7,
+        paddingTop: 5
+      }
+
+    ]),
+
+    description: StyleSheet.flatten([
+      {
+        fontSize: styles.FONT_SIZE,
+        color: styles.COLOR_2,
       }
 
     ]),

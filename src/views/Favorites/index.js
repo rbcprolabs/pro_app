@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
     View,
-    Text,
-
+    Text
 } from 'react-native';
 
 import {
     Actions
 } from 'react-native-router-flux';
-import { getArticles } from 'app/redux/actions/articles'
+
 import Content from 'app/components/Content';
 import Article from 'app/components/Article';
-import Button from 'app/components/Button';
 
 // import * as contentful from 'contentful'
 
-
+import * as routes from "app/config/sceneKeys";
 import styles from './styles';
 
 class Favorites extends Component {
@@ -36,13 +33,14 @@ class Favorites extends Component {
         //         loading: false
         //     })
         // }, 2000)
-      
+
 
 
     }
 
     render() {
         const { state, props } = this;
+        const types = ['default', 'selected', 'withDescription']
         const style = styles(props);
 
 
@@ -53,17 +51,27 @@ class Favorites extends Component {
             >
 
                 <View
-                    style={style.categoriesContainer}
+                    style={style.content}
                 >
-                <Text>Favorites</Text>
+                    {props.articles.length == 0 &&
+                        <Text>Вам ничего не нравится</Text>
+                    }
+                    {props.articles.map(article =>
+                        <Article
+                            key={article.id}
+                            article={article}
+                            type={types[Math.floor(Math.random() * types.length)]}
+                            followList={props.followList}
+                            onPressTag={this.onPressTag}
+                        />
+                    )}
                 </View>
             </Content>
         );
     }
 
-    onPress = (id) => {
-        console.log('presses id ', id)
-
+    onPressTag = (data) => {
+        Actions.push(routes.ARTICLES_DETAIL_LIST.key, { ...data });
     }
 
 }
@@ -71,15 +79,9 @@ class Favorites extends Component {
 function mapStateToProps(state) {
     console.log('state ', state)
     return {
-        articles: state.articles
+        articles: state.favorites.list,
+        followList: state.follow.list,
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        getArticles: bindActionCreators(getArticles, dispatch),
-
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default connect(mapStateToProps)(Favorites);

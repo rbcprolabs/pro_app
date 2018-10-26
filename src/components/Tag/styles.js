@@ -47,7 +47,7 @@ export default props =>
         marginTop: 0,
         color: styles.COLOR_1
       },
-      props.description && {
+      props.tag.description && {
         fontWeight: '500',
         paddingBottom: 5
       },
@@ -67,6 +67,12 @@ export default props =>
       props.type == 'ellipse' && {
         color: styles.COLOR_1
       }
+    ]),
+
+    textContainer: StyleSheet.flatten([
+      {
+        flexShrink: 1
+      },
     ]),
   });
 

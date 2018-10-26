@@ -10,6 +10,11 @@ import {
 import {
     Actions
 } from 'react-native-router-flux';
+import { find, isEqual } from 'lodash';
+
+import { setFollow } from 'app/redux/actions/follow'
+import { setFavorite } from 'app/redux/actions/favorites'
+
 import Content from 'app/components/Content';
 import ButtonIcon from 'app/components/ButtonIcon';
 import Article from 'app/components/Article';
@@ -30,15 +35,16 @@ class ArticleDetailList extends Component {
         loading: false
     }
 
-    componentDidMount() {
-        // setTimeout(()=>{
-        //     this.setState({
-        //         loading: false
-        //     })
-        // }, 2000)
+    componentWillMount() {
+        this.followNowCheck(this.props)
+    }
 
-        console.log('componentDidMount')
+    componentWillReceiveProps(np) {
+        const { props } = this;
 
+        if (!isEqual(props.followList, np.followList)) {
+            this.followNowCheck(np);
+        }
 
     }
 
@@ -53,23 +59,24 @@ class ArticleDetailList extends Component {
                 style={style.container}
                 showLoading={state.loading}
                 topPart={this.topPart(style)}
-                bottomPart={this.bottomPart(props)}
+                bottomPart={this.bottomPart(props, state)}
 
             >
                 <StatusBar hidden />
 
-                <View
-                    style={style.articlesContainer}
-                >
+                <View style={style.content}>
 
                     {props.articles.map(article =>
-                        article.tags.find(tag => tag.text == props.title)
+                        article.tags.find(tag => tag.text == props.tag.text)
                             ?
                             <Article
                                 key={article.id}
-                                data={article}
+                                article={article}
                                 bookmark={true}
-                                type={types[Math.floor(Math.random() * types.length)]}
+                                type='withDescription'
+                                followList={props.followList}
+                                favorites={props.favorites}
+                                setFavorite={props.setFavorite}
                             />
                             :
                             false
@@ -89,15 +96,17 @@ class ArticleDetailList extends Component {
                 style={style.close}
                 onPress={this.backAction}
             />
-            <Text style={style.title}>{this.props.title}</Text>
+            <Text style={style.title}>{this.props.tag.text}</Text>
         </View>
     )
 
-    bottomPart = (props) => (
+    bottomPart = (props, state) => (
         <Follow
-            title={props.title}
+            title={props.tag.text}
             // image={props.image}
             visible={true}
+            followNow={state.followNow}
+            onPress={this.onPressFollow}
         />
     )
 
@@ -110,18 +119,39 @@ class ArticleDetailList extends Component {
 
     }
 
+    onPressFollow = () => {
+        const { props } = this;
+
+        props.setFollow(props.tag);
+
+    }
+
+    followNowCheck = (np) => {
+        const { props } = this;
+        const followNow = find(np.followList, props.tag) ? true : false;
+
+        this.setState({
+            followNow
+        })
+
+        return followNow;
+    }
+
 }
 
 function mapStateToProps(state) {
-    console.log('state ', state)
     return {
-        articles: state.articles.list
+        articles: state.articles.list,
+        followList: state.follow.list,
+        followList: state.follow.list,
+        favorites: state.favorites.list,
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-
+        setFollow: bindActionCreators(setFollow, dispatch),
+        setFavorite: bindActionCreators(setFavorite, dispatch),
     }
 }
 

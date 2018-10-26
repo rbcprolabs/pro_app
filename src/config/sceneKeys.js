@@ -19,6 +19,11 @@ export const ARTICLES = {
 
 export const ARTICLES_DETAIL_LIST = {
   key: "ARTICLES_DETAIL_LIST",
+  title: "Детальная лента список"
+};
+
+export const ARTICLE_DETAIL = {
+  key: "ARTICLES_DETAIL",
   title: "Детальная лента"
 };
 

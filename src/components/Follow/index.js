@@ -20,6 +20,7 @@ export default class Follow extends Component {
     name: PropTypes.string,
     size: PropTypes.number,
     color: PropTypes.string,
+    followNow: PropTypes.bool,
 
 
     // styling
@@ -29,16 +30,15 @@ export default class Follow extends Component {
 
   static defaultProps = {
     image: 'http://photo.torba.com/images/kolominov/c128/Jw3AGpn5gAqq8zfU6u3Q.jpg',
-    // image: 'https://s3-ap-southeast-1.amazonaws.com/caarlyd/img/313118-small.png',
     name: 'ios-star',
+    followNow: false,
 
   }
 
   render() {
     const { props } = this;
     const style = styles(props);
-    const image =
-      console.log('props.image ', props.image)
+    console.log('followNow ', props.followNow)
 
     return (
 
@@ -55,7 +55,7 @@ export default class Follow extends Component {
         </View>
         <View style={style.buttonContainer}>
           <Button
-            text='Следить +15₽'
+            text={!props.followNow ? 'Следить +15₽' : 'Отписка'}
             type='2'
             style={style.button}
             onPress={this.onPress}

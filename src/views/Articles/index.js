@@ -56,13 +56,14 @@ class Articles extends Component {
             >
 
                 <View
-                    style={style.categoriesContainer}
+                    style={style.content}
                 >
                     {props.articles.map(article =>
                         <Article
                             key={article.id}
-                            data={article}
+                            article={article}
                             type={types[Math.floor(Math.random() * types.length)]}
+                            followList={props.followList}
                             onPressTag={this.onPressTag}
                         />
                     )}
@@ -80,7 +81,8 @@ class Articles extends Component {
 function mapStateToProps(state) {
     console.log('state ', state)
     return {
-        articles: state.articles.list
+        articles: state.articles.list,
+        followList: state.follow.list,
     }
 }
 

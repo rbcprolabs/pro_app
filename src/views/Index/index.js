@@ -25,8 +25,8 @@ class Index extends Component {
         loading: false
     }
 
-    componentDidMount(){
-        setTimeout(()=>{
+    componentDidMount() {
+        setTimeout(() => {
             this.setState({
                 loading: false
             })

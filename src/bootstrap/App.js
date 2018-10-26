@@ -25,6 +25,7 @@ import Index from 'app/views/Index';
 import Categories from 'app/views/Categories';
 import Articles from 'app/views/Articles';
 import ArticleDetailList from 'app/views/ArticleDetailList';
+import ArticleDetail from 'app/views/ArticleDetail';
 import Favorites from 'app/views/Favorites';
 import Settings from 'app/views/Settings';
 
@@ -58,6 +59,14 @@ export default class App extends Component {
                                 key={routes.CATEGORIES.key}
                                 title={routes.CATEGORIES.title}
                                 component={Categories}
+                                hideNavBar={true}
+
+                            />
+
+                            <Scene
+                                key={routes.ARTICLE_DETAIL.key}
+                                title={routes.ARTICLE_DETAIL.title}
+                                component={ArticleDetail}
                                 hideNavBar={true}
 
                             />
@@ -110,7 +119,7 @@ export default class App extends Component {
                             title={routes.ARTICLES_DETAIL_LIST.title}
                             component={ArticleDetailList}
                             hideNavBar={true}
-                            
+
                         />
                     </Modal>
                 </Router>

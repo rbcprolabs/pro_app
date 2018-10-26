@@ -38,6 +38,10 @@ export default class Loading extends Component {
     this.animation();
   }
 
+  componentWillUnmount() {
+    this.close();
+  }
+
   render() {
     const { props, state } = this;
     const style = styles(props);

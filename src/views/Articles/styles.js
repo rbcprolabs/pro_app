@@ -12,7 +12,7 @@ export default props =>
 
     ]),
 
-    categoriesContainer: StyleSheet.flatten([
+    content: StyleSheet.flatten([
       {
         flexWrap: 'wrap',
         flexDirection: 'row',

@@ -27,7 +27,7 @@ export default props =>
     content: StyleSheet.flatten([
       {
         flexDirection: 'row',
-        flexGrow: 3,
+        flexShrink:1,
       }
     ]),
 
@@ -69,14 +69,15 @@ export default props =>
     buttonContainer: StyleSheet.flatten([
       {
         flexDirection: 'row',
-        justifyContent: 'flex-end',
-        flexGrow: 2
+        flexShrink: 0,
+        flexGrow: 0
       }
     ]),
 
     button: StyleSheet.flatten([
       {
         marginBottom: 0,
+        flexBasis: 120
       }
     ]),
   });

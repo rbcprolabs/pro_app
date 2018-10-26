@@ -126,7 +126,8 @@ export default props =>
       {
         position: 'absolute',
         right: -7,
-        top: -5
+        top: -5,
+        zIndex: 20
       },
     ]),
 
