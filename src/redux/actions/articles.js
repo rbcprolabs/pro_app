@@ -13,19 +13,39 @@ export const getArticles = () => dispatch =>
       resp => {
         console.log('resp ', resp)
         const list = [];
+        const addTags = (fields, name) => {
+          const typeIndex = fields.tags.find((item, i) => item.type == name ? i : false);
+
+          if (!fields[name]) return;
+
+          if (typeIndex) {
+            fields.tags[typeIndex].push({
+              type: name,
+              items: [
+                ...fields.tags[typeIndex].items,
+                ...Formatter.createTags(fields[name])
+              ]
+            })
+          } else {
+            fields.tags.push({
+              type: name,
+              items: Formatter.createTags(fields[name])
+            })
+          }
+
+        }
 
         resp.items.map(item => {
           const { fields } = item;
+
           fields.tags = [];
-
-
           fields.id = uuid();
 
-          fields.companies ? fields.tags=[...fields.tags, ...Formatter.createTags(fields.companies)] : false;
-          fields.persons ? fields.tags=[...fields.tags, ...Formatter.createTags(fields.persons)] : false;
-          fields.indicators ? fields.tags=[...fields.tags, ...Formatter.createTags(fields.indicators)] : false;
-          fields.industries ? fields.tags=[...fields.tags, ...Formatter.createTags(fields.industries)] : false;
-       
+          addTags(fields, 'companies');
+          addTags(fields, 'persons');
+          addTags(fields, 'indicators');
+          addTags(fields, 'industries');
+
           list.push(fields);
         })
 
@@ -40,7 +60,7 @@ export const getArticles = () => dispatch =>
         console.log('fail ', fail)
         dispatch({
           type: ARTICLES.get,
-          list: fail
+          list: []
         })
       }
     );

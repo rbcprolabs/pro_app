@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import uuid from 'uuid/v1';
+import { find } from 'lodash';
 import {
     View,
     Text,
@@ -12,6 +14,7 @@ import {
 import moment from 'moment';
 
 import Content from 'app/components/Content';
+import TagsList from 'app/components/TagsList';
 import ButtonIcon from 'app/components/ButtonIcon';
 
 
@@ -42,6 +45,13 @@ class ArticleDetail extends Component {
 
             >
                 <View style={style.content}>
+                     <TagsList
+                        key={uuid()}
+                        tags={props.tags}
+                        followList={props.followList}
+                        typeVisible={true}
+                        onPress={this.onPressTag}
+                      />
 
                     <Text style={style.description}>{props.body}</Text>
 

@@ -53,7 +53,7 @@ class ArticleDetailList extends Component {
         const style = styles(props);
         const types = ['default', 'selected', 'withDescription']
 
-
+        console.log('props ', props)
         return (
             <Content
                 style={style.container}
@@ -67,7 +67,7 @@ class ArticleDetailList extends Component {
                 <View style={style.content}>
 
                     {props.articles.map(article =>
-                        article.tags.find(tag => tag.text == props.tag.text)
+                        find(article.tags[props.categoryIndex].items, props.tag)
                             ?
                             <Article
                                 key={article.id}

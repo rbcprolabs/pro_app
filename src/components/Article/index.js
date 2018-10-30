@@ -11,10 +11,11 @@ import {
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v1';
 import moment from 'moment';
-import { find } from 'lodash';
+import { find, isEmpty } from 'lodash';
 
 
 import Tag from 'app/components/Tag';
+import TagsList from 'app/components/TagsList';
 import ButtonIcon from 'app/components/ButtonIcon';
 
 import styles from './styles';
@@ -136,18 +137,13 @@ export default class Article extends Component {
             {view.tags == 'top'
               && article.tags.length > 0 &&
               <View style={style.topViewContainer}>
-                {/* {article.tags.map(tag => */}
-                <Tag
-                  tag={article.tags[0]}
-                  active={find(props.followList, article.tags[0]) ? true : false}
+                <TagsList
+                  tags={article.tags}
+                  followList={props.followList}
+                  randomMode={true}
                   convert={true}
-                  style={{ marginTop: 0 }}
-                  onPress={() => this.onPressTag({
-                    tag: article.tags[0],
-                    image: article.origin
-                  })}
+                  onPress={this.onPressTag}
                 />
-                {/* )} */}
               </View>
             }
 
@@ -214,32 +210,12 @@ export default class Article extends Component {
               style={[
                 style.footer,
               ]}>
-              {view.tags == 'bottom'
-                && article.tags.length > 0 &&
-                // state.tagsIndexes.map(i =>
-                //   article.tags[i]
-                //     ?
-                //     <Tag
-                //       key={uuid()}
-                //       // active={tag.active}
-                //       description={article.tags[i].description}
-                //       text={article.tags[i].text}
-                //     />
-                //     :
-                //     false
-                // )
-                article.tags.map(tag =>
-                  <Tag
-                    key={uuid()}
-                    tag={tag}
-                    active={find(props.followList, tag) ? true : false}
-                    onPress={() => this.onPressTag({
-                      tag: tag,
-                      image: article.origin
-                    })}
-                  />
-
-                )
+              {view.tags == 'bottom' &&
+                <TagsList
+                  tags={article.tags}
+                  followList={props.followList}
+                  onPress={this.onPressTag}
+                />
               }
             </View>
           </View>
