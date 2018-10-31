@@ -4764,6 +4764,10 @@ rimraf@~2.2.6:
   version "2.2.8"
   resolved "http://registry.npmjs.org/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
 
+rox-react-native@^4.1.4:
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/rox-react-native/-/rox-react-native-4.1.4.tgz#838427884bf4e10b05c8d13989020d739707338e"
+
 rsvp@^3.3.3:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-3.6.2.tgz#2e96491599a96cde1b515d5674a8f7a91452926a"

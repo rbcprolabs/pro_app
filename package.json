@@ -21,6 +21,7 @@
     "react-thunk": "^1.0.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "rox-react-native": "^4.1.4",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

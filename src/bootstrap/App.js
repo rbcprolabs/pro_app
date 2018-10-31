@@ -8,6 +8,7 @@ import {
     Modal
 } from 'react-native-router-flux';
 
+import rox from 'rox-react-native';
 import ReduxContainer from 'app/bootstrap/Redux';
 
 import * as routes from "app/config/sceneKeys";
@@ -40,6 +41,7 @@ export default class App extends Component {
         const style = styles();
         // For network debug
         GLOBAL.XMLHttpRequest = GLOBAL.originalXMLHttpRequest || GLOBAL.XMLHttpRequest;
+        // rox.setup("5bd03940fd54c84192765520");
         return (
             <ReduxContainer>
                 <Router sceneStyle={style.routerContainer}>

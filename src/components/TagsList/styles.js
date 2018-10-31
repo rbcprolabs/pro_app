@@ -8,7 +8,7 @@ export default props =>
 
       },
       props.bgMode && {
-        backgroundColor: styles.COLOR_6,
+        backgroundColor: styles.COLOR_9,
         paddingHorizontal: styles.INTENT,
         paddingTop: styles.INTENT,
         paddingBottom: styles.INTENT * 2,
