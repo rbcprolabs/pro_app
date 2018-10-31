@@ -7,16 +7,14 @@ export default props =>
 
     container: StyleSheet.flatten([
       {
-        backgroundColor: styles.COLOR_4_LIGHT,
+        backgroundColor: styles.COLOR_1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'flex-end',
-        // paddingTop: props.statusBarHeight,
-        paddingBottom: 8,
-        paddingLeft: 0,
-        paddingRight: 0,
-        height: props.statusBarHeight + 44,
-        // ...stylesGlobal.shadow
+        alignItems: 'center',
+        paddingTop: styles.INTENT*2,
+        borderBottomWidth: 1,
+        borderColor: styles.COLOR_8
+
       },
       !props.leftContentShow &&
       !props.rightContentShow && {
@@ -36,7 +34,7 @@ export default props =>
       {
         flexShrink: 0,
         flexGrow: 0,
-        flexBasis: 26 + styles.INTENT * 2
+      
       },
       !props.leftContentShow &&
       !props.rightContentShow && {
@@ -51,22 +49,19 @@ export default props =>
       }
     ]),
 
-    title: StyleSheet.flatten([
+    icon: StyleSheet.flatten([
       {
-        fontSize: styles.FONT_SIZE + 2,
-        color: styles.COLOR_BLACK,
-        fontWeight: '700',
-        paddingHorizontal: 5,
-        textAlign: 'center'
+        padding: styles.INTENT-4,
+
       }
     ]),
-    psevdoClick: StyleSheet.flatten([
-      {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        zIndex: 9,
 
+    title: StyleSheet.flatten([
+      {
+        fontSize: styles.FONT_SIZE,
+        color: styles.COLOR_2,
+        paddingHorizontal: 5,
+        textAlign: 'center'
       }
     ]),
   });

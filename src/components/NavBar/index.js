@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -7,24 +7,27 @@ import {
   Platform,
   StatusBar
 } from 'react-native';
+import { find } from 'lodash';
 
 import ButtonIcon from 'app/components/ButtonIcon';
 
-import {Actions} from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import * as routes from "app/config/sceneKeys";
 
-import * as stylesConfig from 'app/config/style';
+import * as configStyles from 'app/config/style';
 import styles from './styles';
 
 // console.warn('statusBarHeight: ', StatusBar.currentHeight);
 
-class NavBar extends Component {
+export default class NavBar extends Component {
   static propTypes = {
     title: PropTypes.string,
     leftContentShow: PropTypes.bool,
     rightContentShow: PropTypes.bool,
     leftContent: PropTypes.element,
     rightContent: PropTypes.element,
+    favorites: PropTypes.array,
+    article: PropTypes.object,
     style: PropTypes.object,
   }
 
@@ -32,11 +35,12 @@ class NavBar extends Component {
     title: '',
     leftContentShow: true,
     rightContentShow: true,
-    statusBarHeight: Platform.OS === 'ios' ? 20 : 0
+    favorites: [],
+    article: {},
   };
 
   render() {
-    const {props} = this;
+    const { props } = this;
     const style = styles(props);
     return (
       <View
@@ -45,15 +49,18 @@ class NavBar extends Component {
 
         <View style={style.side}>
           {props.leftContentShow
-          && props.leftContent &&
-          props.leftContent
+            && props.leftContent &&
+            props.leftContent
           }
           {props.leftContentShow
-          && !props.leftContent &&
-          <ButtonIcon
-            name='arrow_left'
-            onPress={this.actionLeft}
-          />
+            && !props.leftContent &&
+            <ButtonIcon
+              name='ios-arrow-back'
+              color={configStyles.COLOR_2}
+              size={34}
+              style={style.icon}
+              onPress={this.actionLeft}
+            />
           }
         </View>
 
@@ -69,15 +76,18 @@ class NavBar extends Component {
 
         <View style={style.side}>
           {props.rightContentShow
-          && props.rightContent &&
-          props.rightContent
+            && props.rightContent &&
+            props.rightContent
           }
           {props.rightContentShow
-          && !props.rightContent &&
-          <ButtonIcon
-            name='arrow_left'
-            onPress={this.actionRight}
-          />
+            && !props.rightContent &&
+            <ButtonIcon
+              name='ios-bookmark'
+              color={find(props.favorites, props.article) ? configStyles.COLOR_3 : configStyles.COLOR_6}
+              size={34}
+              style={style.icon}
+              onPress={this.actionRight}
+            />
           }
         </View>
 
@@ -87,22 +97,21 @@ class NavBar extends Component {
 
 
   actionLeft = () => {
-    const {props} = this;
+    const { props } = this;
     // Actions.drawerOpen()
 
     if (props.actionLeft) {
       props.actionLeft()
+    } else {
+      Actions.pop()
     }
   }
 
   actionRight = () => {
-    const {props} = this;
+    const { props } = this;
     // Actions[routes.BASKET.key]()
     if (props.actionRight) {
       props.actionRight()
     }
   }
 }
-
-
-export default NavBar;

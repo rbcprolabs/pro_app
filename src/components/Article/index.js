@@ -142,7 +142,6 @@ export default class Article extends Component {
                   followList={props.followList}
                   randomMode={true}
                   convert={true}
-                  onPress={this.onPressTag}
                 />
               </View>
             }
@@ -214,7 +213,6 @@ export default class Article extends Component {
                 <TagsList
                   tags={article.tags}
                   followList={props.followList}
-                  onPress={this.onPressTag}
                 />
               }
             </View>
@@ -243,18 +241,10 @@ export default class Article extends Component {
     })
   }
 
-  onPressTag = tag => {
-    const { props, state } = this;
-
-    if (props.onPressTag) {
-      props.onPressTag(tag)
-    }
-  }
-
   onPressTitle = () => {
     const { props } = this;
 
-    Actions.push(routes.ARTICLE_DETAIL.key, props.article);
+    Actions.push(routes.ARTICLE_DETAIL.key, { article: props.article });
   }
 
   onPressFavorite = () => {

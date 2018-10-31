@@ -3,6 +3,9 @@ import {
   View,
   Text
 } from 'react-native';
+import {
+  Actions
+} from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 
 
@@ -13,6 +16,8 @@ import Tag from 'app/components/Tag';
 
 import styles from './styles';
 import * as configStyles from 'app/config/style';
+import * as routes from "app/config/sceneKeys";
+
 
 
 export default class TagsList extends Component {
@@ -25,6 +30,7 @@ export default class TagsList extends Component {
     convert: PropTypes.bool,
     typeVisible: PropTypes.bool,
     randomMode: PropTypes.bool,
+    bgMode: PropTypes.bool,
 
     // styling
     style: PropTypes.object,
@@ -35,7 +41,8 @@ export default class TagsList extends Component {
     convert: false,
     typeVisible: false,
     randomMode: false,
-
+    bgMode: false,
+    tags: []
   }
 
   componentDidMount() {
@@ -50,19 +57,42 @@ export default class TagsList extends Component {
       <View style={style.container}>
         {props.tags.length > 0 &&
           <View>
-            {!props.randomMode && this.tags()}
-            {props.randomMode && this.randomMode()}
+            {!props.randomMode && this.tags(style)}
+            {props.randomMode && this.randomMode(style)}
           </View>
         }
       </View>
     )
   }
 
-  tags = () =>
-    this.props.tags.map((data, i) =>
+  tags = (style) => this.props.tags.map((data, i) => {
+    let title = '';
+
+    switch (data.type) {
+      case 'companies':
+        title = 'Компании'
+        break
+      case 'persons':
+        title = 'Люди'
+        break
+      case 'indicators':
+        title = 'Отрасли'
+        break
+      case 'industries':
+        title = 'Промышленности'
+        break
+      case 'tags':
+        title = 'Тэги'
+        break
+
+      default:
+        title = 'Заголовок'
+    }
+
+    return (
       <View key={uuid()}>
         {this.props.typeVisible &&
-          <Text>{data.type}</Text>
+          <Text style={style.title}>{title}</Text>
         }
         {data.items.map(tag =>
           <Tag
@@ -78,6 +108,8 @@ export default class TagsList extends Component {
         )}
       </View>
     )
+  })
+
 
   randomMode = () => {
     const { props } = this;
@@ -103,6 +135,8 @@ export default class TagsList extends Component {
 
   onPress = (tag) => {
     const { props } = this;
+
+    Actions.push(routes.ARTICLES_DETAIL_LIST.key, {...tag});
 
     if (props.onPress) {
       props.onPress(tag)

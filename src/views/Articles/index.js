@@ -7,14 +7,9 @@ import {
 
 } from 'react-native';
 
-import {
-    Actions
-} from 'react-native-router-flux';
 import { getArticles } from 'app/redux/actions/articles'
 import Content from 'app/components/Content';
 import Article from 'app/components/Article';
-
-import * as routes from "app/config/sceneKeys";
 
 import styles from './styles';
 
@@ -64,16 +59,11 @@ class Articles extends Component {
                             article={article}
                             type={types[Math.floor(Math.random() * types.length)]}
                             followList={props.followList}
-                            onPressTag={this.onPressTag}
                         />
                     )}
                 </View>
             </Content>
         );
-    }
-
-    onPressTag = (data) => {
-        Actions.push(routes.ARTICLES_DETAIL_LIST.key, {...data});
     }
 
 }

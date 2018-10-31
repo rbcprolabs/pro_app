@@ -13,9 +13,11 @@ import {
 } from 'react-native-router-flux';
 import moment from 'moment';
 
+import { setFavorite } from 'app/redux/actions/favorites'
+
 import Content from 'app/components/Content';
 import TagsList from 'app/components/TagsList';
-import ButtonIcon from 'app/components/ButtonIcon';
+import NavBar from 'app/components/NavBar';
 
 
 
@@ -44,16 +46,17 @@ class ArticleDetail extends Component {
                 topPart={this.topPart(style)}
 
             >
+                <TagsList
+                    key={uuid()}
+                    tags={props.article.tags}
+                    followList={props.followList}
+                    onPress={this.onPressTag}
+                    typeVisible={true}
+                    bgMode={true}
+                />
                 <View style={style.content}>
-                     <TagsList
-                        key={uuid()}
-                        tags={props.tags}
-                        followList={props.followList}
-                        typeVisible={true}
-                        onPress={this.onPressTag}
-                      />
 
-                    <Text style={style.description}>{props.body}</Text>
+                    <Text style={style.description}>{props.article.body}</Text>
 
                 </View>
             </Content>
@@ -64,16 +67,17 @@ class ArticleDetail extends Component {
         const { props } = this;
 
         return (
-            <View style={style.header}>
-                {/* <ButtonIcon
-                    name='ios-close-circle'
-                    color={configStyles.COLOR_2}
-                    size={configStyles.FONT_SIZE + 10}
-                    style={style.close}
-                    onPress={this.backAction}
-                /> */}
-                <Text style={style.title}>{props.title}</Text>
-                <Text style={style.date}>{moment(props.published).format('DD.MM.YY, h:mm')}</Text>
+            <View>
+                <NavBar
+                    title='Кококоммерсант'
+                    actionRight={this.addFavorite}
+                    favorites={props.favorites}
+                    article={props.article}
+                />
+                <View style={style.header}>
+                    <Text style={style.title}>{props.article.title}</Text>
+                    <Text style={style.date}>{moment(props.article.published).format('DD.MM.YY, h:mm')}</Text>
+                </View>
             </View>
         )
     }
@@ -89,17 +93,24 @@ class ArticleDetail extends Component {
 
     }
 
+    addFavorite = (id) => {
+        const { props } = this;
+        console.log('addFavorite ')
+        props.setFavorite(props.article)
+
+    }
+
 }
 
 function mapStateToProps(state) {
     return {
-
+        favorites: state.favorites.list
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-
+        setFavorite: bindActionCreators(setFavorite, dispatch),
     }
 }
 
