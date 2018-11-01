@@ -1,3 +1,11 @@
+import { getStatusBarHeight, getBottomSpace, isIphoneX } from 'react-native-iphone-x-helper'
+
+// Fix spaces on iphone
+export const SPACE_TOP = getStatusBarHeight()
+export const SPACE_BOTTOM = getBottomSpace()
+export const IS_IPHONE_X = isIphoneX()
+// END Fix spaces on iphone
+
 export const FONT_SIZE = 17;
 export const INTENT = 16;
 export const RADIUS = 8;

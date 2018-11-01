@@ -50,7 +50,7 @@ class ArticleDetailList extends Component {
 
     render() {
         const { state, props } = this;
-        const style = styles(props);
+        const style = styles({ ...props, ...state });
         const types = ['default', 'selected', 'withDescription']
 
         console.log('props ', props)
@@ -67,7 +67,9 @@ class ArticleDetailList extends Component {
                 <View style={style.content}>
 
                     {props.articles.map(article =>
-                        find(article.tags[props.categoryIndex].items, props.tag)
+                        find(article.tags[props.categoryIndex] 
+                            ? article.tags[props.categoryIndex].items 
+                            : [], props.tag)
                             ?
                             <Article
                                 key={article.id}
@@ -107,6 +109,7 @@ class ArticleDetailList extends Component {
             visible={true}
             followNow={state.followNow}
             onPress={this.onPressFollow}
+            getSizes={this.getSizesFollow}
         />
     )
 
@@ -135,6 +138,12 @@ class ArticleDetailList extends Component {
         })
 
         return followNow;
+    }
+
+    getSizesFollow = (sizes) => {
+        this.setState({
+            paddingBottom: sizes.paddingBottom
+        })
     }
 
 }

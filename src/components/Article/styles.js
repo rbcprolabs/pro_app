@@ -180,7 +180,7 @@ export default props =>
     tagTop: StyleSheet.flatten([
       {
         position: 'absolute',
-        left: styles.INTENT - 4,
+        left: styles.PADDING,
         top: styles.INTENT / 2,
       },
     ]),

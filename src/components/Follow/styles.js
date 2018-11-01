@@ -6,9 +6,9 @@ export default props =>
     container: StyleSheet.flatten([
       {
         position: 'absolute',
-        left: styles.INTENT - 4,
-        right: styles.INTENT - 4,
-        bottom: styles.MARGIN * 2,
+        left: styles.PADDING,
+        right: styles.PADDING,
+        bottom: props.bottom,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -27,7 +27,7 @@ export default props =>
     content: StyleSheet.flatten([
       {
         flexDirection: 'row',
-        flexShrink:1,
+        flexShrink: 1,
       }
     ]),
 
@@ -35,7 +35,8 @@ export default props =>
       {
         flexShrink: 1,
         paddingTop: 2,
-        paddingHorizontal: styles.INTENT / 2
+        // paddingHorizontal: styles.INTENT / 2
+        paddingRight: styles.INTENT / 2
       }
     ]),
 

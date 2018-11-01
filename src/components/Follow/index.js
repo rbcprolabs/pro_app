@@ -14,6 +14,10 @@ import styles from './styles';
 export default class Follow extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      bottom: configStyles.SPACE_BOTTOM + configStyles.PADDING
+    }
   }
 
   static propTypes = {
@@ -21,6 +25,7 @@ export default class Follow extends Component {
     size: PropTypes.number,
     color: PropTypes.string,
     followNow: PropTypes.bool,
+    getSizes: PropTypes.func,
 
 
     // styling
@@ -36,18 +41,20 @@ export default class Follow extends Component {
   }
 
   render() {
-    const { props } = this;
-    const style = styles(props);
-    console.log('followNow ', props.followNow)
+    const { props, state } = this;
+    const style = styles({ ...props, ...state });
 
     return (
 
-      <View style={style.container}>
+      <View
+        style={style.container}
+        onLayout={this.getHeight}
+      >
         <View style={style.content}>
-          <ImageBackground
+          {/* <ImageBackground
             source={{ uri: props.image }}
             style={style.image}
-          />
+          /> */}
           <View style={style.detail}>
             <Text style={style.title}>{props.title}</Text>
             <Text style={style.subtitle}>Много людей следят</Text>
@@ -71,6 +78,25 @@ export default class Follow extends Component {
 
     if (props.onPress) {
       props.onPress()
+    }
+  }
+
+  getHeight = (e) => {
+    const height = e.nativeEvent.layout.height;
+
+    this.setState({
+      height
+    }, () => {
+      this.getSizes();
+    })
+  }
+
+  getSizes = () => {
+    const { props, state } = this;
+    const paddingBottom = state.height + state.bottom
+
+    if (props.getSizes) {
+      props.getSizes({ paddingBottom })
     }
   }
 }

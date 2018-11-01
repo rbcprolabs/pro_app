@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import * as styles from 'app/config/style';
+import themes from 'app/config/themes';
 
 export default props =>
   StyleSheet.create({
@@ -11,7 +12,7 @@ export default props =>
     ]),
     tabsContainer: StyleSheet.flatten([
       {
-        marginTop: 30,
+        paddingTop: styles.SPACE_TOP,
         backgroundColor: styles.COLOR_1
       }
 

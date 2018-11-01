@@ -17,7 +17,7 @@ export default props =>
         flexWrap: 'wrap',
         flexDirection: 'row',
         paddingTop: styles.INTENT,
-        paddingBottom: styles.MARGIN * 6,
+        paddingBottom: props.paddingBottom,
         paddingHorizontal: styles.INTENT / 4,
       }
 
@@ -28,13 +28,14 @@ export default props =>
         position: 'absolute',
         top: styles.MARGIN,
         right: styles.MARGIN,
+        zIndex: 99
       }
 
     ]),
 
     header: StyleSheet.flatten([
       {
-        paddingTop: styles.MARGIN * 3,
+        paddingTop: styles.IS_IPHONE_X ? styles.SPACE_TOP + styles.INTENT - 2 : styles.INTENT - 2,
         paddingBottom: styles.INTENT - 2,
         paddingHorizontal: styles.MARGIN,
         backgroundColor: styles.COLOR_1,
@@ -48,7 +49,8 @@ export default props =>
       {
         fontSize: styles.FONT_SIZE + 11,
         color: styles.COLOR_2,
-        fontWeight: '700'
+        fontWeight: '700',
+        paddingRight: !styles.IS_IPHONE_X ? styles.INTENT * 2 : 0
       }
 
     ]),

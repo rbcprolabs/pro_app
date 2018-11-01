@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
+import themes from 'app/config/themes';
 import * as styles from 'app/config/style';
 
 export default props =>
   StyleSheet.create({
     container: StyleSheet.flatten([
       {
-        // ...stylesGlobal.container,
-        backgroundColor: styles.COLOR_5,
+        backgroundColor: styles.COLOR_5, 
         flex: 1
       }
 
@@ -18,6 +18,7 @@ export default props =>
         flexDirection: 'row',
         paddingTop: styles.INTENT,
         paddingHorizontal: styles.INTENT / 4,
+        paddingBottom: styles.SPACE_BOTTOM
       }
 
     ]),

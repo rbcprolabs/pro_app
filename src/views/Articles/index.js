@@ -6,6 +6,8 @@ import {
     Text,
 
 } from 'react-native';
+import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper'
+
 
 import { getArticles } from 'app/redux/actions/articles'
 import Content from 'app/components/Content';
@@ -35,7 +37,8 @@ class Articles extends Component {
         }
         console.log('componentDidMount')
 
-
+        console.log('getStatusBarHeight ', getStatusBarHeight())
+        console.log('getBottomSpace ', getBottomSpace())
     }
 
     render() {

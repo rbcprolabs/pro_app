@@ -5,7 +5,6 @@ export default props =>
   StyleSheet.create({
     container: StyleSheet.flatten([
       {
-        // ...stylesGlobal.container,
         backgroundColor: styles.COLOR_1,
         flex: 1,
       }
@@ -17,7 +16,7 @@ export default props =>
         flexWrap: 'wrap',
         flexDirection: 'row',
         paddingTop: styles.INTENT,
-        paddingBottom: styles.INTENT * 2,
+        paddingBottom: styles.IS_IPHONE_X ? styles.SPACE_BOTTOM : styles.INTENT,
         paddingHorizontal: styles.INTENT,
       }
 

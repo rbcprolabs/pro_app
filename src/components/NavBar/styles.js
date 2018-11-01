@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as styles from 'app/config/style';
 // import stylesGlobal from 'app/themes/global';
 
@@ -11,7 +11,7 @@ export default props =>
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: styles.INTENT*2,
+        paddingTop: styles.SPACE_TOP,
         borderBottomWidth: 1,
         borderColor: styles.COLOR_8
 
@@ -34,7 +34,7 @@ export default props =>
       {
         flexShrink: 0,
         flexGrow: 0,
-      
+
       },
       !props.leftContentShow &&
       !props.rightContentShow && {
@@ -51,8 +51,8 @@ export default props =>
 
     icon: StyleSheet.flatten([
       {
-        padding: styles.INTENT-4,
-
+        paddingHorizontal: styles.PADDING,
+        paddingVertical: styles.INTENT / 2,
       }
     ]),
 

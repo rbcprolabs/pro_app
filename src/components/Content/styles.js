@@ -6,16 +6,11 @@ export default props =>
 
     container: StyleSheet.flatten([
       {
-        marginTop: 0,
         flex: 1,
       },
       props.style && {
         ...props.style
       },
-
-      props.disableMargin && {
-        marginTop: 0
-      }
 
     ])
   });

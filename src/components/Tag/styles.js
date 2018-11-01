@@ -14,7 +14,7 @@ export default props =>
         borderRadius: styles.RADIUS * 2,
         backgroundColor: styles.COLOR_2,
         height: 32,
-        paddingHorizontal: styles.INTENT - 4,
+        paddingHorizontal: styles.PADDING,
         alignItems: 'center'
       },
       props.style && {
