@@ -7,47 +7,46 @@ import Formatter from 'app/services/Formatter';
 export const getArticles = () => dispatch =>
 
   Contentful().getEntries({
-    'content_type': 'article'
+    'content_type': 'articles'
   })
     .then(
       resp => {
         console.log('resp ', resp)
         const list = [];
         const addTags = (fields, name) => {
-          const typeIndex = fields.tags.find((item, i) => item.type == name ? i : false);
+          if (!fields[name] || typeof fields[name] !== 'string') return;
 
-          if (!fields[name]) return;
-
-          if (typeIndex) {
-            fields.tags[typeIndex].push({
-              type: name,
-              items: [
-                ...fields.tags[typeIndex].items,
-                ...Formatter.createTags(fields[name])
-              ]
-            })
-          } else {
-            fields.tags.push({
-              type: name,
-              items: Formatter.createTags(fields[name])
-            })
-          }
+          fields.parsingData.push({
+            type: name,
+            items: Formatter.createTags(fields[name])
+          })
 
         }
 
         resp.items.map(item => {
           const { fields } = item;
-
+          const pars = [
+            'industries',
+            'geography',
+            'companies',
+            'people',
+            'format',
+            'indicators',
+            'functions',
+            'organizations',
+            'tags',
+          ]
           fields.tags = [];
+          fields.parsingData = [];
           fields.id = uuid();
 
-          addTags(fields, 'companies');
-          addTags(fields, 'persons');
-          addTags(fields, 'indicators');
-          addTags(fields, 'industries');
+          pars.map(name =>
+            addTags(fields, name)
+          )
 
           list.push(fields);
         })
+        console.log('list ', list)
 
         dispatch({
           type: ARTICLES.get,
