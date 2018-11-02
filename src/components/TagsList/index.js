@@ -45,11 +45,6 @@ export default class TagsList extends Component {
     tags: []
   }
 
-  componentDidMount() {
-
-  }
-
-
   render() {
     const { props, state } = this;
     const style = styles(props);
@@ -88,23 +83,28 @@ export default class TagsList extends Component {
       default:
         title = 'Заголовок'
     }
-
+    console.log('data.items ', data.items)
     return (
       <View key={uuid()}>
         {this.props.typeVisible &&
           <Text style={style.title}>{title}</Text>
         }
-        {data.items.map(tag =>
-          <Tag
-            key={uuid()}
-            tag={tag}
-            active={find(this.props.followList, tag) ? true : false}
-            onPress={() => this.onPress({
-              categoryIndex: i,
-              type: data.type,
-              tag
-            })}
-          />
+        {data.items.map((tag,i) => {
+          if (tag.level == 1) {
+            return (
+              <Tag
+                key={uuid()}
+                tag={tag}
+                active={find(this.props.followList, tag) ? true : false}
+                onPress={() => this.onPress({
+                  categoryIndex: i,
+                  type: data.type,
+                  tag
+                })}
+              />
+            )
+          }
+        }
         )}
       </View>
     )
@@ -136,7 +136,7 @@ export default class TagsList extends Component {
   onPress = (tag) => {
     const { props } = this;
 
-    Actions.push(routes.ARTICLES_DETAIL_LIST.key, {...tag});
+    Actions.push(routes.ARTICLES_DETAIL_LIST.key, { ...tag });
 
     if (props.onPress) {
       props.onPress(tag)

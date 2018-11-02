@@ -6,7 +6,6 @@ import {
     Text,
 
 } from 'react-native';
-import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper'
 
 
 import { getArticles } from 'app/redux/actions/articles'
@@ -35,10 +34,6 @@ class Articles extends Component {
         if (props.articles.length == 0) {
             props.getArticles();
         }
-        console.log('componentDidMount')
-
-        console.log('getStatusBarHeight ', getStatusBarHeight())
-        console.log('getBottomSpace ', getBottomSpace())
     }
 
     render() {
@@ -56,13 +51,20 @@ class Articles extends Component {
                 <View
                     style={style.content}
                 >
-                    {props.articles.map(article =>
-                        <Article
-                            key={article.id}
-                            article={article}
-                            type={types[Math.floor(Math.random() * types.length)]}
-                            followList={props.followList}
-                        />
+                    {props.articles.map(article => {
+                        if (article.title == 'MODERN Вадим Мошкович застроит бывшую промзону СУ-155 в Печатниках') {
+                            return (
+                                <Article
+                                    key={article.id}
+                                    article={article}
+                                    // type={types[Math.floor(Math.random() * types.length)]}
+                                    type='default'
+                                    followList={props.followList}
+                                />
+                            )
+                        }
+                    }
+
                     )}
                 </View>
             </Content>

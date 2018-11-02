@@ -20,7 +20,7 @@ export default class Tag extends Component {
 
   static propTypes = {
     tag: PropTypes.shape({
-      text: PropTypes.string,
+      term: PropTypes.string,
       description: PropTypes.string,
     }),
     iconName: PropTypes.string,
@@ -70,7 +70,7 @@ export default class Tag extends Component {
           style={style.icon}
         />
         <View style={style.textContainer}>
-          <Text style={style.text}>{tag.text}</Text>
+          <Text style={style.text}>{tag.term}</Text>
           {tag.description &&
             <Text style={style.description}>{tag.description}</Text>
           }

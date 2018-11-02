@@ -13,40 +13,69 @@ export const getArticles = () => dispatch =>
       resp => {
         console.log('resp ', resp)
         const list = [];
-        const addTags = (fields, name) => {
+        const addTags = (fields, name, isFalt) => {
           if (!fields[name] || typeof fields[name] !== 'string') return;
+          if (fields.title == 'MODERN Вадим Мошкович застроит бывшую промзону СУ-155 в Печатниках') {
 
-          fields.parsingData.push({
-            type: name,
-            items: Formatter.createTags(fields[name])
-          })
+            fields.parsingData.push({
+              type: name,
+              items: Formatter.createTags(fields[name], isFalt)
+            })
+          }
 
         }
 
         resp.items.map(item => {
           const { fields } = item;
           const pars = [
-            'industries',
-            'geography',
-            'companies',
-            'people',
-            'format',
-            'indicators',
-            'functions',
-            'organizations',
-            'tags',
-          ]
+            {
+              name: 'industries',
+              isFalt: false
+            },
+            // {
+            //   name: 'geography',
+            //   isFalt: false
+            // },
+            // {
+            //   name: 'companies',
+            //   isFalt: true
+            // },
+            // {
+            //   name: 'people',
+            //   isFalt: true
+            // },
+            // {
+            //   name: 'format',
+            //   isFalt: true
+            // },
+            // {
+            //   name: 'indicators',
+            //   isFalt: true
+            // },
+            // {
+            //   name: 'functions',
+            //   isFalt: true
+            // },
+            // {
+            //   name: 'organizations',
+            //   isFalt: true
+            // },
+            // {
+            //   name: 'tags',
+            //   isFalt: true
+            // }
+          ];
+
           fields.tags = [];
           fields.parsingData = [];
           fields.id = uuid();
 
-          pars.map(name =>
-            addTags(fields, name)
+          pars.map(item =>
+            addTags(fields, item.name, item.isFalt)
           )
 
           list.push(fields);
         })
-        console.log('list ', list)
 
         dispatch({
           type: ARTICLES.get,

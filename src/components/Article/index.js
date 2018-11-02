@@ -35,6 +35,7 @@ export default class Article extends Component {
     }),
     followList: PropTypes.array,
     favorites: PropTypes.array,
+    previewModeTag: PropTypes.bool,
     bookmark: PropTypes.bool,
     type: PropTypes.string,
     setFavorite: PropTypes.func,
@@ -49,6 +50,7 @@ export default class Article extends Component {
   static defaultProps = {
     favorites: [],
     followList: [],
+    previewModeTag: true,
   }
 
   constructor(props) {
@@ -86,7 +88,8 @@ export default class Article extends Component {
     const { props, state } = this;
     const { article } = props;
     const view = state.types[props.type];
-    const published = `${moment(article.published).format('DD.MM.YY, h:mm')} | ${article.source}`;
+    const published = `${moment(article.published).format('DD.MM.YY, h:mm')} | ${article.geography}`;
+    const tagsPreview = props.previewModeTag ? ['industries', 'companies'] : false;
     const style = styles(props);
 
     return (
@@ -211,7 +214,17 @@ export default class Article extends Component {
               ]}>
               {view.tags == 'bottom' &&
                 <TagsList
-                  tags={article.tags}
+                  tags={
+                    props.previewModeTag
+                      ?
+                      article.parsingData.filter(tagList =>
+                        tagsPreview.find(preview =>
+                          tagList.type == preview
+                        )
+                      )
+                      :
+                      article.parsingData
+                  }
                   followList={props.followList}
                 />
               }
