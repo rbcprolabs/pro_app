@@ -1,4 +1,4 @@
-import {uniqWith, isEqual} from 'lodash';
+import { uniqWith, isEqual } from 'lodash';
 
 const Formatter = {
 
@@ -54,8 +54,6 @@ const Formatter = {
 
     })
 
-    this.clearSimilarTags(result)
-
     return result;
   },
 
@@ -79,39 +77,40 @@ const Formatter = {
   },
 
   clearSimilarTags(array) {
-    const result = array.filter(item => item.level == 1);
-    console.log('result ', result)
-    const test = uniqWith(result, isEqual);
-    console.log('test ', test)
-    
-    // ТУДУ удалить совпадение 1 уровня
+    const firstLevels = array.filter(item => item.level == 1);
+    const removedSimilar = uniqWith(firstLevels, isEqual);
+    const slashArray = [];
 
-    // const test = uniqWith(result, isEqual);
-    // console.log('test ', test)
+    removedSimilar.map(item => {
+      slashArray.push(this.splitAction(item.fullTerm, '/'))
+    });
 
-    // console.log('array ', array)
-    // array.map((child, i) => {
-    //   const prev = array[i - 1];
-    //   const next = array[i + 1];
-    //   console.log('prev ', prev)
-    //   console.log('next ', next)
+    slashArray.map((item, i) =>
+      slashArray.map((el, indexSecond) => {
 
-    //     result.push(child);
-    // });
-    // array.reduce((prev, child, i) => {
-    //   console.log('prev ', prev)
-    //   let data = {};
-    //   if (child.level == 0 && array[i + 1].level == child.level){
+        // Clear similar for first level
+        if (item.length == 1
+          && el.length > 1
+          && el[0] == item[0]
+        ) {
+          removedSimilar.splice(i, 1)
+        }
 
-    //     result.push(child);
-    //     data = child;
-    //   }
-    //   // console.log('result ', result)
-    //   return prev;
-    // }, array[0]);
+        // Create two linees
+        if (i !== indexSecond
+          && item[1] == el[1]
+          && slashArray[i].length > 1
+        ) {
+          removedSimilar[i].term = slashArray[i][0];
+          removedSimilar[i].description = slashArray[i][1];
+        }
+      })
 
-    // console.log('result ', result)
+    )
+
+    return removedSimilar
   }
+
 }
 
 export default Formatter;

@@ -65,8 +65,27 @@ export default props =>
       {
         fontSize: styles.FONT_SIZE,
         color: styles.COLOR_2,
+        flexBasis: '100%',
+        marginBottom: 20
       }
 
+    ]),
+
+    blockquote: StyleSheet.flatten([
+      {
+        fontSize: styles.FONT_SIZE-2,
+        color: styles.COLOR_2,
+        fontStyle: 'italic',
+        flexBasis: '100%',
+      }
+
+    ]),
+
+    author: StyleSheet.flatten([
+      {
+        fontStyle: 'normal',
+        marginBottom: 0,
+      }
     ]),
 
   });

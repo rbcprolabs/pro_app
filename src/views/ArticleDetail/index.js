@@ -38,7 +38,7 @@ class ArticleDetail extends Component {
         const { state, props } = this;
         const style = styles(props);
 
-
+        console.log('props detail ', props)
         return (
             <Content
                 style={style.container}
@@ -46,22 +46,180 @@ class ArticleDetail extends Component {
                 topPart={this.topPart(style)}
 
             >
-                <TagsList
+                {/* <TagsList
                     key={uuid()}
-                    tags={props.article.tags}
+                    tags={props.article.parsingDataFiltered}
                     followList={props.followList}
                     onPress={this.onPressTag}
                     typeVisible={true}
                     bgMode={true}
-                />
+                /> */}
                 <View style={style.content}>
+                    {props.article.body.content.map(data =>
+                        <View key={uuid()}>
+                            {
+                                data.content.length > 0
+                                    ?
+                                    this.textBlock({
+                                        atricle: data.content,
+                                        nodeType: data.nodeType,
+                                    })
+                                    :
+                                    <Text>images</Text>
+                            }
+                        </View>
 
-                    <Text style={style.description}>{props.article.body}</Text>
+                    )}
+                    {/* <Text style={style.description}>{props.article.body}</Text> */}
 
                 </View>
             </Content>
         );
     }
+
+    textBlock = ({
+        atricle,
+        nodeType,
+        customStyle,
+        viewType = 'default',
+    }) => {
+        const { props } = this;
+        const style = styles(props);
+
+        // console.log(nodeType, atricle)
+
+
+        return atricle.map(item => {
+
+            switch (nodeType) {
+                case '': {
+                    //statements; 
+                    break;
+                }
+                case 'blockquote': {
+
+                    return this.textBlock({
+                        atricle: item.content,
+                        nodeType: item.nodeType,
+                        customStyle: style.blockquote,
+                        viewType: 'blockquote'
+                    })
+                }
+                default: {
+                    // console.log('тута ', nodeType, atricle)
+                    if (item.marks
+                        && item.marks.length > 0
+                        && item.marks[0].type == 'bold') {
+                        customStyle = { ...customStyle, fontWeight: '700' };
+
+                        console.log('viewType ', viewType)
+                        if (viewType == 'blockquote') {
+                            customStyle = { ...customStyle, ...style.author };
+                        }
+                        console.log('customStyle ', customStyle)
+                    }
+
+
+                    console.log('item.value.length ', item.value)
+                    if (item.value !== '')
+                        return (
+                            <Text
+                                key={uuid()}
+                                style={[
+                                    style.description,
+                                    customStyle
+                                ]}>
+                                {nodeType} {item.value}
+                            </Text>
+                        )
+
+                }
+
+            }
+        })
+
+        // return (
+        //     atricle.map(item => {
+        //         let customStyle = {};
+
+        //         // console.log('item.marks ', item.marks)
+
+        //         // item.content.map(item =>
+
+        //         switch (nodeType) {
+        //             case '': {
+        //                 //statements; 
+        //                 break;
+        //             }
+        //             case 'blockquote': {
+        //                 console.log('case blockquote ', item)
+        //                 let style = {...style}
+        //                 style.description = {...style.description, fontWeight: '700'}
+        //                 this.textBlock(item.content, item.nodeType, style, 'AAAAAAAAAAA')
+        //                 // item.content.map(el=>{
+        //                 //     // if (el.marks
+        //                 //     //     && el.marks.length > 0
+        //                 //     //     && marks[0].type == 'bold'
+        //                 //     // ) {
+        //                 //     //     customStyle = { ...customStyle, fontWeight: '700' }
+        //                 //     //     // console.log('true')
+        //                 //     // }
+        //                 //     return (
+        //                 //         <Text
+        //                 //             key={uuid()}
+        //                 //             style={[
+        //                 //                 style.description,
+
+        //                 //                 customStyle
+        //                 //             ]}>
+        //                 //             1111{el.value}1111
+        //                 //         </Text>
+        //                 //     )
+        //                 // })
+
+        //             }
+        //             default: {
+        //                 return (
+        //                     <Text
+        //                         key={uuid()}
+        //                         style={[
+        //                             style.description,
+        //                             customStyle
+        //                         ]}>
+        //                         {item.value} {text}
+        //                     </Text>
+        //                 )
+        //             }
+        //         }
+
+        //             // if (item.nodeType == 'paragraph') {
+        //             //     return (
+        //             //         <Text
+        //             //             key={uuid()}
+        //             //             style={[
+        //             //                 style.description,
+        //             //                 customStyle
+        //             //             ]}>
+        //             //             {item.value}
+        //             //         </Text>
+        //             //     )
+        //             // }
+
+        //         }
+        //     )
+        // )
+
+    }
+
+    setText = (value, style) => (
+        <Text
+            key={uuid()}
+            style={style}>
+            {value}
+        </Text>
+    )
+
+
 
     topPart = (style) => {
         const { props } = this;
@@ -81,8 +239,6 @@ class ArticleDetail extends Component {
             </View>
         )
     }
-
-
 
     backAction = () => {
         Actions.pop()

@@ -9,9 +9,8 @@ import {
   Actions
 } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
-import uuid from 'uuid/v1';
 import moment from 'moment';
-import { find, isEmpty } from 'lodash';
+import { find } from 'lodash';
 
 
 import Tag from 'app/components/Tag';
@@ -84,13 +83,25 @@ export default class Article extends Component {
     // this.getTagsIndexes(props.data.tags, state.countTags)
   }
 
+
   render() {
     const { props, state } = this;
     const { article } = props;
     const view = state.types[props.type];
     const published = `${moment(article.published).format('DD.MM.YY, h:mm')} | ${article.geography}`;
     const tagsPreview = props.previewModeTag ? ['industries', 'companies'] : false;
+    const tags = props.previewModeTag
+      ?
+      props.article.parsingDataFiltered.filter(tagList =>
+        tagsPreview.find(preview =>
+          tagList.type == preview
+        )
+      )
+      :
+      props.article.parsingDataFiltered;
+
     const style = styles(props);
+
 
     return (
       <View style={style.globalContainer}>
@@ -214,17 +225,7 @@ export default class Article extends Component {
               ]}>
               {view.tags == 'bottom' &&
                 <TagsList
-                  tags={
-                    props.previewModeTag
-                      ?
-                      article.parsingData.filter(tagList =>
-                        tagsPreview.find(preview =>
-                          tagList.type == preview
-                        )
-                      )
-                      :
-                      article.parsingData
-                  }
+                  tags={tags}
                   followList={props.followList}
                 />
               }
@@ -254,10 +255,14 @@ export default class Article extends Component {
     })
   }
 
+
   onPressTitle = () => {
     const { props } = this;
 
-    Actions.push(routes.ARTICLE_DETAIL.key, { article: props.article });
+    Actions.push(routes.ARTICLE_DETAIL.key, {
+      article: props.article,
+      previewModeTag: props.previewModeTag
+    });
   }
 
   onPressFavorite = () => {

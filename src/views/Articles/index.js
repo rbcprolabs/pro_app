@@ -52,7 +52,7 @@ class Articles extends Component {
                     style={style.content}
                 >
                     {props.articles.map(article => {
-                        if (article.title == 'MODERN Вадим Мошкович застроит бывшую промзону СУ-155 в Печатниках') {
+                        if (article.title == 'Пробить потолок: когда в России начнут строить деревянные многоэтажки') {
                             return (
                                 <Article
                                     key={article.id}

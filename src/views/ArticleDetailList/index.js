@@ -48,12 +48,28 @@ class ArticleDetailList extends Component {
 
     }
 
+    componentDidMount() {
+        const { state, props } = this;
+
+        // props.articles.map(article =>
+        //     find(find(article.parsingDataFiltered, { 'type': props.type }).items, { 'term': props.tag.term })
+        //         ?
+        //         console.log('article ', article)
+        //         : false
+        // )
+
+        // props.articles.map(article => {
+        //     console.log('lala ', find(article.parsingDataFiltered, { 'type': props.type }))
+
+        // })
+    }
+
     render() {
         const { state, props } = this;
         const style = styles({ ...props, ...state });
         const types = ['default', 'selected', 'withDescription']
 
-        console.log('props ', props)
+        console.log('props дфдф ', props)
         return (
             <Content
                 style={style.container}
@@ -67,9 +83,10 @@ class ArticleDetailList extends Component {
                 <View style={style.content}>
 
                     {props.articles.map(article =>
-                        find(article.tags[props.categoryIndex] 
-                            ? article.tags[props.categoryIndex].items 
-                            : [], props.tag)
+                        find(
+                            find(article.parsingDataFiltered, { 'type': props.type }).items,
+                            { 'term': props.tag.term }
+                        )
                             ?
                             <Article
                                 key={article.id}
@@ -98,13 +115,13 @@ class ArticleDetailList extends Component {
                 style={style.close}
                 onPress={this.backAction}
             />
-            <Text style={style.title}>{this.props.tag.text}</Text>
+            <Text style={style.title}>{this.props.tag.term}</Text>
         </View>
     )
 
     bottomPart = (props, state) => (
         <Follow
-            title={props.tag.text}
+            title={props.tag.term}
             // image={props.image}
             visible={true}
             followNow={state.followNow}

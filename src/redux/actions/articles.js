@@ -15,13 +15,18 @@ export const getArticles = () => dispatch =>
         const list = [];
         const addTags = (fields, name, isFalt) => {
           if (!fields[name] || typeof fields[name] !== 'string') return;
-          if (fields.title == 'MODERN Вадим Мошкович застроит бывшую промзону СУ-155 в Печатниках') {
+          const items = Formatter.createTags(fields[name], isFalt);
+          // if (fields.title == 'MODERN Вадим Мошкович застроит бывшую промзону СУ-155 в Печатниках') {
 
             fields.parsingData.push({
               type: name,
-              items: Formatter.createTags(fields[name], isFalt)
+              items
             })
-          }
+            fields.parsingDataFiltered.push({
+              type: name,
+              items: Formatter.clearSimilarTags(items)
+            })
+          // }
 
         }
 
@@ -32,42 +37,43 @@ export const getArticles = () => dispatch =>
               name: 'industries',
               isFalt: false
             },
-            // {
-            //   name: 'geography',
-            //   isFalt: false
-            // },
-            // {
-            //   name: 'companies',
-            //   isFalt: true
-            // },
-            // {
-            //   name: 'people',
-            //   isFalt: true
-            // },
-            // {
-            //   name: 'format',
-            //   isFalt: true
-            // },
-            // {
-            //   name: 'indicators',
-            //   isFalt: true
-            // },
-            // {
-            //   name: 'functions',
-            //   isFalt: true
-            // },
-            // {
-            //   name: 'organizations',
-            //   isFalt: true
-            // },
-            // {
-            //   name: 'tags',
-            //   isFalt: true
-            // }
+            {
+              name: 'geography',
+              isFalt: false
+            },
+            {
+              name: 'companies',
+              isFalt: true
+            },
+            {
+              name: 'people',
+              isFalt: true
+            },
+            {
+              name: 'format',
+              isFalt: true
+            },
+            {
+              name: 'indicators',
+              isFalt: true
+            },
+            {
+              name: 'functions',
+              isFalt: true
+            },
+            {
+              name: 'organizations',
+              isFalt: true
+            },
+            {
+              name: 'tags',
+              isFalt: true
+            }
           ];
 
           fields.tags = [];
           fields.parsingData = [];
+          fields.parsingDataFiltered = [];
           fields.id = uuid();
 
           pars.map(item =>
