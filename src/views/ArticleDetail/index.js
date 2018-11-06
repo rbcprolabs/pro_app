@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
-import { find } from 'lodash';
+import { isEmpty } from 'lodash';
 import {
     View,
     Text,
+    ImageBackground
 } from 'react-native';
 
 import {
@@ -18,6 +19,8 @@ import { setFavorite } from 'app/redux/actions/favorites'
 import Content from 'app/components/Content';
 import TagsList from 'app/components/TagsList';
 import NavBar from 'app/components/NavBar';
+import TextNumeric from 'app/components/TextNumeric';
+
 
 
 
@@ -55,17 +58,20 @@ class ArticleDetail extends Component {
                     bgMode={true}
                 /> */}
                 <View style={style.content}>
-                    {props.article.body.content.map(data =>
+                    {props.article.body.content.map(item =>
                         <View key={uuid()}>
                             {
-                                data.content.length > 0
+                                item.content.length > 0
                                     ?
                                     this.textBlock({
-                                        atricle: data.content,
-                                        nodeType: data.nodeType,
+                                        atricle: item.content,
+                                        nodeType: item.nodeType,
                                     })
                                     :
-                                    <Text>images</Text>
+                                    this.imageBlock({
+                                        path: item.content,
+                                        text: item.data.target.fields.title,
+                                    })
                             }
                         </View>
 
@@ -82,6 +88,7 @@ class ArticleDetail extends Component {
         nodeType,
         customStyle,
         viewType = 'default',
+        index
     }) => {
         const { props } = this;
         const style = styles(props);
@@ -89,12 +96,15 @@ class ArticleDetail extends Component {
         // console.log(nodeType, atricle)
 
 
-        return atricle.map(item => {
+        return atricle.map((item, i) => {
 
             switch (nodeType) {
-                case '': {
-                    //statements; 
-                    break;
+                // case 'heading-2': {
+                case 'heading-2': {
+                    return this.text(item.value, style.title);
+                }
+                case 'heading-3': {
+                    return this.text(item.value, style.subTitle);
                 }
                 case 'blockquote': {
 
@@ -105,33 +115,46 @@ class ArticleDetail extends Component {
                         viewType: 'blockquote'
                     })
                 }
+
+                case 'unordered-list': {
+                    return item.content.map(el =>
+                        this.textBlock({
+                            atricle: el.content,
+                            nodeType: item.nodeType,
+                            viewType: 'list',
+                            index: i
+                        })
+                    )
+                }
+
+                case 'list-item': {
+                    return (
+                        <TextNumeric
+                            key={uuid()}
+                            text={item.value}
+                            number={index}
+                        />
+                    )
+                }
+
                 default: {
                     // console.log('тута ', nodeType, atricle)
+
                     if (item.marks
                         && item.marks.length > 0
                         && item.marks[0].type == 'bold') {
                         customStyle = { ...customStyle, fontWeight: '700' };
 
-                        console.log('viewType ', viewType)
+                        // console.log('viewType ', viewType)
                         if (viewType == 'blockquote') {
                             customStyle = { ...customStyle, ...style.author };
                         }
-                        console.log('customStyle ', customStyle)
+                        // console.log('customStyle ', customStyle)
                     }
 
 
-                    console.log('item.value.length ', item.value)
                     if (item.value !== '')
-                        return (
-                            <Text
-                                key={uuid()}
-                                style={[
-                                    style.description,
-                                    customStyle
-                                ]}>
-                                {nodeType} {item.value}
-                            </Text>
-                        )
+                        return this.text(item.value, customStyle);
 
                 }
 
@@ -211,14 +234,43 @@ class ArticleDetail extends Component {
 
     }
 
-    setText = (value, style) => (
-        <Text
-            key={uuid()}
-            style={style}>
-            {value}
-        </Text>
-    )
+    text = (text, customStyle) => {
+        const style = styles(this.props);
 
+        return (
+            <Text
+                key={uuid()}
+                style={[
+                    style.description,
+                    customStyle
+                ]}>
+                {text}
+            </Text>
+        )
+    }
+
+    imageBlock = ({
+        path,
+        text
+    }) => {
+        const style = styles(this.props);
+        const testPath = 'https://images.sftcdn.net/images/t_app-cover-l,f_auto/p/befbcde0-9b36-11e6-95b9-00163ed833e7/260663710/the-test-fun-for-friends-screenshot.jpg';
+
+        return (
+            <View
+                key={uuid()}
+                style={style.imageContainer}>
+                <ImageBackground
+                    source={{ uri: testPath }}
+                    style={{ width: '100%', height: 232 }}
+                />
+                {text !== '' &&
+                    <Text style={style.imageDescription}>{text}</Text>
+                }
+
+            </View>
+        )
+    }
 
 
     topPart = (style) => {
@@ -233,7 +285,7 @@ class ArticleDetail extends Component {
                     article={props.article}
                 />
                 <View style={style.header}>
-                    <Text style={style.title}>{props.article.title}</Text>
+                    <Text style={style.globalTitle}>{props.article.title}</Text>
                     <Text style={style.date}>{moment(props.article.published).format('DD.MM.YY, h:mm')}</Text>
                 </View>
             </View>

@@ -13,8 +13,8 @@ export default props =>
 
     content: StyleSheet.flatten([
       {
-        flexWrap: 'wrap',
-        flexDirection: 'row',
+        // flexWrap: 'wrap',
+        // flexDirection: 'row',
         paddingTop: styles.INTENT,
         paddingBottom: styles.IS_IPHONE_X ? styles.SPACE_BOTTOM : styles.INTENT,
         paddingHorizontal: styles.INTENT,
@@ -43,9 +43,27 @@ export default props =>
 
     ]),
 
-    title: StyleSheet.flatten([
+    globalTitle: StyleSheet.flatten([
       {
         fontSize: styles.FONT_SIZE + 4,
+        color: styles.COLOR_2,
+        fontWeight: '600'
+      }
+
+    ]),
+
+    title: StyleSheet.flatten([
+      {
+        fontSize: styles.FONT_SIZE + 2,
+        color: styles.COLOR_2,
+        fontWeight: '600'
+      }
+
+    ]),
+
+    subTitle: StyleSheet.flatten([
+      {
+        fontSize: styles.FONT_SIZE,
         color: styles.COLOR_2,
         fontWeight: '600'
       }
@@ -66,16 +84,26 @@ export default props =>
         fontSize: styles.FONT_SIZE,
         color: styles.COLOR_2,
         flexBasis: '100%',
-        marginBottom: 20
+        marginTop: 10,
+        marginBottom: 10,
       }
 
     ]),
 
     blockquote: StyleSheet.flatten([
       {
-        fontSize: styles.FONT_SIZE-2,
+        fontSize: styles.FONT_SIZE - 2,
         color: styles.COLOR_2,
         fontStyle: 'italic',
+        flexBasis: '100%',
+      }
+
+    ]),
+
+    listItem: StyleSheet.flatten([
+      {
+        fontSize: styles.FONT_SIZE - 2,
+        color: styles.COLOR_2,
         flexBasis: '100%',
       }
 
@@ -85,6 +113,22 @@ export default props =>
       {
         fontStyle: 'normal',
         marginBottom: 0,
+      }
+    ]),
+
+    imageContainer: StyleSheet.flatten([
+      {
+        marginTop: styles.INTENT,
+        marginBottom: styles.INTENT,
+      }
+    ]),
+
+    imageDescription: StyleSheet.flatten([
+      {
+        fontSize: styles.FONT_SIZE - 2,
+        color: styles.COLOR_2,
+        fontStyle: 'italic',
+        marginTop: 5
       }
     ]),
 

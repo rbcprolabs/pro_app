@@ -15,6 +15,7 @@ import { find } from 'lodash';
 
 import Tag from 'app/components/Tag';
 import TagsList from 'app/components/TagsList';
+import TextNumeric from 'app/components/TextNumeric';
 import ButtonIcon from 'app/components/ButtonIcon';
 
 import styles from './styles';
@@ -190,27 +191,10 @@ export default class Article extends Component {
               {/* 1,2,3 */}
               {article.descriptions &&
                 article.descriptions.map((item, index) =>
-                  <View
-                    key={item.id}
-                    style={[
-                      style.descriptionList,
-                      index == 0 ? style.firstDescriptionItem : {}
-                    ]}
-                  >
-                    <Text style={[
-                      style.description,
-                      style.descriptionItem,
-                    ]}>
-                      {item.text}
-                    </Text>
-                    <Text style={style.descriptionCount}>
-                      {index + 1}
-                    </Text>
-
-                    <View style={style.disableLeftBorder} />
-                    <View style={style.disableRightBorder} />
-                    <View style={style.disableBottomBorder} />
-                  </View>
+                  <TextNumeric
+                    text={item.text}
+                    number={index}
+                  />
                 )
               }
               {/* 1,2,3 */}
