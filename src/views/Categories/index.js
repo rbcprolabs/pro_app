@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
     View,
     Text,
-
+    StatusBar
 } from 'react-native';
 
 import {
@@ -15,6 +15,7 @@ import Content from 'app/components/Content';
 import Category from 'app/components/Category';
 import Button from 'app/components/Button';
 
+import * as configStyles from 'app/config/style';
 import styles from './styles';
 
 
@@ -83,7 +84,9 @@ class Categories extends Component {
                 topPart={this.topPart(style)}
                 bottomPart={this.bottomPart(style)}
             >
-
+                <StatusBar
+                    {...configStyles.STATUS_BAR}
+                />
                 <View
                     style={style.categoriesContainer}
                 >

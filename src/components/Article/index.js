@@ -178,12 +178,12 @@ export default class Article extends Component {
                 <Text style={style.subTitle}>{published}</Text>
               }
 
-              {view.description && article.indicators &&
+              {view.description && article.lead &&
                 <Text style={[
                   style.description,
                   style.descriptionСontainer
                 ]}>
-                  {article.indicators}
+                  {article.lead}
                 </Text>
               }
 

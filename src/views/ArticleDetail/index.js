@@ -7,7 +7,7 @@ import {
     View,
     Text,
     Dimensions,
-    ImageBackground
+    StatusBar,
 } from 'react-native';
 
 import {
@@ -57,6 +57,10 @@ class ArticleDetail extends Component {
                 topPart={this.topPart(style)}
 
             >
+                <StatusBar
+                    {...configStyles.STATUS_BAR}
+                    translucent={true}
+                />
                 <TagsList
                     key={uuid()}
                     tags={props.article.parsingDataFiltered}
@@ -167,77 +171,6 @@ class ArticleDetail extends Component {
 
             }
         })
-
-        // return (
-        //     atricle.map(item => {
-        //         let customStyle = {};
-
-        //         // console.log('item.marks ', item.marks)
-
-        //         // item.content.map(item =>
-
-        //         switch (nodeType) {
-        //             case '': {
-        //                 //statements; 
-        //                 break;
-        //             }
-        //             case 'blockquote': {
-        //                 console.log('case blockquote ', item)
-        //                 let style = {...style}
-        //                 style.description = {...style.description, fontWeight: '700'}
-        //                 this.textBlock(item.content, item.nodeType, style, 'AAAAAAAAAAA')
-        //                 // item.content.map(el=>{
-        //                 //     // if (el.marks
-        //                 //     //     && el.marks.length > 0
-        //                 //     //     && marks[0].type == 'bold'
-        //                 //     // ) {
-        //                 //     //     customStyle = { ...customStyle, fontWeight: '700' }
-        //                 //     //     // console.log('true')
-        //                 //     // }
-        //                 //     return (
-        //                 //         <Text
-        //                 //             key={uuid()}
-        //                 //             style={[
-        //                 //                 style.description,
-
-        //                 //                 customStyle
-        //                 //             ]}>
-        //                 //             1111{el.value}1111
-        //                 //         </Text>
-        //                 //     )
-        //                 // })
-
-        //             }
-        //             default: {
-        //                 return (
-        //                     <Text
-        //                         key={uuid()}
-        //                         style={[
-        //                             style.description,
-        //                             customStyle
-        //                         ]}>
-        //                         {item.value} {text}
-        //                     </Text>
-        //                 )
-        //             }
-        //         }
-
-        //             // if (item.nodeType == 'paragraph') {
-        //             //     return (
-        //             //         <Text
-        //             //             key={uuid()}
-        //             //             style={[
-        //             //                 style.description,
-        //             //                 customStyle
-        //             //             ]}>
-        //             //             {item.value}
-        //             //         </Text>
-        //             //     )
-        //             // }
-
-        //         }
-        //     )
-        // )
 
     }
 

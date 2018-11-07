@@ -3,13 +3,17 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
     View,
+    StatusBar,
     FlatList
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 import { getArticles } from 'app/redux/actions/articles'
 import Content from 'app/components/Content';
 import Article from 'app/components/Article';
 
+import * as routes from "app/config/sceneKeys";
+import * as configStyles from 'app/config/style';
 import styles from './styles';
 
 class Articles extends Component {
@@ -22,15 +26,26 @@ class Articles extends Component {
         loading: false
     }
 
+    componentWillMount() {
+        const { props } = this;
+        props.articles.length == 0 ? this.setState({ loading: true }) : false
+    }
+
+
     componentDidMount() {
         const { props } = this;
+        Actions.push([routes.LOADING], {
+            show: true
+        })
         // setTimeout(()=>{
         //     this.setState({
         //         loading: false
         //     })
         // }, 2000)
         if (props.articles.length == 0) {
-            props.getArticles();
+            props.getArticles().then(() => {
+                setTimeout(() => { this.setState({ loading: false }) }, 1500)
+            });
         }
     }
 
@@ -45,6 +60,9 @@ class Articles extends Component {
                 style={style.container}
                 showLoading={state.loading}
             >
+                <StatusBar
+                    {...configStyles.STATUS_BAR}
+                />
 
                 <View
                     style={style.content}
@@ -52,11 +70,11 @@ class Articles extends Component {
                     <FlatList
                         data={props.articles}
                         keyExtractor={item => item.id}
+                        extraData={props}
                         renderItem={({ item }) =>
                             <Article
                                 article={item}
                                 type={types[Math.floor(Math.random() * types.length)]}
-                                // type='selected'
                                 followList={props.followList}
                             />
                         }

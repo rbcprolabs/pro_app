@@ -4,19 +4,14 @@ import { connect } from 'react-redux';
 import {
     View,
     Text,
-
+    StatusBar
 } from 'react-native';
 
-import {
-    Actions
-} from 'react-native-router-flux';
+
 import { getArticles } from 'app/redux/actions/articles'
 import Content from 'app/components/Content';
-import Article from 'app/components/Article';
-import Button from 'app/components/Button';
 
-// import * as contentful from 'contentful'
-
+import * as configStyles from 'app/config/style';
 
 import styles from './styles';
 
@@ -36,7 +31,7 @@ class Settings extends Component {
         //         loading: false
         //     })
         // }, 2000)
-      
+
 
 
     }
@@ -51,11 +46,13 @@ class Settings extends Component {
                 style={style.container}
                 showLoading={state.loading}
             >
-
+                <StatusBar
+                    {...configStyles.STATUS_BAR}
+                />
                 <View
                     style={style.categoriesContainer}
                 >
-                <Text>Settings</Text>
+                    <Text>Settings</Text>
                 </View>
             </Content>
         );

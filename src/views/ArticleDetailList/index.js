@@ -79,7 +79,10 @@ class ArticleDetailList extends Component {
                 bottomPart={this.bottomPart(props, state)}
 
             >
-                <StatusBar hidden />
+                <StatusBar
+                    {...configStyles.STATUS_BAR}
+                    hidden
+                />
 
                 <View style={style.content}>
 
@@ -87,6 +90,7 @@ class ArticleDetailList extends Component {
                         data={props.articles}
                         keyExtractor={item => item.id}
                         renderItem={this.articleItem}
+                        extraData={props}
                     />
 
                 </View>

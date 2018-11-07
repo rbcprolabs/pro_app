@@ -34,6 +34,14 @@ export default class Loading extends Component {
     selectedWord: ''
   }
 
+  componentWillMount() {
+    const { state } = this;
+
+    this.setState({
+      selectedWord: state.words[Math.floor(Math.random() * state.words.length)]
+    })
+  }
+
   componentDidMount() {
     this.animation();
   }

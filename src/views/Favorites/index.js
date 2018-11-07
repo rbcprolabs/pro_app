@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
     View,
-    Text
+    Text,
+    StatusBar
 } from 'react-native';
 
 import {
@@ -13,7 +14,7 @@ import Content from 'app/components/Content';
 import Article from 'app/components/Article';
 
 // import * as contentful from 'contentful'
-
+import * as configStyles from 'app/config/style';
 import * as routes from "app/config/sceneKeys";
 import styles from './styles';
 
@@ -49,7 +50,9 @@ class Favorites extends Component {
                 style={style.container}
                 showLoading={state.loading}
             >
-
+                <StatusBar
+                    {...configStyles.STATUS_BAR}
+                />
                 <View
                     style={style.content}
                 >

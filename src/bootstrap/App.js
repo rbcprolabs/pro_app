@@ -15,23 +15,14 @@ import * as routes from "app/config/sceneKeys";
 import styles from './styles';
 
 
-
-import NavBar from "app/components/NavBar";
-// import * as contentful from 'contentful'
-// const contentful = require('contentful')
-
-
 // Redux
-import Index from 'app/views/Index';
 import Categories from 'app/views/Categories';
 import Articles from 'app/views/Articles';
 import ArticleDetailList from 'app/views/ArticleDetailList';
 import ArticleDetail from 'app/views/ArticleDetail';
 import Favorites from 'app/views/Favorites';
 import Settings from 'app/views/Settings';
-
 // END Redux
-
 
 export default class App extends Component {
 
@@ -41,15 +32,15 @@ export default class App extends Component {
         const style = styles();
         // For network debug
         // GLOBAL.XMLHttpRequest = GLOBAL.originalXMLHttpRequest || GLOBAL.XMLHttpRequest;
-        
+
         Rox.setup("5bd03940fd54c84192765520")
-       
-       
+
+
         // const flags = {
         //     articlesView: new Rox.Flag(true)
         //   };
         // Rox.register('TEST', flags);
-       
+
 
         // if (flags.articlesView.isEnabled()) {
         //     console.log('articlesView is enabled');
@@ -66,12 +57,6 @@ export default class App extends Component {
                     >
 
                         <Stack key="root">
-                            <Scene
-                                key={routes.INDEX.key}
-                                title={routes.INDEX.title}
-                                component={Index}
-                                navBar={NavBar}
-                            />
 
                             <Scene
                                 key={routes.CATEGORIES.key}

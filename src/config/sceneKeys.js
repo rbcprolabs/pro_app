@@ -37,7 +37,6 @@ export const SETTINGS = {
   title: "Настройки"
 };
 
-
 export const ARTICLES_EXAMPLE = {
   key: "ARTICLES_EXAMPLE",
   title: "Статьи пример"
