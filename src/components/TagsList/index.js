@@ -45,6 +45,22 @@ export default class TagsList extends Component {
     tags: []
   }
 
+  componentWillMount() {
+    const { props } = this;
+
+    if (props.randomMode) {
+      const categoryIndex = Math.floor(Math.random() * props.tags.length);
+      const tagIndex = Math.floor(Math.random() * props.tags[categoryIndex].items.length);
+      const tagSelected = props.tags[categoryIndex].items[tagIndex];
+
+      this.setState({
+        categoryIndex,
+        tagIndex,
+        tagSelected
+      })
+    }
+  }
+
   render() {
     const { props, state } = this;
     const style = styles(props);
@@ -88,7 +104,7 @@ export default class TagsList extends Component {
         {this.props.typeVisible &&
           <Text style={style.title}>{title}</Text>
         }
-        {data.items.map((tag, i) => 
+        {data.items.map((tag, i) =>
           <Tag
             key={uuid()}
             tag={tag}
@@ -99,9 +115,9 @@ export default class TagsList extends Component {
               tag
             })}
           />
-            
-          
-        
+
+
+
         )}
       </View>
     )
@@ -109,22 +125,19 @@ export default class TagsList extends Component {
 
 
   randomMode = () => {
-    const { props } = this;
-    const categoryIndex = Math.floor(Math.random() * props.tags.length);
-    const tagIndex = Math.floor(Math.random() * props.tags[categoryIndex].items.length);
-    const tagSelected = props.tags[categoryIndex].items[tagIndex];
+    const { props, state } = this;
 
     return (
       <Tag
         key={uuid()}
-        tag={tagSelected}
+        tag={state.tagSelected}
         convert={props.convert}
         style={{ marginTop: 0 }}
-        active={find(props.followList, tagSelected) ? true : false}
+        active={find(props.followList, state.tagSelected) ? true : false}
         onPress={() => this.onPress({
-          categoryIndex,
-          type: props.tags[categoryIndex].type,
-          tag: tagSelected
+          categoryIndex: state.categoryIndex,
+          type: props.tags[state.categoryIndex].type,
+          tag: state.tagSelected
         })}
       />
     )

@@ -64,6 +64,9 @@ export default props =>
         color: styles.COLOR_2,
         marginTop: 4
       },
+      props.bookmark && {
+        paddingRight: styles.INTENT
+      },
       props.type == 'selected' && {
         color: styles.COLOR_1,
       },

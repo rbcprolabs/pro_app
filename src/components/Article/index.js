@@ -89,7 +89,7 @@ export default class Article extends Component {
     const { props, state } = this;
     const { article } = props;
     const view = state.types[props.type];
-    const published = `${moment(article.published).format('DD.MM.YY, h:mm')} | ${article.geography}`;
+    const published = `${moment(article.published).format('DD.MM.YY, h:mm')}`;
     const tagsPreview = props.previewModeTag ? ['industries', 'companies'] : false;
     const tags = props.previewModeTag
       ?
@@ -149,11 +149,10 @@ export default class Article extends Component {
               </View>
             }
 
-            {view.tags == 'top'
-              && article.tags.length > 0 &&
+            {view.tags == 'top' &&
               <View style={style.topViewContainer}>
                 <TagsList
-                  tags={article.tags}
+                  tags={tags}
                   followList={props.followList}
                   randomMode={true}
                   convert={true}

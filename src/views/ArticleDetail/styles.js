@@ -16,7 +16,7 @@ export default props =>
         // flexWrap: 'wrap',
         // flexDirection: 'row',
         paddingTop: styles.INTENT,
-        paddingBottom: styles.IS_IPHONE_X ? styles.SPACE_BOTTOM : styles.INTENT,
+        paddingBottom: styles.IS_IPHONE_X ? styles.SPACE_BOTTOM : styles.INTENT - 10,
         paddingHorizontal: styles.INTENT,
       }
 
@@ -119,7 +119,7 @@ export default props =>
     imageContainer: StyleSheet.flatten([
       {
         marginTop: styles.INTENT,
-        marginBottom: styles.INTENT,
+        marginBottom: styles.INTENT
       }
     ]),
 

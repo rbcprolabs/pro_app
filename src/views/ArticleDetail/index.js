@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
@@ -6,12 +6,15 @@ import { isEmpty } from 'lodash';
 import {
     View,
     Text,
+    Dimensions,
     ImageBackground
 } from 'react-native';
 
 import {
     Actions
 } from 'react-native-router-flux';
+
+import AutoHeightImage from 'react-native-auto-height-image';
 import moment from 'moment';
 
 import { setFavorite } from 'app/redux/actions/favorites'
@@ -21,10 +24,7 @@ import TagsList from 'app/components/TagsList';
 import NavBar from 'app/components/NavBar';
 import TextNumeric from 'app/components/TextNumeric';
 
-
-
-
-
+import * as configStyles from 'app/config/style';
 import styles from './styles';
 
 class ArticleDetail extends Component {
@@ -34,7 +34,15 @@ class ArticleDetail extends Component {
     };
 
     state = {
-        loading: false
+        loading: false,
+        imageWidth: 0
+    }
+
+    componentWillMount() {
+        const imageWidth = Dimensions.get('window').width - configStyles.INTENT * 2;
+        this.setState({
+            imageWidth
+        })
     }
 
     render() {
@@ -49,14 +57,14 @@ class ArticleDetail extends Component {
                 topPart={this.topPart(style)}
 
             >
-                {/* <TagsList
+                <TagsList
                     key={uuid()}
                     tags={props.article.parsingDataFiltered}
                     followList={props.followList}
                     onPress={this.onPressTag}
                     typeVisible={true}
                     bgMode={true}
-                /> */}
+                />
                 <View style={style.content}>
                     {props.article.body.content.map(item =>
                         <View key={uuid()}>
@@ -69,14 +77,13 @@ class ArticleDetail extends Component {
                                     })
                                     :
                                     this.imageBlock({
-                                        path: item.content,
+                                        image: item.data.target.fields.file,
                                         text: item.data.target.fields.title,
                                     })
                             }
                         </View>
 
                     )}
-                    {/* <Text style={style.description}>{props.article.body}</Text> */}
 
                 </View>
             </Content>
@@ -250,19 +257,19 @@ class ArticleDetail extends Component {
     }
 
     imageBlock = ({
-        path,
+        image,
         text
     }) => {
-        const style = styles(this.props);
-        const testPath = 'https://images.sftcdn.net/images/t_app-cover-l,f_auto/p/befbcde0-9b36-11e6-95b9-00163ed833e7/260663710/the-test-fun-for-friends-screenshot.jpg';
+        const { state, props } = this;
+        const style = styles(props);
 
         return (
             <View
                 key={uuid()}
                 style={style.imageContainer}>
-                <ImageBackground
-                    source={{ uri: testPath }}
-                    style={{ width: '100%', height: 232 }}
+                <AutoHeightImage
+                    width={state.imageWidth}
+                    source={{ uri: `https:${image.url}` }}
                 />
                 {text !== '' &&
                     <Text style={style.imageDescription}>{text}</Text>

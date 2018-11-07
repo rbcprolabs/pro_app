@@ -3,10 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
     View,
-    Text,
-
+    FlatList
 } from 'react-native';
-
 
 import { getArticles } from 'app/redux/actions/articles'
 import Content from 'app/components/Content';
@@ -51,21 +49,33 @@ class Articles extends Component {
                 <View
                     style={style.content}
                 >
-                    {props.articles.map(article => {
-                        if (article.title == 'Пробить потолок: когда в России начнут строить деревянные многоэтажки') {
-                            return (
-                                <Article
-                                    key={article.id}
-                                    article={article}
-                                    // type={types[Math.floor(Math.random() * types.length)]}
-                                    type='default'
-                                    followList={props.followList}
-                                />
-                            )
+                    <FlatList
+                        data={props.articles}
+                        keyExtractor={item => item.id}
+                        renderItem={({ item }) =>
+                            <Article
+                                article={item}
+                                type={types[Math.floor(Math.random() * types.length)]}
+                                // type='selected'
+                                followList={props.followList}
+                            />
                         }
-                    }
+                    />
+                    {/* {props.articles.map(article => {
+                        // if (article.title == 'Пробить потолок: когда в России начнут строить деревянные многоэтажки') {
+                        return (
+                            <Article
+                                key={article.id}
+                                article={article}
+                                type={types[Math.floor(Math.random() * types.length)]}
+                                type='default'
+                                followList={props.followList}
+                            />
+                        )
+                        // }
+                    } */}
 
-                    )}
+                    {/* )} */}
                 </View>
             </Content>
         );
@@ -74,7 +84,6 @@ class Articles extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log('state ', state)
     return {
         articles: state.articles.list,
         followList: state.follow.list,

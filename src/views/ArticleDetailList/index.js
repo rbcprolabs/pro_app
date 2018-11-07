@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
     View,
     Text,
+    FlatList,
     StatusBar
 } from 'react-native';
 
@@ -82,28 +83,33 @@ class ArticleDetailList extends Component {
 
                 <View style={style.content}>
 
-                    {props.articles.map(article =>
-                        find(
-                            find(article.parsingDataFiltered, { 'type': props.type }).items,
-                            { 'term': props.tag.term }
-                        )
-                            ?
-                            <Article
-                                key={article.id}
-                                article={article}
-                                bookmark={true}
-                                type='withDescription'
-                                followList={props.followList}
-                                favorites={props.favorites}
-                                setFavorite={props.setFavorite}
-                            />
-                            :
-                            false
-                    )}
+                    <FlatList
+                        data={props.articles}
+                        keyExtractor={item => item.id}
+                        renderItem={this.articleItem}
+                    />
 
                 </View>
             </Content>
         );
+    }
+
+    articleItem = ({ item }) => {
+        const { props } = this;
+        const categoryFound = find(item.parsingDataFiltered, { 'type': props.type });
+
+        if (categoryFound && find(categoryFound.items, { 'term': props.tag.term })) {
+            return (
+                <Article
+                    article={item}
+                    bookmark={true}
+                    type='withDescription'
+                    followList={props.followList}
+                    favorites={props.favorites}
+                    setFavorite={props.setFavorite}
+                />
+            )
+        }
     }
 
     topPart = (style) => (

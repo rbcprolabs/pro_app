@@ -16,17 +16,14 @@ export const getArticles = () => dispatch =>
         const addTags = (fields, name, isFalt) => {
           if (!fields[name] || typeof fields[name] !== 'string') return;
           const items = Formatter.createTags(fields[name], isFalt);
-          // if (fields.title == 'MODERN Вадим Мошкович застроит бывшую промзону СУ-155 в Печатниках') {
-
-            fields.parsingData.push({
-              type: name,
-              items
-            })
-            fields.parsingDataFiltered.push({
-              type: name,
-              items: Formatter.clearSimilarTags(items)
-            })
-          // }
+          fields.parsingData.push({
+            type: name,
+            items
+          })
+          fields.parsingDataFiltered.push({
+            type: name,
+            items: Formatter.clearSimilarTags(items)
+          })
 
         }
 
