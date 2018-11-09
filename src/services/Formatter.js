@@ -57,59 +57,53 @@ const Formatter = {
     return result;
   },
 
-  // convertText(data, symbol) {
-  //   let result = [];
-  //   const splitAction = (text) => {
-  //     result = text.split(symbol).map(item => item.trim())
-  //   }
-  //   if (typeof data == 'object') {
-  //     data.map(tag => {
-  //       tag.map(item => splitAction(item))
-  //     })
-  //   } else {
-  //     splitAction(data)
-  //   }
-  //   return this.splitAction(data, symbol)
-  // },
-
   splitAction(text, symbol) {
     return text.split(symbol).map(item => item.trim())
   },
 
   clearSimilarTags(array) {
-    const firstLevels = array.filter(item => item.level == 1);
-    const removedSimilar = uniqWith(firstLevels, isEqual);
-    const slashArray = [];
-
-    removedSimilar.map(item => {
-      slashArray.push(this.splitAction(item.fullTerm, '/'))
+    array.map(item => {
+      this.splitAction(item.fullTerm, '/')
     });
 
-    slashArray.map((item, i) =>
-      slashArray.map((el, indexSecond) => {
-
-        // Clear similar for first level
-        if (item.length == 1
-          && el.length > 1
-          && el[0] == item[0]
-        ) {
-          removedSimilar.splice(i, 1)
-        }
-
-        // Create two linees
-        if (i !== indexSecond
-          && item[1] == el[1]
-          && slashArray[i].length > 1
-        ) {
-          removedSimilar[i].term = slashArray[i][0];
-          removedSimilar[i].description = slashArray[i][1];
-        }
-      })
-
-    )
-
-    return removedSimilar
+    return array
   }
+
+// }
+// clearSimilarTags(array) {
+//   const firstLevels = array.filter(item => item.level == 1);
+//   const removedSimilar = uniqWith(firstLevels, isEqual);
+//   const slashArray = [];
+
+//   removedSimilar.map(item => {
+//     slashArray.push(this.splitAction(item.fullTerm, '/'))
+//   });
+
+//   slashArray.map((item, i) =>
+//     slashArray.map((el, indexSecond) => {
+
+//       // Clear similar for first level
+//       if (item.length == 1
+//         && el.length > 1
+//         && el[0] == item[0]
+//       ) {
+//         removedSimilar.splice(i, 1)
+//       }
+
+//       // Create two linees
+//       if (i !== indexSecond
+//         && item[1] == el[1]
+//         && slashArray[i].length > 1
+//       ) {
+//         removedSimilar[i].term = slashArray[i][0];
+//         removedSimilar[i].description = slashArray[i][1];
+//       }
+//     })
+
+//   )
+
+//   return removedSimilar
+// }
 
 }
 

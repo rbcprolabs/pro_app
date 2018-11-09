@@ -15,7 +15,9 @@ export const getArticles = () => dispatch =>
         const list = [];
         const addTags = (fields, name, isFalt) => {
           if (!fields[name] || typeof fields[name] !== 'string') return;
+          
           const items = Formatter.createTags(fields[name], isFalt);
+
           fields.parsingData.push({
             type: name,
             items
