@@ -54,19 +54,32 @@ const Formatter = {
 
     })
 
-    return result;
+    const uniqueTermsFilter = (acc,val) => acc.findIndex(i => i.fullTerm === val.fullTerm) === -1? [...acc, val] : [...acc];
+    return result.reduce(uniqueTermsFilter, []);
   },
 
   splitAction(text, symbol) {
     return text.split(symbol).map(item => item.trim())
   },
 
-  clearSimilarTags(array) {
-    array.map(item => {
-      this.splitAction(item.fullTerm, '/')
-    });
+  clearSimilarTags(array, isFlat) {
+    let filtered = [];
 
-    return array
+    if(!array.length) {
+      return array
+    }
+
+    if(!isFlat) {
+      // надо оставить только второй уровень. Держим в уме, что если ни одного элемента 2-го уровня не нашли, то в array только первый уровень
+      filtered = array.filter(item => item.level === 1);
+    }
+
+    if(filtered.length === 0) {
+      filtered = [...array];
+    }
+
+    // теперь надо ограничить количество терминов для отображения
+    return filtered.splice(0,2);
   }
 
 // }

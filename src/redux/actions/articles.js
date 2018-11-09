@@ -24,7 +24,7 @@ export const getArticles = () => dispatch =>
           })
           fields.parsingDataFiltered.push({
             type: name,
-            items: Formatter.clearSimilarTags(items)
+            items: Formatter.clearSimilarTags(items, isFalt)
           })
 
         }

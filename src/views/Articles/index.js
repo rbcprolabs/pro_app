@@ -99,7 +99,7 @@ class Articles extends Component {
         }
 
         if (state.maxTags !== 0
-            && this.checkMaxTags(item.parsingDataFiltered) > state.maxTags
+            && this.checkMaxTags(item.parsingData) > state.maxTags
         ) {
             type = 'withDescription'
         }
@@ -115,11 +115,11 @@ class Articles extends Component {
 
     setMaxTags = props => {
         const articleWithMaxTags = maxBy(props.articles, item =>
-            this.checkMaxTags(item.parsingDataFiltered)
+            this.checkMaxTags(item.parsingData)
         );
 
         this.setState({
-            maxTags: this.checkMaxTags(articleWithMaxTags.parsingDataFiltered) * .8
+            maxTags: this.checkMaxTags(articleWithMaxTags.parsingData) * .8
         })
     }
 

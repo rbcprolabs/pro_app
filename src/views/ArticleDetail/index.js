@@ -62,7 +62,7 @@ class ArticleDetail extends Component {
                 />
                 <TagsList
                     key={uuid()}
-                    tags={props.article.parsingDataFiltered}
+                    tags={props.article.parsingData}
                     followList={props.followList}
                     onPress={this.onPressTag}
                     typeVisible={true}
