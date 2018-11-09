@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles';
 
-class Button extends Component {
+export default class Button extends Component {
   constructor(props) {
     super(props);
   }
@@ -47,6 +47,3 @@ class Button extends Component {
   }
 
 }
-
-
-export default Button;

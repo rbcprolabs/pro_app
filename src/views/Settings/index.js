@@ -6,10 +6,12 @@ import {
     Text,
     StatusBar
 } from 'react-native';
+import AsincStorage from 'app/services/AsincStorage';
 
 
 import { getArticles } from 'app/redux/actions/articles'
 import Content from 'app/components/Content';
+import Button from 'app/components/Button';
 
 import * as configStyles from 'app/config/style';
 
@@ -52,15 +54,19 @@ class Settings extends Component {
                 <View
                     style={style.categoriesContainer}
                 >
-                    <Text>Settings</Text>
+                    <Button
+                        text="Удалить все подписки с памяти?"
+                        onPress={this.onPress}
+                    />
                 </View>
             </Content>
         );
     }
 
-    onPress = (id) => {
-        console.log('presses id ', id)
-
+    onPress = () => {
+        AsincStorage.clear().then(() => {
+            alert('Все подписки удалены')
+        })
     }
 
 }

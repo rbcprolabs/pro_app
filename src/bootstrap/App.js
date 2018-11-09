@@ -7,9 +7,14 @@ import {
     Tabs,
     Modal
 } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 
 import Rox from 'rox-react-native';
 import ReduxContainer from 'app/bootstrap/Redux';
+import InitialData from 'app/bootstrap/InitialData';
+import { setFavorite } from 'app/redux/actions/favorites';
+
+
 
 import * as routes from "app/config/sceneKeys";
 import styles from './styles';
@@ -24,9 +29,15 @@ import Favorites from 'app/views/Favorites';
 import Settings from 'app/views/Settings';
 // END Redux
 
+import AsincStorage from 'app/services/AsincStorage';
+
+
 export default class App extends Component {
 
+    componentWillMount() {
+        // InitialData();
 
+    }
 
     render() {
         const style = styles();
@@ -34,6 +45,11 @@ export default class App extends Component {
         // GLOBAL.XMLHttpRequest = GLOBAL.originalXMLHttpRequest || GLOBAL.XMLHttpRequest;
 
         Rox.setup("5bd03940fd54c84192765520")
+        // let favorites;
+
+        // if((favorites = await AsincStorage.get('favorites'))){
+
+        // };
 
 
         // const flags = {
@@ -48,7 +64,7 @@ export default class App extends Component {
         //   }else{
         //       alert(JSON.stringify(flags.articlesView.isEnabled()))
         //   }
-
+        
         return (
             <ReduxContainer>
                 <Router sceneStyle={style.routerContainer}>
@@ -80,7 +96,6 @@ export default class App extends Component {
                                 panHandlers={null}
                                 hideNavBar
                                 initial
-
                             >
                                 <Tabs
                                     key={routes.FEED.key}

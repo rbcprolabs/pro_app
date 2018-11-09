@@ -68,9 +68,7 @@ class ArticleDetailList extends Component {
     render() {
         const { state, props } = this;
         const style = styles({ ...props, ...state });
-        const types = ['default', 'selected', 'withDescription']
 
-        console.log('props дфдф ', props)
         return (
             <Content
                 style={style.container}
@@ -111,6 +109,10 @@ class ArticleDetailList extends Component {
                     followList={props.followList}
                     favorites={props.favorites}
                     setFavorite={props.setFavorite}
+                    tagOnes={[{
+                        type: props.type,
+                        items: [props.tag]
+                    }]}
                 />
             )
         }

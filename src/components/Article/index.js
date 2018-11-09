@@ -10,7 +10,7 @@ import {
 } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { find } from 'lodash';
+import { find, isEmpty } from 'lodash';
 
 
 import Tag from 'app/components/Tag';
@@ -38,6 +38,7 @@ export default class Article extends Component {
     previewModeTag: PropTypes.bool,
     bookmark: PropTypes.bool,
     type: PropTypes.string,
+    tagOnes: PropTypes.array,
     setFavorite: PropTypes.func,
     onPressTag: PropTypes.func,
     onPress: PropTypes.func,
@@ -51,6 +52,7 @@ export default class Article extends Component {
     favorites: [],
     followList: [],
     previewModeTag: true,
+    tagOnes: [],
   }
 
   constructor(props) {
@@ -89,9 +91,9 @@ export default class Article extends Component {
     const { props, state } = this;
     const { article } = props;
     const view = state.types[props.type];
-    const published = `${moment(article.published).format('DD.MM.YY, h:mm')}`;
+    const published = `${moment(article.published).format('DD.MM.YY, h:mm')} | ${article.sources.fields.name}`;
     const tagsPreview = props.previewModeTag ? ['industries', 'companies'] : false;
-    const tags = props.previewModeTag
+    let tags = props.previewModeTag
       ?
       props.article.parsingDataFiltered.filter(tagList =>
         tagsPreview.find(preview =>
@@ -100,6 +102,10 @@ export default class Article extends Component {
       )
       :
       props.article.parsingDataFiltered;
+
+    if (props.tagOnes.length !== 0) {
+      tags = props.tagOnes
+    }
 
     const style = styles(props);
 

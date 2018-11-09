@@ -37,7 +37,7 @@ export const COLOR_9 = COLOR_BROWN_LIGHT_OPACITY;
 
 export const STATUS_BAR = {
   barStyle: 'dark-content',
-  backgroundColor: COLOR_1,
+  backgroundColor: 'transparent',
   translucent: true
 }
 

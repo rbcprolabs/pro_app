@@ -49,7 +49,6 @@ class ArticleDetail extends Component {
         const { state, props } = this;
         const style = styles(props);
 
-        console.log('props detail ', props)
         return (
             <Content
                 style={style.container}

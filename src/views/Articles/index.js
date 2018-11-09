@@ -6,11 +6,17 @@ import {
     StatusBar,
     FlatList
 } from 'react-native';
+import { maxBy } from 'lodash';
 import { Actions } from 'react-native-router-flux';
 
-import { getArticles } from 'app/redux/actions/articles'
+import { getArticles } from 'app/redux/actions/articles';
+import { setFavorite } from 'app/redux/actions/favorites';
+import { setFollow } from 'app/redux/actions/follow';
 import Content from 'app/components/Content';
 import Article from 'app/components/Article';
+import AsincStorage from 'app/services/AsincStorage';
+import InitialData from 'app/bootstrap/InitialData';
+
 
 import * as routes from "app/config/sceneKeys";
 import * as configStyles from 'app/config/style';
@@ -23,11 +29,16 @@ class Articles extends Component {
     };
 
     state = {
-        loading: false
+        loading: false,
+        maxTags: 0
     }
 
     componentWillMount() {
         const { props } = this;
+
+        InitialData('favorites', props.setFavorite);
+        InitialData('follow', props.setFollow);
+
         props.articles.length == 0 ? this.setState({ loading: true }) : false
     }
 
@@ -37,23 +48,23 @@ class Articles extends Component {
         Actions.push([routes.LOADING], {
             show: true
         })
-        // setTimeout(()=>{
-        //     this.setState({
-        //         loading: false
-        //     })
-        // }, 2000)
+
         if (props.articles.length == 0) {
             props.getArticles().then(() => {
                 setTimeout(() => { this.setState({ loading: false }) }, 1500)
             });
         }
+
+
+    }
+
+    componentWillReceiveProps(np) {
+        this.setMaxTags(np);
     }
 
     render() {
         const { state, props } = this;
         const style = styles(props);
-        const types = ['default', 'selected', 'withDescription']
-
 
         return (
             <Content
@@ -71,33 +82,50 @@ class Articles extends Component {
                         data={props.articles}
                         keyExtractor={item => item.id}
                         extraData={props}
-                        renderItem={({ item }) =>
-                            <Article
-                                article={item}
-                                type={types[Math.floor(Math.random() * types.length)]}
-                                followList={props.followList}
-                            />
-                        }
+                        renderItem={this.articleItem}
                     />
-                    {/* {props.articles.map(article => {
-                        // if (article.title == 'Пробить потолок: когда в России начнут строить деревянные многоэтажки') {
-                        return (
-                            <Article
-                                key={article.id}
-                                article={article}
-                                type={types[Math.floor(Math.random() * types.length)]}
-                                type='default'
-                                followList={props.followList}
-                            />
-                        )
-                        // }
-                    } */}
 
-                    {/* )} */}
                 </View>
             </Content>
         );
     }
+
+    articleItem = ({ item }) => {
+        const { props, state } = this;
+        let type = 'default';
+
+        if (item.format == 'Что это значит') {
+            type = 'selected'
+        }
+
+        if (state.maxTags !== 0
+            && this.checkMaxTags(item.parsingDataFiltered) > state.maxTags
+        ) {
+            type = 'withDescription'
+        }
+
+        return (
+            <Article
+                article={item}
+                type={type}
+                followList={props.followList}
+            />
+        )
+    }
+
+    setMaxTags = props => {
+        const articleWithMaxTags = maxBy(props.articles, item =>
+            this.checkMaxTags(item.parsingDataFiltered)
+        );
+
+        this.setState({
+            maxTags: this.checkMaxTags(articleWithMaxTags.parsingDataFiltered) * .8
+        })
+    }
+
+    checkMaxTags = array => array.reduce((sum, cur) => {
+        return sum + cur.items.length
+    }, array[0].items.length)
 
 }
 
@@ -111,6 +139,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getArticles: bindActionCreators(getArticles, dispatch),
+        setFavorite: bindActionCreators(setFavorite, dispatch),
+        setFollow: bindActionCreators(setFollow, dispatch)
 
     }
 }

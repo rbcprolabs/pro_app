@@ -83,17 +83,26 @@ export default class TagsList extends Component {
       case 'companies':
         title = 'Компании'
         break
-      case 'persons':
+      case 'people':
         title = 'Люди'
         break
       case 'indicators':
-        title = 'Отрасли'
+        title = 'Показатели'
         break
       case 'industries':
-        title = 'Промышленности'
+        title = 'Отрасли'
         break
       case 'tags':
         title = 'Тэги'
+        break
+      case 'geography':
+        title = 'География'
+        break
+      case 'format':
+        title = 'Формат'
+        break
+      case 'functions':
+        title = 'Функции'
         break
 
       default:
