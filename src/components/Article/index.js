@@ -31,7 +31,6 @@ export default class Article extends Component {
       description: PropTypes.string,
       descriptions: PropTypes.array,
       date: PropTypes.string,
-      tags: PropTypes.array,
     }),
     followList: PropTypes.array,
     favorites: PropTypes.array,
@@ -64,7 +63,7 @@ export default class Article extends Component {
       types: {
         default: {
           tags: 'bottom',
-          date: 'top',
+          date: 'bottom',
           description: false
         },
         selected: {
