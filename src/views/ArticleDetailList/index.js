@@ -98,7 +98,7 @@ class ArticleDetailList extends Component {
 
     articleItem = ({ item }) => {
         const { props } = this;
-        const categoryFound = find(item.parsingDataFiltered, { 'type': props.type });
+        const categoryFound = find(item.parsingData, { 'type': props.type });
 
         if (categoryFound && find(categoryFound.items, { 'term': props.tag.term })) {
             return (
