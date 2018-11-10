@@ -7,7 +7,8 @@ import Formatter from 'app/services/Formatter';
 export const getArticles = () => dispatch =>
 
   Contentful().getEntries({
-    'content_type': 'articles'
+    'content_type': 'articles',
+    order: '-fields.published'
   })
     .then(
       resp => {
