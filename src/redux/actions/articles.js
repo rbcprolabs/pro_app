@@ -70,7 +70,6 @@ export const getArticles = () => dispatch =>
             }
           ];
 
-          fields.tags = [];
           fields.parsingData = [];
           fields.parsingDataFiltered = [];
           fields.id = uuid();
