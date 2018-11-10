@@ -92,7 +92,8 @@ export default class Article extends Component {
     const { article } = props;
     const view = state.types[props.type];
     const published = `${moment(article.published).format('DD.MM.YY, h:mm')} | ${article.sources.fields.name}`;
-    const tagsPreview = props.previewModeTag ? ['industries', 'companies'] : false;
+    const tagsPreview = props.type === 'selected' ? ['tags'] : (props.previewModeTag ? ['industries', 'companies'] : false);
+    console.log('Filtered tags', props.article.parsingDataFiltered);
     let tags = props.previewModeTag
       ?
       props.article.parsingDataFiltered.filter(tagList =>
@@ -108,7 +109,6 @@ export default class Article extends Component {
     }
 
     const style = styles(props);
-
 
     return (
       <View style={style.globalContainer}>
