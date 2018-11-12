@@ -19,9 +19,17 @@ export default props =>
 
       props.type == '2' && {
         backgroundColor: styles.COLOR_3,
+        borderColor: styles.COLOR_3,
         height: styles.FIELD_HEIGHT - 18,
         paddingHorizontal: styles.INTENT - 7,
         borderRadius: styles.RADIUS / 2,
+      },
+
+      props.tagMode && {
+        alignItems: 'flex-start',
+        height: 'auto',
+        paddingVertical: styles.INTENT/2,
+        marginBottom: styles.INTENT/2
       },
 
       props.style && {

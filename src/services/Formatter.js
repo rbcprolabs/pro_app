@@ -54,7 +54,8 @@ const Formatter = {
 
     })
 
-    const uniqueTermsFilter = (acc,val) => acc.findIndex(i => i.fullTerm === val.fullTerm) === -1? [...acc, val] : [...acc];
+    const uniqueTermsFilter = (acc, val) => acc.findIndex(i => i.fullTerm === val.fullTerm) === -1 ? [...acc, val] : [...acc];
+
     return result.reduce(uniqueTermsFilter, []);
   },
 
@@ -65,58 +66,79 @@ const Formatter = {
   clearSimilarTags(array, isFlat) {
     let filtered = [];
 
-    if(!array.length) {
+    if (!array.length) {
       return array
     }
 
-    if(!isFlat) {
+    if (!isFlat) {
       // надо оставить только второй уровень. Держим в уме, что если ни одного элемента 2-го уровня не нашли, то в array только первый уровень
       filtered = array.filter(item => item.level === 1);
     }
 
-    if(filtered.length === 0) {
+    if (filtered.length === 0) {
       filtered = [...array];
     }
 
     // теперь надо ограничить количество терминов для отображения
-    return filtered.splice(0,2);
+    return filtered.splice(0, 2);
+  },
+
+  mostPopular(arr, length) {
+    const counter = [];
+
+    arr.map(item => {
+      const index = counter.findIndex(obj => isEqual(obj.data, item));
+
+      if (index >= 0) {
+        counter[index].count += 1;
+      } else {
+        counter.push({
+          data: item,
+          count: 0
+        })
+      }
+    })
+
+    const filtered = counter.sort((a, b) => b.count - a.count).splice(0, length);
+
+    return filtered.map(obj => obj.data);
   }
 
-// }
-// clearSimilarTags(array) {
-//   const firstLevels = array.filter(item => item.level == 1);
-//   const removedSimilar = uniqWith(firstLevels, isEqual);
-//   const slashArray = [];
+  // }
+  // clearSimilarTags(array) {
+  //   const firstLevels = array.filter(item => item.level == 1);
+  //   const removedSimilar = uniqWith(firstLevels, isEqual);
+  //   const slashArray = [];
 
-//   removedSimilar.map(item => {
-//     slashArray.push(this.splitAction(item.fullTerm, '/'))
-//   });
+  //   removedSimilar.map(item => {
+  //     slashArray.push(this.splitAction(item.fullTerm, '/'))
+  //   });
 
-//   slashArray.map((item, i) =>
-//     slashArray.map((el, indexSecond) => {
+  //   slashArray.map((item, i) =>
+  //     slashArray.map((el, indexSecond) => {
 
-//       // Clear similar for first level
-//       if (item.length == 1
-//         && el.length > 1
-//         && el[0] == item[0]
-//       ) {
-//         removedSimilar.splice(i, 1)
-//       }
+  //       // Clear similar for first level
+  //       if (item.length == 1
+  //         && el.length > 1
+  //         && el[0] == item[0]
+  //       ) {
+  //         removedSimilar.splice(i, 1)
+  //       }
 
-//       // Create two linees
-//       if (i !== indexSecond
-//         && item[1] == el[1]
-//         && slashArray[i].length > 1
-//       ) {
-//         removedSimilar[i].term = slashArray[i][0];
-//         removedSimilar[i].description = slashArray[i][1];
-//       }
-//     })
+  //       // Create two linees
+  //       if (i !== indexSecond
+  //         && item[1] == el[1]
+  //         && slashArray[i].length > 1
+  //       ) {
+  //         removedSimilar[i].term = slashArray[i][0];
+  //         removedSimilar[i].description = slashArray[i][1];
+  //       }
+  //     })
 
-//   )
+  //   )
 
-//   return removedSimilar
-// }
+  //   return removedSimilar
+  // }
 
 }
 

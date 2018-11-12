@@ -112,7 +112,7 @@ export default class Loading extends Component {
       if (!state.words[i]) {
         i = 0
       }
-    }, 1000)
+    }, 600)
   }
 
 

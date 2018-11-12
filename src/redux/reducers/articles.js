@@ -3,6 +3,7 @@ import { ARTICLES } from '../types';
 export default function articles(
   state = {
     list: [],
+    mostPopularTags: {},
   },
   action = {}
 ) {
@@ -11,7 +12,8 @@ export default function articles(
     case ARTICLES.get: {
       return {
         ...state,
-        list: action.list
+        list: action.list,
+        mostPopularTags: action.mostPopularTags
       }
     }
 

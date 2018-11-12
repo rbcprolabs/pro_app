@@ -17,14 +17,13 @@ export default class Button extends Component {
     type: PropTypes.string,
     onPress: PropTypes.func,
     // styling
-    isWhite: PropTypes.bool,
-    isGreen: PropTypes.bool,
-    isBlue: PropTypes.bool,
+    tagMode: PropTypes.bool,
+    convert: PropTypes.bool,
   }
 
   static defaultProps = {
     type: '1',
-
+    tagMode: false
   }
 
   render() {

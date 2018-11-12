@@ -92,7 +92,7 @@ export default class Article extends Component {
     const view = state.types[props.type];
     const published = `${moment(article.published).format('DD.MM.YY, h:mm')} | ${article.sources.fields.name}`;
     const tagsPreview = props.type === 'selected' ? ['tags'] : (props.previewModeTag ? ['industries', 'companies'] : false);
-    console.log('Filtered tags', props.article.parsingDataFiltered);
+    // console.log('Filtered tags', props.article.parsingDataFiltered);
     let tags = props.previewModeTag
       ?
       props.article.parsingDataFiltered.filter(tagList =>
@@ -105,6 +105,10 @@ export default class Article extends Component {
 
     if (props.tagOnes.length !== 0) {
       tags = props.tagOnes
+    }
+
+    if (tags.length == 0) {
+      console.log("Sorry, I haven't category 'tags' ", article)
     }
 
     const style = styles(props);
@@ -154,7 +158,8 @@ export default class Article extends Component {
               </View>
             }
 
-            {view.tags == 'top' &&
+            {tags.length > 0
+              && view.tags == 'top' &&
               <View style={style.topViewContainer}>
                 <TagsList
                   tags={tags}

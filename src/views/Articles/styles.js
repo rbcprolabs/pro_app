@@ -14,8 +14,8 @@ export default props =>
 
     content: StyleSheet.flatten([
       {
-        flexWrap: 'wrap',
-        flexDirection: 'row',
+        // flexWrap: 'wrap',
+        // flexDirection: 'row',
         paddingTop: styles.INTENT,
         paddingHorizontal: styles.INTENT / 4,
         paddingBottom: styles.SPACE_BOTTOM

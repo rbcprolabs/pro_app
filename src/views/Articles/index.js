@@ -14,7 +14,7 @@ import { setFavorite } from 'app/redux/actions/favorites';
 import { setFollow } from 'app/redux/actions/follow';
 import Content from 'app/components/Content';
 import Article from 'app/components/Article';
-import AsincStorage from 'app/services/AsincStorage';
+import MostPopularTags from 'app/components/MostPopularTags';
 import InitialData from 'app/bootstrap/InitialData';
 
 
@@ -78,6 +78,7 @@ class Articles extends Component {
                 <View
                     style={style.content}
                 >
+                    <MostPopularTags/>
                     <FlatList
                         data={props.articles}
                         keyExtractor={item => item.id}

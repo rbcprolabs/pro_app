@@ -40,6 +40,7 @@ class ArticleDetail extends Component {
 
     componentWillMount() {
         const imageWidth = Dimensions.get('window').width - configStyles.INTENT * 2;
+        
         this.setState({
             imageWidth
         })
@@ -218,7 +219,7 @@ class ArticleDetail extends Component {
         return (
             <View>
                 <NavBar
-                    title='Кококоммерсант'
+                    title={props.article.sources.fields.name}
                     actionRight={this.addFavorite}
                     favorites={props.favorites}
                     article={props.article}
