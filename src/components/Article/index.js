@@ -87,6 +87,10 @@ export default class Article extends Component {
     // this.getTagsIndexes(props.data.tags, state.countTags)
   }
 
+  // componentWillReceiveProps(np) {
+  //   console.log('np ', np)
+  // }
+
 
   render() {
     const { props, state } = this;
@@ -94,7 +98,7 @@ export default class Article extends Component {
     const view = state.types[props.type];
     const published = `${moment(article.published).format('DD.MM.YY, h:mm')} | ${article.sources.fields.name}`;
     const tagsPreview = props.type === 'selected' ? ['tags'] : (props.previewModeTag ? ['industries', 'companies'] : false);
-    // console.log('Filtered tags', props.article.parsingDataFiltered);
+
     let tags = props.previewModeTag
       ?
       props.article.parsingDataFiltered.filter(tagList =>
@@ -108,7 +112,6 @@ export default class Article extends Component {
     if (props.disableTags) {
       tags = []
     }
-
 
     const style = styles(props);
 
@@ -139,7 +142,13 @@ export default class Article extends Component {
             {props.bookmark &&
               <ButtonIcon
                 name={"ios-bookmark"}
-                color={find(props.favorites, article) ? configStyles.COLOR_3 : configStyles.COLOR_6}
+                color={find(props.favorites, {
+                  title: article.title,
+                  origin: article.origin,
+                  origin: article.origin,
+                  lead: article.lead,
+                  format: article.format,
+                }) ? configStyles.COLOR_3 : configStyles.COLOR_6}
                 size={34}
                 style={style.bookmark}
                 onPress={this.onPressFavorite}

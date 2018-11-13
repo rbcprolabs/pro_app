@@ -48,22 +48,6 @@ class ArticleDetailList extends Component {
 
     }
 
-    componentDidMount() {
-        const { state, props } = this;
-
-        // props.articles.map(article =>
-        //     find(find(article.parsingDataFiltered, { 'type': props.type }).items, { 'term': props.tag.term })
-        //         ?
-        //         console.log('article ', article)
-        //         : false
-        // )
-
-        // props.articles.map(article => {
-        //     console.log('lala ', find(article.parsingDataFiltered, { 'type': props.type }))
-
-        // })
-    }
-
     render() {
         const { state, props } = this;
         const style = styles({ ...props, ...state });
@@ -172,7 +156,6 @@ class ArticleDetailList extends Component {
 function mapStateToProps(state) {
     return {
         articles: state.articles.list,
-        followList: state.follow.list,
         followList: state.follow.list,
         favorites: state.favorites.list,
     }

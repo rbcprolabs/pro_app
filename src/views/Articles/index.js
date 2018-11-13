@@ -6,7 +6,7 @@ import {
     StatusBar,
     FlatList
 } from 'react-native';
-import { maxBy } from 'lodash';
+import { maxBy, isEqual, difference } from 'lodash';
 import { Actions } from 'react-native-router-flux';
 
 import { getArticles } from 'app/redux/actions/articles';
@@ -56,12 +56,12 @@ class Articles extends Component {
                 setTimeout(() => { this.setState({ loading: false }) }, 1500)
             });
         }
-
-
     }
 
     componentWillReceiveProps(np) {
-        this.setMaxTags(np);
+        if (np.articles.length > 0) {
+            this.setMaxTags(np);
+        }
     }
 
     render() {
@@ -80,12 +80,10 @@ class Articles extends Component {
                 <View
                     style={style.content}
                 >
-                    <FlatList
-                        data={props.articles}
-                        keyExtractor={item => item.id}
-                        extraData={props}
-                        renderItem={this.articleItem}
-                    />
+
+                    {props.articles.map((item, index) =>
+                        this.articleItem({ item, index })
+                    )}
 
                 </View>
             </Content>
@@ -108,22 +106,31 @@ class Articles extends Component {
         }
 
         if ((index + 1) % 5 === 0) {
-            popularType = state.populars[(index + 1) / 5 - 1];           
+            popularType = state.populars[(index + 1) / 5 - 1];
         }
 
         return (
-            <View>
+            <View key={item.id}>
                 {popularType &&
                     <MostPopularTags
                         tags={props.mostPopularTags[popularType]}
                         tagsType={popularType}
                     />
                 }
-                <Article
-                    article={item}
-                    type={type}
-                    followList={props.followList}
-                />
+                {
+                    item.title == 'В центре Москвы объем свободных торговых площадей сократился на 4%' ?
+                        <Article
+                            article={item}
+                            type={type}
+                            bookmark={true}
+                            favorites={props.favorites}
+                            setFavorite={props.setFavorite}
+                            followList={props.followList}
+                        />
+                        :
+                        false
+                }
+
             </View>
         )
     }
@@ -136,6 +143,7 @@ class Articles extends Component {
         this.setState({
             maxTags: this.checkMaxTags(articleWithMaxTags.parsingData) * .8
         })
+
     }
 
     checkMaxTags = array => array.reduce((sum, cur) => {
@@ -149,6 +157,7 @@ function mapStateToProps(state) {
         articles: state.articles.list,
         tags: state.articles.list,
         mostPopularTags: state.articles.mostPopularTags,
+        favorites: state.favorites.list,
     }
 }
 
@@ -157,7 +166,6 @@ function mapDispatchToProps(dispatch) {
         getArticles: bindActionCreators(getArticles, dispatch),
         setFavorite: bindActionCreators(setFavorite, dispatch),
         setFollow: bindActionCreators(setFollow, dispatch)
-
     }
 }
 

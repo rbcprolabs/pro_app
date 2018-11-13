@@ -40,7 +40,7 @@ class ArticleDetail extends Component {
 
     componentWillMount() {
         const imageWidth = Dimensions.get('window').width - configStyles.INTENT * 2;
-        
+
         this.setState({
             imageWidth
         })
@@ -49,7 +49,7 @@ class ArticleDetail extends Component {
     render() {
         const { state, props } = this;
         const style = styles(props);
-
+        console.log('props.article ', props.article)
         return (
             <Content
                 style={style.container}
@@ -61,6 +61,10 @@ class ArticleDetail extends Component {
                     {...configStyles.STATUS_BAR}
                     translucent={true}
                 />
+                <View style={style.header}>
+                    <Text style={style.globalTitle}>{props.article.title}</Text>
+                    <Text style={style.date}>{moment(props.article.published).format('DD.MM.YY, h:mm')}</Text>
+                </View>
                 <TagsList
                     key={uuid()}
                     tags={props.article.parsingData}
@@ -104,10 +108,20 @@ class ArticleDetail extends Component {
         const { props } = this;
         const style = styles(props);
 
-        // console.log(nodeType, atricle)
+        console.log(nodeType, atricle)
 
-
+        // TODO: переработать вывод статьи под параграфф
         return atricle.map((item, i) => {
+            switch (item.nodeType) {
+                case 'hyperlink': {
+                    return this.textBlock({
+                        atricle: item.content,
+                        nodeType: item.nodeType,
+                        customStyle: style.link,
+                        viewType: 'link'
+                    })
+                }
+            }
 
             switch (nodeType) {
                 // case 'heading-2': {
@@ -156,8 +170,11 @@ class ArticleDetail extends Component {
                         && item.marks[0].type == 'bold') {
                         customStyle = { ...customStyle, fontWeight: '700' };
 
-                        // console.log('viewType ', viewType)
+                        // console.log('nodeType ', item.nodeType)
                         if (viewType == 'blockquote') {
+                            customStyle = { ...customStyle, ...style.author };
+                        }
+                        if (viewType == 'link') {
                             customStyle = { ...customStyle, ...style.author };
                         }
                         // console.log('customStyle ', customStyle)
@@ -217,18 +234,12 @@ class ArticleDetail extends Component {
         const { props } = this;
 
         return (
-            <View>
-                <NavBar
-                    title={props.article.sources.fields.name}
-                    actionRight={this.addFavorite}
-                    favorites={props.favorites}
-                    article={props.article}
-                />
-                <View style={style.header}>
-                    <Text style={style.globalTitle}>{props.article.title}</Text>
-                    <Text style={style.date}>{moment(props.article.published).format('DD.MM.YY, h:mm')}</Text>
-                </View>
-            </View>
+            <NavBar
+                title={props.article.sources.fields.name}
+                actionRight={this.addFavorite}
+                favorites={props.favorites}
+                article={props.article}
+            />
         )
     }
 

@@ -83,7 +83,7 @@ export default props =>
       {
         fontSize: styles.FONT_SIZE,
         color: styles.COLOR_2,
-        flexBasis: '100%',
+        // flexBasis: '100%',
         marginTop: 10,
         marginBottom: 10,
       }
@@ -96,6 +96,17 @@ export default props =>
         color: styles.COLOR_2,
         fontStyle: 'italic',
         flexBasis: '100%',
+      }
+
+    ]),
+
+    link: StyleSheet.flatten([
+      {
+        fontSize: styles.FONT_SIZE,
+        color: styles.COLOR_3,
+        fontStyle: 'italic',
+        marginTop: 0,
+        marginBottom: 0,
       }
 
     ]),
