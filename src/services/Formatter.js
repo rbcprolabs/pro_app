@@ -98,7 +98,7 @@ const Formatter = {
         })
       }
     })
-
+    
     const filtered = counter.sort((a, b) => b.count - a.count).splice(0, length);
 
     return filtered.map(obj => obj.data);

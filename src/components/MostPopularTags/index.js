@@ -4,10 +4,15 @@ import {
   Text,
   TouchableOpacity
 } from 'react-native';
+import {
+  Actions
+} from 'react-native-router-flux';
 import PropTypes from 'prop-types';
+import uuid from 'uuid/v1';
 
 import Button from 'app/components/Button';
 
+import * as routes from "app/config/sceneKeys";
 import styles from './styles';
 
 export default class MostPopularTags extends Component {
@@ -17,30 +22,13 @@ export default class MostPopularTags extends Component {
 
   static propTypes = {
     tags: PropTypes.array,
-    title: PropTypes.string
+    tagsType: PropTypes.string,
+    onPress: PropTypes.func,
+    title: PropTypes.string,
   }
 
   static defaultProps = {
-    type: '1',
-    title: 'Сегодня в новостях',
-    tags: [
-      {
-        id: 'q1',
-        text: 'lala'
-      },
-      {
-        id: 'q2',
-        text: 'sdfssdfds dfgsdgfdsg'
-      },
-      {
-        id: 'q3',
-        text: 'sdfgsdfgdfgdf gdfg dfgfdgsgsdfg'
-      },
-      {
-        id: 'q4',
-        text: 'dsfgdg dsfgdg dsg'
-      },
-    ]
+    title: 'Сегодня в новостях'
   }
 
   render() {
@@ -59,14 +47,20 @@ export default class MostPopularTags extends Component {
         </View>
 
         <View style={style.content}>
-          {props.tags.map(tag =>
+          {props.tags.map((tag, i) =>
             <View
+              key={uuid()}
               style={style.buttonContainer}
-              key={tag.id}
             >
               <Button
-                text={tag.text}
+                text={tag.term}
                 type='2'
+                onPress={this.onPress}
+                onPress={() => this.onPress({
+                  categoryIndex: i,
+                  type: props.tagsType,
+                  tag
+                })}
                 tagMode={true}
               />
             </View>
@@ -74,6 +68,16 @@ export default class MostPopularTags extends Component {
         </View>
       </View>
     )
+  }
+
+  onPress = tag => {
+    const { props } = this;
+
+    Actions.push(routes.ARTICLES_DETAIL_LIST.key, { ...tag });
+
+    if (props.onPress) {
+      props.onPress(tag)
+    }
   }
 
 }

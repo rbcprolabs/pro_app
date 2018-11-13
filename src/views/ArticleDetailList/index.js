@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import {
     View,
     Text,
-    FlatList,
     StatusBar
 } from 'react-native';
 
@@ -84,12 +83,7 @@ class ArticleDetailList extends Component {
 
                 <View style={style.content}>
 
-                    <FlatList
-                        data={props.articles}
-                        keyExtractor={item => item.id}
-                        renderItem={this.articleItem}
-                        extraData={props}
-                    />
+                    {props.articles.map(item => this.articleItem({ item }))}
 
                 </View>
             </Content>
@@ -98,21 +92,19 @@ class ArticleDetailList extends Component {
 
     articleItem = ({ item }) => {
         const { props } = this;
-        const categoryFound = find(item.parsingData, { 'type': props.type });
+        const categoryFound = find(item.parsingDataFiltered, { 'type': props.type });
 
         if (categoryFound && find(categoryFound.items, { 'term': props.tag.term })) {
             return (
                 <Article
+                    key={item.id}
                     article={item}
                     bookmark={true}
                     type='withDescription'
                     followList={props.followList}
                     favorites={props.favorites}
                     setFavorite={props.setFavorite}
-                    tagOnes={[{
-                        type: props.type,
-                        items: [props.tag]
-                    }]}
+                    disableTags={true}
                 />
             )
         }

@@ -98,7 +98,7 @@ export const getArticles = () => dispatch =>
         )
 
         for (let key in mostPopularTags) {
-          mostPopularTags[key] = Formatter.mostPopular(mostPopularTags.organizations, 4)
+          mostPopularTags[key] = Formatter.mostPopular(mostPopularTags[key], 4)
         }
 
         dispatch({

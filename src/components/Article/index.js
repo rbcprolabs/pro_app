@@ -36,6 +36,7 @@ export default class Article extends Component {
     favorites: PropTypes.array,
     previewModeTag: PropTypes.bool,
     bookmark: PropTypes.bool,
+    disableTags: PropTypes.bool,
     type: PropTypes.string,
     tagOnes: PropTypes.array,
     setFavorite: PropTypes.func,
@@ -52,6 +53,7 @@ export default class Article extends Component {
     followList: [],
     previewModeTag: true,
     tagOnes: [],
+    disableTags: false
   }
 
   constructor(props) {
@@ -103,13 +105,10 @@ export default class Article extends Component {
       :
       props.article.parsingDataFiltered;
 
-    if (props.tagOnes.length !== 0) {
-      tags = props.tagOnes
+    if (props.disableTags) {
+      tags = []
     }
 
-    if (tags.length == 0) {
-      console.log("Sorry, I haven't category 'tags' ", article)
-    }
 
     const style = styles(props);
 

@@ -30,6 +30,8 @@ class Articles extends Component {
 
     state = {
         loading: false,
+        populars: ['people', 'companies', 'industries', 'tags'],
+        showPopularIndex: 0,
         maxTags: 0
     }
 
@@ -78,7 +80,6 @@ class Articles extends Component {
                 <View
                     style={style.content}
                 >
-                    <MostPopularTags/>
                     <FlatList
                         data={props.articles}
                         keyExtractor={item => item.id}
@@ -91,9 +92,10 @@ class Articles extends Component {
         );
     }
 
-    articleItem = ({ item }) => {
+    articleItem = ({ item, index }) => {
         const { props, state } = this;
         let type = 'default';
+        let popularType = false;
 
         if (item.format == 'Что это значит') {
             type = 'selected'
@@ -105,12 +107,24 @@ class Articles extends Component {
             type = 'withDescription'
         }
 
+        if ((index + 1) % 5 === 0) {
+            popularType = state.populars[(index + 1) / 5 - 1];           
+        }
+
         return (
-            <Article
-                article={item}
-                type={type}
-                followList={props.followList}
-            />
+            <View>
+                {popularType &&
+                    <MostPopularTags
+                        tags={props.mostPopularTags[popularType]}
+                        tagsType={popularType}
+                    />
+                }
+                <Article
+                    article={item}
+                    type={type}
+                    followList={props.followList}
+                />
+            </View>
         )
     }
 
@@ -133,7 +147,8 @@ class Articles extends Component {
 function mapStateToProps(state) {
     return {
         articles: state.articles.list,
-        followList: state.follow.list,
+        tags: state.articles.list,
+        mostPopularTags: state.articles.mostPopularTags,
     }
 }
 

@@ -8,15 +8,13 @@ import {
 } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 
-
 import uuid from 'uuid/v1';
 import { find, size, isEmpty, mapValues } from 'lodash';
 import Tag from 'app/components/Tag';
 
-
-import styles from './styles';
 import * as configStyles from 'app/config/style';
 import * as routes from "app/config/sceneKeys";
+import styles from './styles';
 
 
 
@@ -124,9 +122,6 @@ export default class TagsList extends Component {
               tag
             })}
           />
-
-
-
         )}
       </View>
     )
@@ -152,7 +147,7 @@ export default class TagsList extends Component {
     )
   }
 
-  onPress = (tag) => {
+  onPress = tag => {
     const { props } = this;
 
     Actions.push(routes.ARTICLES_DETAIL_LIST.key, { ...tag });
