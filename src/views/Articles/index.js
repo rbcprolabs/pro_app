@@ -117,19 +117,19 @@ class Articles extends Component {
                         tagsType={popularType}
                     />
                 }
-                {
-                    item.title == 'В центре Москвы объем свободных торговых площадей сократился на 4%' ?
-                        <Article
-                            article={item}
-                            type={type}
-                            bookmark={true}
-                            favorites={props.favorites}
-                            setFavorite={props.setFavorite}
-                            followList={props.followList}
-                        />
-                        :
+                {/* {
+                    item.title == 'В центре Москвы объем свободных торговых площадей сократился на 4%' ? */}
+                <Article
+                    article={item}
+                    type={type}
+                    bookmark={true}
+                    favorites={props.favorites}
+                    setFavorite={props.setFavorite}
+                    followList={props.followList}
+                />
+                {/* :
                         false
-                }
+                } */}
 
             </View>
         )
