@@ -56,7 +56,9 @@ export default props =>
       {
         fontSize: styles.FONT_SIZE + 2,
         color: styles.COLOR_2,
-        fontWeight: '600'
+        fontWeight: '600',
+        marginTop: styles.MARGIN,
+        marginBottom: styles.MARGIN / 2,
       }
 
     ]),
@@ -84,8 +86,8 @@ export default props =>
         fontSize: styles.FONT_SIZE,
         color: styles.COLOR_2,
         // flexBasis: '100%',
-        marginTop: 10,
-        marginBottom: 10,
+        // marginTop: 10,
+        // marginBottom: 10,
       }
 
     ]),
@@ -100,11 +102,17 @@ export default props =>
 
     ]),
 
+    containerBlockquote: StyleSheet.flatten([
+      {
+        marginTop: styles.MARGIN
+      }
+
+    ]),
+
     link: StyleSheet.flatten([
       {
         fontSize: styles.FONT_SIZE,
         color: styles.COLOR_3,
-        fontStyle: 'italic',
         marginTop: 0,
         marginBottom: 0,
       }
@@ -123,7 +131,7 @@ export default props =>
     author: StyleSheet.flatten([
       {
         fontStyle: 'normal',
-        marginBottom: 0,
+        marginVertical: 5
       }
     ]),
 

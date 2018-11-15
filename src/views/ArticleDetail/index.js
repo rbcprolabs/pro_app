@@ -8,6 +8,8 @@ import {
     Text,
     Dimensions,
     StatusBar,
+    TouchableOpacity,
+    Linking
 } from 'react-native';
 
 import {
@@ -74,19 +76,20 @@ class ArticleDetail extends Component {
                     bgMode={true}
                 />
                 <View style={style.content}>
-                    {props.article.body.content.map(item =>
-                        <View key={uuid()}>
+                    {props.article.body.content.map(el =>
+                        <View key={uuid()} style={{ flexWrap: 'wrap', flexDirection: 'row' }} >
                             {
-                                item.content.length > 0
+                                el.content.length > 0
                                     ?
+
                                     this.textBlock({
-                                        atricle: item.content,
-                                        nodeType: item.nodeType,
+                                        atricle: el.content,
+                                        nodeType: el.nodeType,
                                     })
                                     :
                                     this.imageBlock({
-                                        image: item.data.target.fields.file,
-                                        text: item.data.target.fields.title,
+                                        image: el.data.target.fields.file,
+                                        text: el.data.target.fields.title,
                                     })
                             }
                         </View>
@@ -103,6 +106,7 @@ class ArticleDetail extends Component {
         nodeType,
         customStyle,
         viewType = 'default',
+        link,
         index
     }) => {
         const { props } = this;
@@ -111,13 +115,14 @@ class ArticleDetail extends Component {
         console.log(nodeType, atricle)
 
         // TODO: переработать вывод статьи под параграфф
+
         return atricle.map((item, i) => {
             switch (item.nodeType) {
                 case 'hyperlink': {
                     return this.textBlock({
                         atricle: item.content,
                         nodeType: item.nodeType,
-                        customStyle: style.link,
+                        link: item.data.uri,
                         viewType: 'link'
                     })
                 }
@@ -133,12 +138,18 @@ class ArticleDetail extends Component {
                 }
                 case 'blockquote': {
 
-                    return this.textBlock({
-                        atricle: item.content,
-                        nodeType: item.nodeType,
-                        customStyle: style.blockquote,
-                        viewType: 'blockquote'
-                    })
+                    return (
+                        <View key={uuid()} style={style.containerBlockquote}>
+                            {
+                                this.textBlock({
+                                    atricle: item.content,
+                                    nodeType: item.nodeType,
+                                    customStyle: style.blockquote,
+                                    viewType: 'blockquote'
+                                })
+                            }
+                        </View>
+                    )
                 }
 
                 case 'unordered-list': {
@@ -170,16 +181,22 @@ class ArticleDetail extends Component {
                         && item.marks[0].type == 'bold') {
                         customStyle = { ...customStyle, fontWeight: '700' };
 
-                        // console.log('nodeType ', item.nodeType)
                         if (viewType == 'blockquote') {
                             customStyle = { ...customStyle, ...style.author };
                         }
-                        if (viewType == 'link') {
-                            customStyle = { ...customStyle, ...style.author };
-                        }
-                        // console.log('customStyle ', customStyle)
                     }
 
+                    if (viewType == 'link') {
+                        return (
+                            <TouchableOpacity
+                                key={uuid()}
+                                onPress={() => Linking.openURL(link)}
+                                activeOpacity={.8}
+                            >
+                                {this.text(item.value, style.link)}
+                            </TouchableOpacity>
+                        )
+                    }
 
                     if (item.value !== '')
                         return this.text(item.value, customStyle);
@@ -200,7 +217,8 @@ class ArticleDetail extends Component {
                 style={[
                     style.description,
                     customStyle
-                ]}>
+                ]}
+            >
                 {text}
             </Text>
         )
