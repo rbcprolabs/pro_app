@@ -4,16 +4,17 @@ export default function articles(
   state = {
     list: [],
     mostPopularTags: {},
+    basketCards: [],
   },
   action = {}
 ) {
+  const { type, ...data } = action;
   // console.log('action categories ', action)
-  switch (action.type) {
+  switch (type) {
     case ARTICLES.get: {
       return {
         ...state,
-        list: action.list,
-        mostPopularTags: action.mostPopularTags
+        ...data
       }
     }
 

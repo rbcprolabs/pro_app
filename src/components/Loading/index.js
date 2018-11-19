@@ -74,7 +74,7 @@ export default class Loading extends Component {
               style={style.newLine}
             >
               <Text style={style.logo}>
-                РБК{' '}|{' '}
+                РБК{' '}
               </Text>
               <Text style={[style.logo, style.logoHighlight]}>
                 ПРО

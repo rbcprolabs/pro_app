@@ -14,6 +14,7 @@ import { setFavorite } from 'app/redux/actions/favorites';
 import { setFollow } from 'app/redux/actions/follow';
 import Content from 'app/components/Content';
 import Article from 'app/components/Article';
+import OneTagOfArticles from 'app/components/OneTagOfArticles';
 import MostPopularTags from 'app/components/MostPopularTags';
 import InitialData from 'app/bootstrap/InitialData';
 
@@ -80,7 +81,6 @@ class Articles extends Component {
                 <View
                     style={style.content}
                 >
-
                     {props.articles.map((item, index) =>
                         this.articleItem({ item, index })
                     )}
@@ -93,6 +93,7 @@ class Articles extends Component {
     articleItem = ({ item, index }) => {
         const { props, state } = this;
         let type = 'default';
+        let indexShow = 0;
         let popularType = false;
 
         if (item.format == 'Что это значит') {
@@ -106,7 +107,8 @@ class Articles extends Component {
         }
 
         if ((index + 1) % 5 === 0) {
-            popularType = state.populars[(index + 1) / 5 - 1];
+            indexShow = (index + 1) / 5 - 1;
+            popularType = state.populars[indexShow];
         }
 
         return (
@@ -117,16 +119,23 @@ class Articles extends Component {
                         tagsType={popularType}
                     />
                 }
-                {/* {item.title == 'В центре Москвы объем свободных торговых площадей сократился на 4%' ? */}
-                    <Article
-                        article={item}
-                        type={type}
-                        bookmark={true}
-                        favorites={props.favorites}
-                        setFavorite={props.setFavorite}
+                {popularType
+                    && props.basketCards[indexShow] &&
+                    <OneTagOfArticles
+                        data={props.basketCards[indexShow]}
                         followList={props.followList}
                     />
-                    {/* : false} */}
+                }
+                {/* {item.title == 'В центре Москвы объем свободных торговых площадей сократился на 4%' ? */}
+                <Article
+                    article={item}
+                    type={type}
+                    bookmark={true}
+                    favorites={props.favorites}
+                    setFavorite={props.setFavorite}
+                    followList={props.followList}
+                />
+                {/* : false} */}
 
             </View>
         )
@@ -154,7 +163,9 @@ function mapStateToProps(state) {
         articles: state.articles.list,
         tags: state.articles.list,
         mostPopularTags: state.articles.mostPopularTags,
+        basketCards: state.articles.basketCards,
         favorites: state.favorites.list,
+        followList: state.follow.list,
     }
 }
 

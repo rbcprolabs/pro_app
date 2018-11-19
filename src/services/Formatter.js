@@ -98,12 +98,81 @@ const Formatter = {
         })
       }
     })
-    
+
     const filtered = counter.sort((a, b) => b.count - a.count).splice(0, length);
 
     return filtered.map(obj => obj.data);
-  }
+  },
 
+  repeatTags(list, length = 3) {
+    let similarAll = [];
+    const result = [];
+
+    list.map(item => {
+      item.parsingDataFiltered.map(el => {
+        if (el.type !== 'geography') {
+          el.items.map(tag => {
+            const tagString = JSON.stringify(tag);
+            const index = similarAll.findIndex(resItem => resItem.tag == tagString);
+
+            if (index < 0) {
+              similarAll.push({
+                id: [item.id],
+                type: el.type,
+                tag: tagString,
+              })
+            } else {
+              similarAll[index].id.push(item.id)
+            }
+
+          })
+        }
+      })
+    });
+
+    similarAll
+      .sort((a, b) => b.id.length - a.id.length)
+      .splice(0, length)
+      .map(item => {
+        const id = this.randomFromArray(item.id, 3);
+        const articles = [];
+
+        id.map(id => {
+          const article = list.find(item => item.id == id);
+
+          if (article) {
+            articles.push(article)
+          }
+        })
+
+        result.push({
+          id: id,
+          tag: JSON.parse(item.tag),
+          type: item.type,
+          articles: articles,
+        })
+      })
+
+    return result
+  },
+
+  randomFromArray(arr, count = 1) {
+    const indexes = [];
+    const getRandomIndex = (selectedIndexes) => {
+      const index = Math.floor(arr.length * Math.random());
+      const findIndex = selectedIndexes.find(el => el == index);
+
+      findIndex ? getRandomIndex(selectedIndexes) : selectedIndexes.push(JSON.stringify(index))
+    }
+
+    for (let i = 0; i < count; i++) {
+      getRandomIndex(indexes)
+    }
+
+    return arr.filter((item, i) =>
+      indexes.find(indexSelect =>
+        JSON.stringify(i) === indexSelect))
+  }
   // }
   // clearSimilarTags(array) {
   //   const firstLevels = array.filter(item => item.level == 1);

@@ -16,6 +16,8 @@ export const getArticles = () => dispatch =>
       resp => {
         console.log('resp ', resp)
         const list = [];
+        let mostPopularTags = {};
+        let basketCards = [];
         const addTags = (fields, name, isFalt) => {
           if (!fields[name] || typeof fields[name] !== 'string') return;
 
@@ -84,8 +86,6 @@ export const getArticles = () => dispatch =>
           list.push(fields);
         })
 
-        let mostPopularTags = {};
-
         list.map(article =>
           article.parsingDataFiltered.map(category =>
             category.items.map(item => {
@@ -101,9 +101,12 @@ export const getArticles = () => dispatch =>
           mostPopularTags[key] = Formatter.mostPopular(mostPopularTags[key], 4)
         }
 
+        basketCards = Formatter.repeatTags(list);
+
         dispatch({
           type: ARTICLES.get,
           mostPopularTags,
+          basketCards,
           list
         })
       }

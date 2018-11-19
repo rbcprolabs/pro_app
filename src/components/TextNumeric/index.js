@@ -12,15 +12,17 @@ export default class TextNumeric extends Component {
   static propTypes = {
     text: PropTypes.string,
     number: PropTypes.number,
+    disableNumber: PropTypes.bool,
 
     // styling
     style: PropTypes.object,
-    iconStyle: PropTypes.object
+    textStyle: PropTypes.object,
   }
 
   static defaultProps = {
     text: '',
-    number: 0
+    disableNumber: false,
+    number: 0,
   }
 
 
@@ -39,9 +41,12 @@ export default class TextNumeric extends Component {
         <Text style={style.text}>
           {props.text}
         </Text>
-        <Text style={style.count}>
-          {props.number + 1}
-        </Text>
+
+        {!props.disableNumber &&
+          <Text style={style.count}>
+            {props.number + 1}
+          </Text>
+        }
 
         <View style={style.disableLeftBorder} />
         <View style={style.disableRightBorder} />

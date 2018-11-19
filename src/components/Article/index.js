@@ -248,7 +248,6 @@ export default class Article extends Component {
       }
     }
 
-
     getIndexes();
 
     this.setState({

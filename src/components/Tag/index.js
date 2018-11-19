@@ -42,12 +42,12 @@ export default class Tag extends Component {
 
   }
 
-  
+
   render() {
     const { props, state } = this;
     const { tag } = props;
     const style = styles(props);
-    let colorIcon = configStyles.COLOR_4;
+    let colorIcon = !props.convert ? configStyles.COLOR_4 : configStyles.COLOR_1;
 
     if (props.type == 'ellipse') {
       colorIcon = configStyles.COLOR_1

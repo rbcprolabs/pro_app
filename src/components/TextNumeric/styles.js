@@ -3,14 +3,6 @@ import * as styles from 'app/config/style';
 
 export default props =>
   StyleSheet.create({
-    text: StyleSheet.flatten([
-      {
-        fontSize: styles.FONT_SIZE,
-        color: styles.COLOR_2,
-        // paddingTop: styles.INTENT
-      },
-    ]),
-
     container: StyleSheet.flatten([
       {
         paddingTop: styles.INTENT,
@@ -48,7 +40,7 @@ export default props =>
         // flexShrink: 1,
         // flexGrow: 1,
         // flexBasis: '100%',
-        width: '100%',
+        flexBasis: '100%',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -67,6 +59,9 @@ export default props =>
         flexShrink: 1,
         flexGrow: 1,
       },
+      props.textStyle && {
+        ...props.textStyle
+      }
     ]),
 
 

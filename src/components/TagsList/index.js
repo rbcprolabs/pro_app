@@ -74,7 +74,7 @@ export default class TagsList extends Component {
     )
   }
 
-  tags = (style) => this.props.tags.map((data, i) => {
+  tags = (style) => this.props.tags.map(data => {
     let title = '';
 
     switch (data.type) {
