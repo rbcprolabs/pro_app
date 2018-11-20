@@ -83,6 +83,10 @@ const Formatter = {
     return filtered.splice(0, 2);
   },
 
+  clearSimalarObjects(array){
+    return uniqWith(array, isEqual);
+  },
+
   mostPopular(arr, length) {
     const counter = [];
 
@@ -108,10 +112,11 @@ const Formatter = {
     let similarAll = [];
     const result = [];
 
-    list.map(item => {
-      item.parsingDataFiltered.map(el => {
+    list.forEach(item => {
+      item.parsingDataFiltered.forEach(el => {
         if (el.type !== 'geography') {
-          el.items.map(tag => {
+
+          el.items.forEach(tag => {
             const tagString = JSON.stringify(tag);
             const index = similarAll.findIndex(resItem => resItem.tag == tagString);
 
@@ -127,6 +132,7 @@ const Formatter = {
 
           })
         }
+
       })
     });
 
@@ -162,7 +168,7 @@ const Formatter = {
       const index = Math.floor(arr.length * Math.random());
       const findIndex = selectedIndexes.find(el => el == index);
 
-      findIndex ? getRandomIndex(selectedIndexes) : selectedIndexes.push(JSON.stringify(index))
+      return findIndex ? getRandomIndex(selectedIndexes) : selectedIndexes.push(JSON.stringify(index))
     }
 
     for (let i = 0; i < count; i++) {
@@ -172,7 +178,7 @@ const Formatter = {
     return arr.filter((item, i) =>
       indexes.find(indexSelect =>
         JSON.stringify(i) === indexSelect))
-  }
+  },
   // }
   // clearSimilarTags(array) {
   //   const firstLevels = array.filter(item => item.level == 1);

@@ -34,6 +34,9 @@ export default class MostPopularTags extends Component {
   render() {
     const { props } = this;
     const style = styles(props);
+    if(!props.tags){
+      return null
+    }
 
     return (
       <View style={style.container}>

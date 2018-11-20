@@ -9,7 +9,7 @@ import {
 import { maxBy, isEqual, difference } from 'lodash';
 import { Actions } from 'react-native-router-flux';
 
-import { getArticles } from 'app/redux/actions/articles';
+import { getArticles, getCards } from 'app/redux/actions/articles';
 import { setFavorite } from 'app/redux/actions/favorites';
 import { setFollow } from 'app/redux/actions/follow';
 import Content from 'app/components/Content';
@@ -33,7 +33,7 @@ class Articles extends Component {
         loading: false,
         populars: ['people', 'companies', 'industries', 'tags'],
         showPopularIndex: 0,
-        maxTags: 0
+        maxTags: 0,
     }
 
     componentWillMount() {
@@ -43,20 +43,28 @@ class Articles extends Component {
         InitialData('follow', props.setFollow);
 
         props.articles.length == 0 ? this.setState({ loading: true }) : false
+
+        // Actions.push([routes.LOADING], {
+        //     show: true
+        // })
+
+
     }
 
 
     componentDidMount() {
         const { props } = this;
-        Actions.push([routes.LOADING], {
-            show: true
-        })
 
         if (props.articles.length == 0) {
-            props.getArticles().then(() => {
+            Promise.all([
+                props.getArticles(),
+                props.getCards()
+            ]).then(() => {
                 setTimeout(() => { this.setState({ loading: false }) }, 1500)
             });
         }
+
+
     }
 
     componentWillReceiveProps(np) {
@@ -98,6 +106,10 @@ class Articles extends Component {
 
         if (item.format == 'Что это значит') {
             type = 'selected'
+        }
+
+        if (item.youtube) {
+            type = 'youtube'
         }
 
         if (state.maxTags !== 0
@@ -145,16 +157,19 @@ class Articles extends Component {
         const articleWithMaxTags = maxBy(props.articles, item =>
             this.checkMaxTags(item.parsingData)
         );
+        const maxTags = this.checkMaxTags(articleWithMaxTags.parsingData) * .8;
 
         this.setState({
-            maxTags: this.checkMaxTags(articleWithMaxTags.parsingData) * .8
+            maxTags
         })
 
     }
 
-    checkMaxTags = array => array.reduce((sum, cur) => {
-        return sum + cur.items.length
-    }, array[0].items.length)
+    checkMaxTags = array => array.length > 0
+        ? array.reduce((sum, cur) => {
+            return sum + cur.items.length
+        }, array[0].items.length)
+        : false
 
 }
 
@@ -172,6 +187,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getArticles: bindActionCreators(getArticles, dispatch),
+        getCards: bindActionCreators(getCards, dispatch),
         setFavorite: bindActionCreators(setFavorite, dispatch),
         setFollow: bindActionCreators(setFollow, dispatch)
     }

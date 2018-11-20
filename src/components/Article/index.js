@@ -10,6 +10,7 @@ import {
 } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+// import Youtube from 'react-native-youtube';
 import { find, isEmpty } from 'lodash';
 
 
@@ -77,6 +78,12 @@ export default class Article extends Component {
           tags: 'bottom',
           date: 'bottom',
           description: true
+        },
+        youtube: {
+          video: true,
+          tags: 'bottom',
+          date: 'bottom',
+          description: false
         }
       }
     }
@@ -133,6 +140,16 @@ export default class Article extends Component {
           />
         }
         {/* END Image part */}
+
+        {article.youtube &&
+          // <Youtube
+          //   id='2xyZxZw9Gzw'
+          //   play={true}
+          //   fullscreen={true}
+          //   style={{ alignSelf: 'stretch', height: 300 }}
+          // />
+        <Text>youtube</Text>
+        }
 
         <View style={style.wrap}>
           <View
