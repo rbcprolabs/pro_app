@@ -4,13 +4,14 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
+  Dimensions
 } from 'react-native';
 import {
   Actions
 } from 'react-native-router-flux';
+import AutoHeightImage from 'react-native-auto-height-image';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-// import Youtube from 'react-native-youtube';
 import { find, isEmpty } from 'lodash';
 
 
@@ -18,6 +19,7 @@ import Tag from 'app/components/Tag';
 import TagsList from 'app/components/TagsList';
 import TextNumeric from 'app/components/TextNumeric';
 import ButtonIcon from 'app/components/ButtonIcon';
+import Youtube from 'app/components/Youtube';
 
 import styles from './styles';
 import * as routes from "app/config/sceneKeys";
@@ -29,8 +31,7 @@ export default class Article extends Component {
     article: PropTypes.shape({
       title: PropTypes.string,
       image: PropTypes.string,
-      description: PropTypes.string,
-      descriptions: PropTypes.array,
+      lead: PropTypes.string,
       date: PropTypes.string,
     }),
     followList: PropTypes.array,
@@ -63,34 +64,44 @@ export default class Article extends Component {
     this.state = {
       countTags: 2,
       tagsIndexes: [0, 1, 2],
+      imageWidth: 0,
       types: {
         default: {
           tags: 'bottom',
           date: 'bottom',
-          description: false
+          lead: false
         },
         selected: {
           tags: 'top',
           date: 'bottom',
-          description: false
+          lead: false
         },
-        withDescription: {
+        withLead: {
           tags: 'bottom',
           date: 'bottom',
-          description: true
+          lead: true
+        },
+        media: {
+          tags: 'bottom',
+          date: 'bottom',
+          lead: true
         },
         youtube: {
           video: true,
           tags: 'bottom',
           date: 'bottom',
-          description: false
+          lead: true
         }
       }
     }
   }
 
   componentWillMount() {
-    const { props, state } = this;
+    const imageWidth = Dimensions.get('window').width - configStyles.MARGIN * 2;
+
+    this.setState({
+      imageWidth
+    })
     // this.getTagsIndexes(props.data.tags, state.countTags)
   }
 
@@ -104,7 +115,7 @@ export default class Article extends Component {
     const { article } = props;
     const view = state.types[props.type];
     const published = `${moment(article.published).format('DD.MM.YY, h:mm')} | ${article.sources.fields.name}`;
-    const tagsPreview = props.type === 'selected' ? ['tags'] : (props.previewModeTag ? ['industries', 'companies'] : false);
+    const tagsPreview = props.type === 'selected' || props.type == 'youtube' ? ['tags'] : (props.previewModeTag ? ['industries', 'companies'] : false);
 
     let tags = props.previewModeTag
       ?
@@ -140,16 +151,6 @@ export default class Article extends Component {
           />
         }
         {/* END Image part */}
-
-        {article.youtube &&
-          // <Youtube
-          //   id='2xyZxZw9Gzw'
-          //   play={true}
-          //   fullscreen={true}
-          //   style={{ alignSelf: 'stretch', height: 300 }}
-          // />
-        <Text>youtube</Text>
-        }
 
         <View style={style.wrap}>
           <View
@@ -209,14 +210,31 @@ export default class Article extends Component {
                   <Text style={style.title}>{article.title}</Text>
                 </TouchableOpacity>
               }
+
               {view.date == 'bottom' &&
                 <Text style={style.subTitle}>{published}</Text>
               }
 
-              {view.description && article.lead &&
+              {article.idYoutube &&
+                <Youtube
+                  id={article.idYoutube}
+                  style={style.video}
+                />
+              }
+
+
+              {article.media
+                && article.media.fields &&
+                <AutoHeightImage
+                  width={state.imageWidth}
+                  source={{ uri: `https:${article.media.fields.file.url}` }}
+                />
+              }
+
+              {view.lead && article.lead &&
                 <Text style={[
-                  style.description,
-                  style.descriptionСontainer
+                  style.lead,
+                  style.leadСontainer
                 ]}>
                   {article.lead}
                 </Text>

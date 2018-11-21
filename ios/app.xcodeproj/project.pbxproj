@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -40,6 +39,10 @@
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		3EAEB5FCCED5460785AC3F5C /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A82A4597ECF42EA9C76C36D /* Ionicons.ttf */; };
 		501C3E63234348EC9F2C08A2 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E1AD5321DD04FBDA82F010B /* Entypo.ttf */; };
+		5A99938B21A4780C00BA3AB3 /* YTPlayerView-iframe-player.html in Resources */ = {isa = PBXBuildFile; fileRef = 5A99936121A4780C00BA3AB3 /* YTPlayerView-iframe-player.html */; };
+		5A99938D21A478AE00BA3AB3 /* YTPlayerView-iframe-player.html in Resources */ = {isa = PBXBuildFile; fileRef = 5A99938C21A478AE00BA3AB3 /* YTPlayerView-iframe-player.html */; };
+		5A99938F21A478CB00BA3AB3 /* YTPlayerView-iframe-player.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A99938E21A478CB00BA3AB3 /* YTPlayerView-iframe-player.xib */; };
+		5A99939121A4791A00BA3AB3 /* YTPlayerView-iframe-player.html in Resources */ = {isa = PBXBuildFile; fileRef = 5A99939021A4791A00BA3AB3 /* YTPlayerView-iframe-player.html */; };
 		5F3E61E316F541C9A02981A4 /* libRCTYouTube.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF3E41EB35F499DA8E78D09 /* libRCTYouTube.a */; };
 		77CBBA5A44924F0E82C83FDE /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F70E8BBCFBC4406FAC3CE260 /* libRNVectorIcons.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -392,6 +395,10 @@
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		399B44EE39BC4196B938FC84 /* RCTYouTube.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTYouTube.xcodeproj; path = "../node_modules/react-native-youtube/RCTYouTube.xcodeproj"; sourceTree = "<group>"; };
 		5579263D41C24E77B9FFCF2D /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		5A99936121A4780C00BA3AB3 /* YTPlayerView-iframe-player.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "YTPlayerView-iframe-player.html"; path = "../node_modules/react-native-youtube/assets/YTPlayerView-iframe-player.html"; sourceTree = "<group>"; };
+		5A99938C21A478AE00BA3AB3 /* YTPlayerView-iframe-player.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "YTPlayerView-iframe-player.html"; path = "../node_modules/react-native-youtube/assets/YTPlayerView-iframe-player.html"; sourceTree = "<group>"; };
+		5A99938E21A478CB00BA3AB3 /* YTPlayerView-iframe-player.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "YTPlayerView-iframe-player.xib"; path = "../node_modules/react-native-youtube/assets/YTPlayerView-iframe-player.xib"; sourceTree = "<group>"; };
+		5A99939021A4791A00BA3AB3 /* YTPlayerView-iframe-player.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "YTPlayerView-iframe-player.html"; path = "../node_modules/react-native-youtube/assets/YTPlayerView-iframe-player.html"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		614689DC1A664EEA8E5183F9 /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
 		6449CE3497E046AD861B5DED /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
@@ -684,6 +691,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				5A99939021A4791A00BA3AB3 /* YTPlayerView-iframe-player.html */,
 				13B07FAE1A68108700A75B9A /* app */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* appTests */,
@@ -711,6 +719,9 @@
 		A4C2DBDE3068467A9797E6E4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5A99938E21A478CB00BA3AB3 /* YTPlayerView-iframe-player.xib */,
+				5A99936121A4780C00BA3AB3 /* YTPlayerView-iframe-player.html */,
+				5A99938C21A478AE00BA3AB3 /* YTPlayerView-iframe-player.html */,
 				8394B8AF297F4DC3BC16E3D6 /* AntDesign.ttf */,
 				1E1AD5321DD04FBDA82F010B /* Entypo.ttf */,
 				B41372F9FFED4295BC903097 /* EvilIcons.ttf */,
@@ -1223,8 +1234,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A99938D21A478AE00BA3AB3 /* YTPlayerView-iframe-player.html in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				5A99938B21A4780C00BA3AB3 /* YTPlayerView-iframe-player.html in Resources */,
+				5A99939121A4791A00BA3AB3 /* YTPlayerView-iframe-player.html in Resources */,
 				CD157E0996D84A91A5F89029 /* AntDesign.ttf in Resources */,
 				501C3E63234348EC9F2C08A2 /* Entypo.ttf in Resources */,
 				F0DCF36F7B454E39AB4954D4 /* EvilIcons.ttf in Resources */,
@@ -1240,6 +1254,7 @@
 				F608FE73A58340339E18B3BB /* Octicons.ttf in Resources */,
 				ADF0134DB8FB4845852E858A /* SimpleLineIcons.ttf in Resources */,
 				014594BF017F49608C6D6C62 /* Zocial.ttf in Resources */,
+				5A99938F21A478CB00BA3AB3 /* YTPlayerView-iframe-player.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

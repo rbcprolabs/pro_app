@@ -5,10 +5,6 @@ export default props =>
   StyleSheet.create({
     container: StyleSheet.flatten([
       {
-        // position: 'absolute',
-        // left: 0,
-        // right: 0,
-        // bottom: 0,
         // top: '100%',
         flex: 1,
         justifyContent: 'space-between',

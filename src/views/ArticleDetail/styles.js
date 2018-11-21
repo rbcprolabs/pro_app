@@ -151,5 +151,11 @@ export default props =>
       }
     ]),
 
+    video: StyleSheet.flatten([
+      {
+        marginBottom: styles.INTENT
+      }
+    ]),
+
   });
 

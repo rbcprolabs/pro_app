@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import {
   Modal,
   View,
-  Text
+  Text,
+  StatusBar
 } from 'react-native';
 
 import PropTypes from "prop-types";
 
+import * as configStyles from 'app/config/style';
 import styles from './styles';
 
 export default class Loading extends Component {
@@ -52,7 +54,7 @@ export default class Loading extends Component {
   render() {
     const { props, state } = this;
     const style = styles(props);
-
+    
     return (
       <Modal
         animationType="fade"
@@ -62,6 +64,8 @@ export default class Loading extends Component {
           this.afterClose();
         }}
       >
+                    
+
         <View
           style={[
             style.container

@@ -28,15 +28,15 @@ export default props =>
 
     container: StyleSheet.flatten([
       {
-        paddingHorizontal: styles.INTENT + 4,
+        paddingHorizontal: styles.MARGIN,
       },
     ]),
 
     content: StyleSheet.flatten([
       {
         paddingTop: styles.INTENT,
-        paddingHorizontal: styles.INTENT + 4,
-        paddingBottom: styles.INTENT + 4,
+        paddingHorizontal: styles.MARGIN,
+        paddingBottom: styles.MARGIN,
       },
     ]),
 

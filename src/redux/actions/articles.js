@@ -1,9 +1,5 @@
 import { ARTICLES, CARDS } from '../types';
-import uuid from 'uuid/v1';
 import Contentful from 'app/bootstrap/Contentful';
-import Formatter from 'app/services/Formatter';
-import { uniqWith, isEqual } from 'lodash';
-
 
 
 export const getArticles = () => dispatch =>

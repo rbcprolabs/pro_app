@@ -25,6 +25,7 @@ import Content from 'app/components/Content';
 import TagsList from 'app/components/TagsList';
 import NavBar from 'app/components/NavBar';
 import TextNumeric from 'app/components/TextNumeric';
+import Youtube from 'app/components/Youtube';
 
 import * as configStyles from 'app/config/style';
 import styles from './styles';
@@ -50,8 +51,9 @@ class ArticleDetail extends Component {
 
     render() {
         const { state, props } = this;
+        const { article } = props;
         const style = styles(props);
-        console.log('props.article ', props.article)
+        console.log('props.article ', article);
         return (
             <Content
                 style={style.container}
@@ -64,24 +66,36 @@ class ArticleDetail extends Component {
                     translucent={true}
                 />
                 <View style={style.header}>
-                    <Text style={style.globalTitle}>{props.article.title}</Text>
-                    <Text style={style.date}>{moment(props.article.published).format('DD.MM.YY, h:mm')}</Text>
+                    <Text style={style.globalTitle}>{article.title}</Text>
+                    <Text style={style.date}>{moment(article.published).format('DD.MM.YY, h:mm')}</Text>
                 </View>
                 <TagsList
                     key={uuid()}
-                    tags={props.article.parsingData}
+                    tags={article.parsingData}
                     followList={props.followList}
                     onPress={this.onPressTag}
                     typeVisible={true}
                     bgMode={true}
                 />
+
                 <View style={style.content}>
-                    {props.article.body.content.map(el =>
+
+                    {article.idYoutube &&
+                        <View>
+                            <Youtube
+                                id={article.idYoutube}
+                                style={style.video}
+                            />
+                            {this.text(article.lead)}
+                        </View>
+                    }
+
+
+                    {article.body && article.body.content.map(el =>
                         <View key={uuid()} style={{ flexWrap: 'wrap', flexDirection: 'row' }} >
                             {
                                 el.content.length > 0
                                     ?
-
                                     this.textBlock({
                                         atricle: el.content,
                                         nodeType: el.nodeType,
@@ -93,9 +107,7 @@ class ArticleDetail extends Component {
                                     })
                             }
                         </View>
-
                     )}
-
                 </View>
             </Content>
         );

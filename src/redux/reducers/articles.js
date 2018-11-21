@@ -136,6 +136,12 @@ export default function articles(
   // Merge old and new data
   mostPopularTags = mergeData(state.mostPopularTags, mostPopularTags);
   list = mergeData(state.list, list);
+  // const test = [...list];
+
+  // console.log('list ', list)
+
+  // test.sort((a,b)=>+new Date(a.published) - +new Date(b.published))
+  // console.log('test ', test)
 
 
 

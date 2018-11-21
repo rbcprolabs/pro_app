@@ -17,6 +17,8 @@ import Article from 'app/components/Article';
 import OneTagOfArticles from 'app/components/OneTagOfArticles';
 import MostPopularTags from 'app/components/MostPopularTags';
 import InitialData from 'app/bootstrap/InitialData';
+import Youtube from 'app/components/Youtube';
+
 
 
 import * as routes from "app/config/sceneKeys";
@@ -112,10 +114,14 @@ class Articles extends Component {
             type = 'youtube'
         }
 
+        if (item.media) {
+            type = 'media'
+        }
+
         if (state.maxTags !== 0
             && this.checkMaxTags(item.parsingData) > state.maxTags
         ) {
-            type = 'withDescription'
+            type = 'withLead'
         }
 
         if ((index + 1) % 5 === 0) {

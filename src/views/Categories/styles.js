@@ -63,7 +63,7 @@ export default props =>
 
     bottomPart: StyleSheet.flatten([
       {
-        paddingHorizontal: styles.INTENT + 4,
+        paddingHorizontal: styles.MARGIN,
         paddingTop: styles.INTENT,
         paddingBottom: styles.INTENT * 2
       }

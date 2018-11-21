@@ -7,8 +7,8 @@ export default props =>
       {
         position: 'relative',
         paddingTop: styles.INTENT,
-        paddingBottom: styles.INTENT + 4,
-        paddingHorizontal: styles.INTENT + 4,
+        paddingBottom: styles.MARGIN,
+        paddingHorizontal: styles.MARGIN,
         backgroundColor: styles.COLOR_1,
         marginBottom: styles.INTENT,
         borderBottomRightRadius: styles.RADIUS,
@@ -80,7 +80,7 @@ export default props =>
       },
     ]),
 
-    description: StyleSheet.flatten([
+    lead: StyleSheet.flatten([
       {
         fontSize: styles.FONT_SIZE,
         color: styles.COLOR_2,
@@ -88,20 +88,20 @@ export default props =>
       },
     ]),
 
-    descriptionСontainer: StyleSheet.flatten([
+    leadСontainer: StyleSheet.flatten([
       {
         paddingTop: styles.INTENT,
       },
     ]),
 
-    descriptionItem: StyleSheet.flatten([
+    leadItem: StyleSheet.flatten([
       {
         flexShrink: 1,
         flexGrow: 1
       },
     ]),
 
-    descriptionCount: StyleSheet.flatten([
+    leadCount: StyleSheet.flatten([
       {
         fontSize: 48,
         fontWeight: '900',
@@ -112,7 +112,7 @@ export default props =>
       },
     ]),
 
-    descriptionList: StyleSheet.flatten([
+    leadList: StyleSheet.flatten([
       {
         flexDirection: 'row',
         alignItems: 'center',
@@ -139,52 +139,19 @@ export default props =>
         marginBottom: styles.INTENT * 2
       },
     ]),
-
-    disableLeftBorder: StyleSheet.flatten([
-      {
-        width: 1,
-        backgroundColor: styles.COLOR_1,
-        position: 'absolute',
-        top: 0,
-        left: -1,
-        bottom: 0
-      },
-    ]),
-
-    disableRightBorder: StyleSheet.flatten([
-      {
-        width: 1,
-        backgroundColor: styles.COLOR_1,
-        position: 'absolute',
-        top: 0,
-        right: -1,
-        bottom: 0
-      },
-    ]),
-
-    disableBottomBorder: StyleSheet.flatten([
-      {
-        height: 2,
-        backgroundColor: styles.COLOR_1,
-        position: 'absolute',
-        bottom: -1,
-        left: -1,
-        right: -1
-      },
-    ]),
-
-    firstDescriptionItem: StyleSheet.flatten([
-      {
-        borderWidth: 0,
-        marginTop: 0
-      },
-    ]),
+  
 
     tagTop: StyleSheet.flatten([
       {
         position: 'absolute',
         left: styles.PADDING,
         top: styles.INTENT / 2,
+      },
+    ]),
+
+    video: StyleSheet.flatten([
+      {
+        marginTop: styles.INTENT
       },
     ]),
 
