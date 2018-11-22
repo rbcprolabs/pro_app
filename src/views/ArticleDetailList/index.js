@@ -97,7 +97,7 @@ class ArticleDetailList extends Component {
     topPart = (style) => (
         <View style={style.header}>
             <ButtonIcon
-                name='ios-close-circle'
+                name='close-circle'
                 color={configStyles.COLOR_2}
                 size={configStyles.FONT_SIZE + 10}
                 style={style.close}

@@ -8,7 +8,17 @@ export default props =>
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-      
+
+      },
+      props.circleMode && {
+        borderRadius: 50,
+        backgroundColor: styles.COLOR_1,
+        width: styles.FIELD_HEIGHT - 4,
+        height: styles.FIELD_HEIGHT - 4,
+        paddingTop: 4,
+        shadowColor: styles.COLOR_2,
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 0.8
       },
       props.style && {
         ...props.style
@@ -20,7 +30,7 @@ export default props =>
 
     icon: StyleSheet.flatten([
       {
-        
+
       },
       props.iconStyle && {
         ...props.iconStyle

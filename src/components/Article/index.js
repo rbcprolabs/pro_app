@@ -3,13 +3,11 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ImageBackground,
-  Dimensions
+  ImageBackground
 } from 'react-native';
 import {
   Actions
 } from 'react-native-router-flux';
-import AutoHeightImage from 'react-native-auto-height-image';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { find, isEmpty } from 'lodash';
@@ -20,6 +18,7 @@ import TagsList from 'app/components/TagsList';
 import TextNumeric from 'app/components/TextNumeric';
 import ButtonIcon from 'app/components/ButtonIcon';
 import Youtube from 'app/components/Youtube';
+import Image from 'app/components/Image';
 
 import styles from './styles';
 import * as routes from "app/config/sceneKeys";
@@ -64,7 +63,6 @@ export default class Article extends Component {
     this.state = {
       countTags: 2,
       tagsIndexes: [0, 1, 2],
-      imageWidth: 0,
       types: {
         default: {
           tags: 'bottom',
@@ -94,15 +92,6 @@ export default class Article extends Component {
         }
       }
     }
-  }
-
-  componentWillMount() {
-    const imageWidth = Dimensions.get('window').width - configStyles.MARGIN * 2;
-
-    this.setState({
-      imageWidth
-    })
-    // this.getTagsIndexes(props.data.tags, state.countTags)
   }
 
   // componentWillReceiveProps(np) {
@@ -159,7 +148,7 @@ export default class Article extends Component {
             ]}>
             {props.bookmark &&
               <ButtonIcon
-                name={"ios-bookmark"}
+                name={"bookmark"}
                 color={find(props.favorites, {
                   title: article.title,
                   origin: article.origin,
@@ -222,12 +211,11 @@ export default class Article extends Component {
                 />
               }
 
-
               {article.media
                 && article.media.fields &&
-                <AutoHeightImage
-                  width={state.imageWidth}
-                  source={{ uri: `https:${article.media.fields.file.url}` }}
+                <Image
+                  url={article.media.fields.file.url}
+                  activeZoom={true}
                 />
               }
 

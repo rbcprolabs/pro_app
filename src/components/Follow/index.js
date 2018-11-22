@@ -35,7 +35,7 @@ export default class Follow extends Component {
 
   static defaultProps = {
     image: 'http://photo.torba.com/images/kolominov/c128/Jw3AGpn5gAqq8zfU6u3Q.jpg',
-    name: 'ios-star',
+    name: 'star',
     followNow: false,
 
   }

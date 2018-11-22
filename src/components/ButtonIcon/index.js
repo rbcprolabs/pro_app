@@ -17,8 +17,9 @@ export default class ButtonIcon extends Component {
     name: PropTypes.string,
     size: PropTypes.number,
     color: PropTypes.string,
+    type: PropTypes.string,
+    circleMode: PropTypes.bool,
 
-  
     // styling
     style: PropTypes.object,
     iconStyle: PropTypes.object
@@ -26,23 +27,23 @@ export default class ButtonIcon extends Component {
 
   static defaultProps = {
     size: configStyles.FONT_SIZE,
-    name: 'ios-star',
-
+    name: 'star',
+    type: 'ios'
   }
 
   render() {
     const { props } = this;
+    const iconName = `${props.type == 'ios' ? 'ios-' : 'android-'}${props.name}`
     const style = styles(props);
-
 
     return (
       <TouchableOpacity
         onPress={this.onPress}
         style={style.btn}
-        activeOpacity={.8}
+        activeOpacity={.9}
       >
         <Ionicons
-          name={props.name}
+          name={iconName}
           size={props.size}
           color={props.color}
           style={style.icon}

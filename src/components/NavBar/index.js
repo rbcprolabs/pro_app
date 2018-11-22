@@ -55,7 +55,7 @@ export default class NavBar extends Component {
           {props.leftContentShow
             && !props.leftContent &&
             <ButtonIcon
-              name='ios-arrow-back'
+              name='arrow-back'
               color={configStyles.COLOR_2}
               size={34}
               style={style.icon}
@@ -82,7 +82,7 @@ export default class NavBar extends Component {
           {props.rightContentShow
             && !props.rightContent &&
             <ButtonIcon
-              name='ios-bookmark'
+              name='bookmark'
               color={find(props.favorites, props.article) ? configStyles.COLOR_3 : configStyles.COLOR_6}
               size={34}
               style={style.icon}
