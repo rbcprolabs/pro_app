@@ -102,7 +102,7 @@ export default class Article extends Component {
   render() {
     const { props, state } = this;
     const { article } = props;
-    const view = state.types[props.type];
+    const view = state.types[props.type] || state.types['default'];
     const published = `${moment(article.published).format('DD.MM.YY, h:mm')} | ${article.sources.fields.name}`;
     const tagsPreview = props.type === 'selected' || props.type == 'youtube' ? ['tags'] : (props.previewModeTag ? ['industries', 'companies'] : false);
 
@@ -211,14 +211,6 @@ export default class Article extends Component {
                 />
               }
 
-              {article.media
-                && article.media.fields &&
-                <Image
-                  url={article.media.fields.file.url}
-                  activeZoom={true}
-                />
-              }
-
               {view.lead && article.lead &&
                 <Text style={[
                   style.lead,
@@ -226,6 +218,14 @@ export default class Article extends Component {
                 ]}>
                   {article.lead}
                 </Text>
+              }
+
+               {article.media
+                && article.media.fields &&
+                <Image
+                  url={article.media.fields.file.url}
+                  // activeZoom={true}
+                />
               }
 
               {/* 1,2,3 */}

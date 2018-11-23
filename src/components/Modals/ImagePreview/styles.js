@@ -29,7 +29,6 @@ export default props =>
 
     image: StyleSheet.flatten([
       {
-        backgroundColor: 'blue',
         width: props.width,
         height: props.height
       },

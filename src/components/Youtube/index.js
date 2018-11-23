@@ -42,12 +42,12 @@ export default class Youtube extends Component {
     return (
       <YouTube
         videoId={props.id}
-        play={props.autoplay}
+        // play={props.autoplay}
         apiKey={youtubeKey}
-        fullscreen={props.fullscreen}
-        loop={props.loop}
-        showinfo={props.showinfo}
-        rel={props.rel}
+        // fullscreen={props.fullscreen}
+        // loop={props.loop}
+        // showinfo={props.showinfo}
+        // rel={props.rel}
         onReady={this.onReady}
         onChangeState={this.onChangeState}
         onChangeQuality={this.onChangeQuality}

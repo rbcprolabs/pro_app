@@ -3,7 +3,6 @@ import {
   Modal,
   View,
   Dimensions,
-  Text,
   StatusBar
 } from 'react-native';
 import PropTypes from "prop-types";
@@ -38,8 +37,11 @@ export default class ImagePreview extends Component {
         animationType="fade"
         transparent={true}
         visible={props.show}
+        onRequestClose={() => console.log('preview closed')}
       >
-
+        <StatusBar
+          backgroundColor='#000'
+        />
 
         <View
           style={[

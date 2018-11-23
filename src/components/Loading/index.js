@@ -54,7 +54,7 @@ export default class Loading extends Component {
   render() {
     const { props, state } = this;
     const style = styles(props);
-    
+
     return (
       <Modal
         animationType="fade"
@@ -64,7 +64,9 @@ export default class Loading extends Component {
           this.afterClose();
         }}
       >
-                    
+        <StatusBar
+          backgroundColor='#000'
+        />
 
         <View
           style={[
@@ -78,10 +80,10 @@ export default class Loading extends Component {
               style={style.newLine}
             >
               <Text style={style.logo}>
-                РБК{' '}
+                RBK{' '}
               </Text>
               <Text style={[style.logo, style.logoHighlight]}>
-                ПРО
+                PRO
               </Text>
             </View>
             <View

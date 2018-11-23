@@ -26,6 +26,7 @@ import TagsList from 'app/components/TagsList';
 import NavBar from 'app/components/NavBar';
 import TextNumeric from 'app/components/TextNumeric';
 import Youtube from 'app/components/Youtube';
+import Image from 'app/components/Image';
 
 import * as configStyles from 'app/config/style';
 import styles from './styles';
@@ -79,6 +80,16 @@ class ArticleDetail extends Component {
                 />
 
                 <View style={style.content}>
+
+                    {article.media &&
+                        <View>
+                            {this.text(article.media.fields.description)}
+                            <Image
+                                url={article.media.fields.file.url}
+                                activeZoom={true}
+                            />
+                        </View>
+                    }
 
                     {article.idYoutube &&
                         <View>

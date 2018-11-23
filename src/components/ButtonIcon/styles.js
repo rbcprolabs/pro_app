@@ -17,8 +17,9 @@ export default props =>
         height: styles.FIELD_HEIGHT - 4,
         paddingTop: 4,
         shadowColor: styles.COLOR_2,
-        shadowOffset: { width: 4, height: 4 },
-        shadowOpacity: 0.8
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 0.8,
+        elevation: 2
       },
       props.style && {
         ...props.style
