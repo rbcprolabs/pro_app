@@ -1,4 +1,5 @@
 import { uniqWith, isEqual } from 'lodash';
+import moment from 'moment';
 
 const Formatter = {
 
@@ -83,7 +84,7 @@ const Formatter = {
     return filtered.splice(0, 2);
   },
 
-  clearSimalarObjects(array){
+  clearSimalarObjects(array) {
     return uniqWith(array, isEqual);
   },
 
@@ -179,6 +180,14 @@ const Formatter = {
       indexes.find(indexSelect =>
         JSON.stringify(i) === indexSelect))
   },
+
+  convertDateForSorting(date) {
+    if (date) {
+      return moment.unix(moment(date).unix()).valueOf()
+    } else {
+      return '000000000000'
+    }
+  }
   // }
   // clearSimilarTags(array) {
   //   const firstLevels = array.filter(item => item.level == 1);

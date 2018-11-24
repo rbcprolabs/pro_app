@@ -41,7 +41,7 @@ export default function articles(
   if (responce && responce.items) {
     responce.items.map(item => {
       const { fields } = item;
-     
+
       const pars = [
         {
           name: 'industries',
@@ -135,7 +135,10 @@ export default function articles(
 
   // Merge old and new data
   mostPopularTags = mergeData(state.mostPopularTags, mostPopularTags);
-  list = mergeData(state.list, list);
+  list = mergeData(state.list, list)
+    .sort((a, b) => Formatter.convertDateForSorting(b.published) - Formatter.convertDateForSorting(a.published));
+
+
   // const test = [...list];
 
   // console.log('list ', list)

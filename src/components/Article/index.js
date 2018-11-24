@@ -151,10 +151,8 @@ export default class Article extends Component {
                 name={"bookmark"}
                 color={find(props.favorites, {
                   title: article.title,
-                  origin: article.origin,
-                  origin: article.origin,
+                  published: article.published,
                   lead: article.lead,
-                  format: article.format,
                 }) ? configStyles.COLOR_3 : configStyles.COLOR_6}
                 size={34}
                 style={style.bookmark}

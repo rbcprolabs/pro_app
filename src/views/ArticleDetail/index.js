@@ -135,10 +135,7 @@ class ArticleDetail extends Component {
         const { props } = this;
         const style = styles(props);
 
-        console.log(nodeType, atricle)
-
-        // TODO: переработать вывод статьи под параграфф
-
+       // console.log(nodeType, atricle)
         return atricle.map((item, i) => {
             switch (item.nodeType) {
                 case 'hyperlink': {

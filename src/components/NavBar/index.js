@@ -83,7 +83,11 @@ export default class NavBar extends Component {
             && !props.rightContent &&
             <ButtonIcon
               name='bookmark'
-              color={find(props.favorites, props.article) ? configStyles.COLOR_3 : configStyles.COLOR_6}
+              color={find(props.favorites, {
+                title: props.article.title,
+                published: props.article.published,
+                lead: props.article.lead,
+              }) ? configStyles.COLOR_3 : configStyles.COLOR_6}
               size={34}
               style={style.icon}
               onPress={this.actionRight}
