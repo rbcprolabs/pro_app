@@ -26,10 +26,8 @@ export const getArticles = () => dispatch =>
       }
     );
 
-
-
 export const getCards = () => dispatch =>
-  
+
   Contentful().getEntries({
     content_type: 'cards',
     order: '-fields.published'
@@ -51,3 +49,10 @@ export const getCards = () => dispatch =>
         })
       }
     );
+
+export const clearArticles = () => dispatch =>
+
+  dispatch({
+    type: ARTICLES.clear,
+    content_type: 'articles'
+  })

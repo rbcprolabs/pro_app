@@ -17,12 +17,14 @@ class Content extends Component {
     static propTypes = {
         style: PropTypes.object,
         showLoading: PropTypes.bool,
+        scrollView: PropTypes.bool,
         bottomPart: PropTypes.element,
         afterLoading: PropTypes.func,
     }
 
     static defaultProps = {
         statusBarHeight: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight,
+        scrollView: true
     };
 
     render() {
@@ -32,12 +34,23 @@ class Content extends Component {
         return (
             <View style={style.container} {...props}>
                 {props.topPart}
-                <ScrollView bounces={false}
+
+                {props.scrollView &&
+                    <ScrollView
+                    // bounces={false}
                     // style={style.container}
                     // {...props}
-                >
-                    {props.children}
-                </ScrollView>
+                    >
+                        {props.children}
+                    </ScrollView>
+                }
+
+                {!props.scrollView &&
+                    <View>
+                        {props.children}
+                    </View>
+                }
+
                 {props.bottomPart}
                 <Loading
                     show={props.showLoading}

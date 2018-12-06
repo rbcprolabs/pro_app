@@ -9,7 +9,11 @@ import {
 import { maxBy, isEqual, difference } from 'lodash';
 import { Actions } from 'react-native-router-flux';
 
-import { getArticles, getCards } from 'app/redux/actions/articles';
+import {
+    getArticles,
+    clearArticles,
+    getCards
+} from 'app/redux/actions/articles';
 import { setFavorite } from 'app/redux/actions/favorites';
 import { setFollow } from 'app/redux/actions/follow';
 import Content from 'app/components/Content';
@@ -36,15 +40,17 @@ class Articles extends Component {
         populars: ['people', 'companies', 'industries', 'tags'],
         showPopularIndex: 0,
         maxTags: 0,
+        refreshing: false,
+        articles: []
     }
 
     componentWillMount() {
-        const { props } = this;
+        const { props, state } = this;
 
         InitialData('favorites', props.setFavorite);
         InitialData('follow', props.setFollow);
 
-        props.articles.length == 0 ? this.setState({ loading: true }) : false
+        state.articles.length == 0 ? this.setState({ loading: true }) : false
 
         // Actions.push([routes.LOADING], {
         //     show: true
@@ -55,23 +61,22 @@ class Articles extends Component {
 
 
     componentDidMount() {
-        const { props } = this;
+        const { props, state } = this;
 
-        if (props.articles.length == 0) {
-            Promise.all([
-                props.getArticles(),
-                props.getCards()
-            ]).then(() => {
-                setTimeout(() => { this.setState({ loading: false }) }, 1500)
-            });
+        if (state.articles.length == 0) {
+            this.getArticles()
         }
-
 
     }
 
     componentWillReceiveProps(np) {
         if (np.articles.length > 0) {
+
             this.setMaxTags(np);
+            
+            this.setState({
+                articles: np.articles
+            })
         }
     }
 
@@ -79,26 +84,63 @@ class Articles extends Component {
         const { state, props } = this;
         const style = styles(props);
 
+
         return (
+
             <Content
                 style={style.container}
+                scrollView={false}
                 showLoading={state.loading}
             >
                 <StatusBar
                     {...configStyles.STATUS_BAR}
                 />
 
-                <View
-                    style={style.content}
-                >
-                    {props.articles.map((item, index) =>
-                        this.articleItem({ item, index })
-                    )}
+                <FlatList
+                    data={state.articles}
+                    extraData={props}
+                    keyExtractor={this.keyExtractor}
+                    renderItem={this.articleItem}
+                    refreshing={state.refreshing}
+                    onRefresh={this.onSwipeDown}
+                    style={[style.container, style.content]}
+                />
 
-                </View>
             </Content>
         );
     }
+
+    onSwipeDown = () => {
+        const {props} = this;
+
+        this.setState({
+            refreshing: true
+        })
+        
+        props.clearArticles();
+        this.getArticles()
+
+    }
+
+    getArticles = cb => {
+        const { props, state } = this;
+
+        Promise.all([
+            props.getArticles(),
+            props.getCards()
+        ]).then(() => {
+            this.setState({
+                loading: false,
+                refreshing: false
+            })
+
+            if (typeof cb == 'function') {
+                cb();
+            }
+        });
+    }
+
+    keyExtractor = item => item.id
 
     articleItem = ({ item, index }) => {
         const { props, state } = this;
@@ -160,6 +202,7 @@ class Articles extends Component {
     }
 
     setMaxTags = props => {
+        const { state } = this;
         const articleWithMaxTags = maxBy(props.articles, item =>
             this.checkMaxTags(item.parsingData)
         );
@@ -193,6 +236,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getArticles: bindActionCreators(getArticles, dispatch),
+        clearArticles: bindActionCreators(clearArticles, dispatch),
         getCards: bindActionCreators(getCards, dispatch),
         setFavorite: bindActionCreators(setFavorite, dispatch),
         setFollow: bindActionCreators(setFollow, dispatch)

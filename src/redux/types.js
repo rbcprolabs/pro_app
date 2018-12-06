@@ -1,5 +1,6 @@
 export const ARTICLES = {
-  get: 'get_articles'
+  get: 'get_articles',
+  clear: 'clear_articles'
 }
 
 export const CARDS = {

@@ -2,14 +2,14 @@ import { ARTICLES } from '../types';
 import Formatter from 'app/services/Formatter';
 import uuid from 'uuid/v1';
 
-
-
-export default function articles(
-  state = {
-    list: [],
+const initialState = {
+  list: [],
     basketCards: [],
     mostPopularTags: {},
-  },
+}
+
+export default function articles(
+  state = initialState,
   action = {}
 ) {
   const {
@@ -138,16 +138,6 @@ export default function articles(
   list = mergeData(state.list, list)
     .sort((a, b) => Formatter.convertDateForSorting(b.published) - Formatter.convertDateForSorting(a.published));
 
-
-  // const test = [...list];
-
-  // console.log('list ', list)
-
-  // test.sort((a,b)=>+new Date(a.published) - +new Date(b.published))
-  // console.log('test ', test)
-
-
-
   switch (type) {
     case ARTICLES.get: {
       return {
@@ -155,6 +145,10 @@ export default function articles(
         basketCards,
         list
       }
+    }
+
+    case ARTICLES.clear: {
+      return initialState
     }
 
 
