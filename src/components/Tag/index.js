@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   TouchableOpacity,
   View,
@@ -13,7 +13,7 @@ import styles from './styles';
 import * as configStyles from 'app/config/style';
 
 
-export default class Tag extends Component {
+export default class Tag extends PureComponent {
   constructor(props) {
     super(props);
   }

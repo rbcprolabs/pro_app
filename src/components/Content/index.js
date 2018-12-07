@@ -12,7 +12,7 @@ import Loading from 'app/components/Loading';
 import styles from './styles';
 
 
-class Content extends Component {
+export default class Content extends Component {
 
     static propTypes = {
         style: PropTypes.object,
@@ -60,6 +60,3 @@ class Content extends Component {
         )
     }
 }
-
-
-export default Content;

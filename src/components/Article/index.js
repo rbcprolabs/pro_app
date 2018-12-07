@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -10,13 +10,13 @@ import {
 } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { find, isEmpty } from 'lodash';
+import { find } from 'lodash';
 
 
 import Tag from 'app/components/Tag';
 import TagsList from 'app/components/TagsList';
 import TextNumeric from 'app/components/TextNumeric';
-import ButtonIcon from 'app/components/ButtonIcon';
+import BookmarkIcon from 'app/components/BookmarkIcon';
 import Youtube from 'app/components/Youtube';
 import Image from 'app/components/Image';
 
@@ -24,7 +24,7 @@ import styles from './styles';
 import * as routes from "app/config/sceneKeys";
 import * as configStyles from 'app/config/style';
 
-export default class Article extends Component {
+export default class Article extends PureComponent {
 
   static propTypes = {
     article: PropTypes.shape({
@@ -62,6 +62,7 @@ export default class Article extends Component {
 
     this.state = {
       countTags: 2,
+      bookmarkColor: configStyles.COLOR_6,
       tagsIndexes: [0, 1, 2],
       types: {
         default: {
@@ -94,11 +95,6 @@ export default class Article extends Component {
     }
   }
 
-  // componentWillReceiveProps(np) {
-  //   console.log('np ', np)
-  // }
-
-
   render() {
     const { props, state } = this;
     const { article } = props;
@@ -119,6 +115,8 @@ export default class Article extends Component {
     if (props.disableTags) {
       tags = []
     }
+
+    console.log(' state  render', state.bookmarkStatus)
 
     const style = styles(props);
 
@@ -146,22 +144,17 @@ export default class Article extends Component {
             style={[
               style.container,
             ]}>
+           
             {props.bookmark &&
-              <ButtonIcon
-                name={"bookmark"}
-                color={find(props.favorites, {
-                  title: article.title,
-                  published: article.published,
-                  lead: article.lead,
-                }) ? configStyles.COLOR_3 : configStyles.COLOR_6}
-                size={34}
-                style={style.bookmark}
+              <BookmarkIcon
+                article={article}
+                favorites={props.favorites}
                 onPress={this.onPressFavorite}
+                style={style.bookmark}
               />
             }
 
             {view.date == 'top' &&
-
               <View
                 style={[
                   style.header,
@@ -218,11 +211,11 @@ export default class Article extends Component {
                 </Text>
               }
 
-               {article.media
+              {article.media
                 && article.media.fields &&
                 <Image
                   url={article.media.fields.file.url}
-                  // activeZoom={true}
+                // activeZoom={true}
                 />
               }
 
@@ -258,6 +251,7 @@ export default class Article extends Component {
     )
   }
 
+ 
   getTagsIndexes = (array, count) => {
     const indexes = [];
     const getIndexes = () => {
@@ -287,7 +281,7 @@ export default class Article extends Component {
   }
 
   onPressFavorite = () => {
-    const { props } = this;
+    const { props, state } = this;
 
     props.setFavorite(props.article)
   }

@@ -66,10 +66,12 @@ class ArticleDetail extends Component {
                     {...configStyles.STATUS_BAR}
                     translucent={true}
                 />
+
                 <View style={style.header}>
                     <Text style={style.globalTitle}>{article.title}</Text>
                     <Text style={style.date}>{moment(article.published).format('DD.MM.YY, h:mm')}</Text>
                 </View>
+                
                 <TagsList
                     key={uuid()}
                     tags={article.parsingData}

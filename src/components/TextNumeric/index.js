@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text
@@ -7,7 +7,7 @@ import {
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-export default class TextNumeric extends Component {
+export default class TextNumeric extends PureComponent {
 
   static propTypes = {
     text: PropTypes.string,

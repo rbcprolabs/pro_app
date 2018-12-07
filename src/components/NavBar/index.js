@@ -1,25 +1,23 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import {
   View,
-  Text,
-  Platform,
-  StatusBar
+  Text
 } from 'react-native';
-import { find } from 'lodash';
 
 import ButtonIcon from 'app/components/ButtonIcon';
+import BookmarkIcon from 'app/components/BookmarkIcon';
 
 import { Actions } from 'react-native-router-flux';
-import * as routes from "app/config/sceneKeys";
+// import * as routes from "app/config/sceneKeys";
 
 import * as configStyles from 'app/config/style';
 import styles from './styles';
 
 // console.warn('statusBarHeight: ', StatusBar.currentHeight);
 
-export default class NavBar extends Component {
+export default class NavBar extends PureComponent {
   static propTypes = {
     title: PropTypes.string,
     leftContentShow: PropTypes.bool,
@@ -81,16 +79,11 @@ export default class NavBar extends Component {
           }
           {props.rightContentShow
             && !props.rightContent &&
-            <ButtonIcon
-              name='bookmark'
-              color={find(props.favorites, {
-                title: props.article.title,
-                published: props.article.published,
-                lead: props.article.lead,
-              }) ? configStyles.COLOR_3 : configStyles.COLOR_6}
-              size={34}
-              style={style.icon}
+            <BookmarkIcon
+              article={props.article}
+              favorites={props.favorites}
               onPress={this.actionRight}
+              style={style.icon}
             />
           }
         </View>

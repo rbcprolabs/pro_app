@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Modal,
   View,
@@ -8,10 +8,10 @@ import {
 
 import PropTypes from "prop-types";
 
-import * as configStyles from 'app/config/style';
+// import * as configStyles from 'app/config/style';
 import styles from './styles';
 
-export default class Loading extends Component {
+export default class Loading extends PureComponent {
 
   static propTypes = {
     show: PropTypes.bool,

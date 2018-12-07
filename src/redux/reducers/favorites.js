@@ -12,18 +12,28 @@ export default function favorites(
 
   switch (action.type) {
     case FAVORITES.set: {
+      const { favorite } = action;
       let list = [...state.list];
 
-      if (action.favorite[0]) {
+      if (favorite[0]) {
         return {
           ...state,
-          list: action.favorite
+          list: favorite
         }
       }
 
-      find(list, action.favorite) ? remove(list, action.favorite) : list = [...list, action.favorite]
+      find(list, {
+        title: favorite.title,
+        published: favorite.published,
+        lead: favorite.lead
+      }) ? remove(list, {
+        title: favorite.title,
+        published: favorite.published,
+        lead: favorite.lead
+      }) : list = [...list, favorite]
 
       AsincStorage.set('favorites', list);
+      console.log('set reducers favorite')
 
       return {
         ...state,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Animated,
   TouchableOpacity
@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import styles from './styles';
 import * as configStyles from 'app/config/style';
 
-export default class Category extends Component {
+export default class Category extends PureComponent {
 
   static propTypes = {
     title: PropTypes.string,

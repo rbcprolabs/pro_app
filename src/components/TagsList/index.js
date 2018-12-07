@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text
@@ -12,13 +12,13 @@ import uuid from 'uuid/v1';
 import { find, size, isEmpty, mapValues } from 'lodash';
 import Tag from 'app/components/Tag';
 
-import * as configStyles from 'app/config/style';
+// import * as configStyles from 'app/config/style';
 import * as routes from "app/config/sceneKeys";
 import styles from './styles';
 
 
 
-export default class TagsList extends Component {
+export default class TagsList extends PureComponent {
   constructor(props) {
     super(props);
   }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -15,7 +15,7 @@ import Button from 'app/components/Button';
 import * as routes from "app/config/sceneKeys";
 import styles from './styles';
 
-export default class MostPopularTags extends Component {
+export default class MostPopularTags extends PureComponent {
   constructor(props) {
     super(props);
   }

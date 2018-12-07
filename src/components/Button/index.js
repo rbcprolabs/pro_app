@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Text,
   TouchableOpacity
@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles';
 
-export default class Button extends Component {
+export default class Button extends PureComponent {
   constructor(props) {
     super(props);
   }

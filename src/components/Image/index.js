@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -13,7 +13,7 @@ import ImagePreview from 'app/components/Modals/ImagePreview';
 import * as configStyles from 'app/config/style';
 import styles from './styles';
 
-export default class Image extends Component {
+export default class Image extends PureComponent {
   constructor(props) {
     super(props);
 

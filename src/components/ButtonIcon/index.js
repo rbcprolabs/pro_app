@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   TouchableOpacity
 } from 'react-native';
@@ -8,7 +8,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import * as configStyles from 'app/config/style';
 import styles from './styles';
 
-export default class ButtonIcon extends Component {
+export default class ButtonIcon extends PureComponent {
   constructor(props) {
     super(props);
   }

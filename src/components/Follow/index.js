@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
-  Text,
-  ImageBackground
+  Text
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -11,7 +10,7 @@ import Button from 'app/components/Button';
 import * as configStyles from 'app/config/style';
 import styles from './styles';
 
-export default class Follow extends Component {
+export default class Follow extends PureComponent {
   constructor(props) {
     super(props);
 

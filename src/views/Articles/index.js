@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
@@ -29,7 +29,7 @@ import * as routes from "app/config/sceneKeys";
 import * as configStyles from 'app/config/style';
 import styles from './styles';
 
-class Articles extends Component {
+class Articles extends PureComponent {
 
     static defaultProps = {
 
@@ -73,7 +73,7 @@ class Articles extends Component {
         if (np.articles.length > 0) {
 
             this.setMaxTags(np);
-            
+
             this.setState({
                 articles: np.articles
             })
@@ -104,6 +104,9 @@ class Articles extends Component {
                     refreshing={state.refreshing}
                     onRefresh={this.onSwipeDown}
                     style={[style.container, style.content]}
+                    initialNumToRender={5}
+                    maxToRenderPerBatch={2}
+                    onEndReachedThreshold={0.5}
                 />
 
             </Content>
@@ -111,12 +114,12 @@ class Articles extends Component {
     }
 
     onSwipeDown = () => {
-        const {props} = this;
+        const { props } = this;
 
         this.setState({
             refreshing: true
         })
-        
+
         props.clearArticles();
         this.getArticles()
 
