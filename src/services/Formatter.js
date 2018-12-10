@@ -22,7 +22,11 @@ const Formatter = {
           level: 1
         }
 
-        splitSplash[0].length > 0 ? request.description = splitSplash[1] : splitSplash[1];
+        //splitSplash[0].length > 0 ? request.description = splitSplash[1] : splitSplash[1];
+
+        if (splitSplash[1]) {
+          request.description = splitSplash[1]
+        }
 
         return result.push(request)
       }

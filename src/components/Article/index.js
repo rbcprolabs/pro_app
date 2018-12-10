@@ -101,6 +101,7 @@ export default class Article extends PureComponent {
     const view = state.types[props.type] || state.types['default'];
     const published = `${moment(article.published).format('DD.MM.YY, h:mm')} | ${article.sources.fields.name}`;
     const tagsPreview = props.type === 'selected' || props.type == 'youtube' ? ['tags'] : (props.previewModeTag ? ['industries', 'companies'] : false);
+    const style = styles(props);
 
     let tags = props.previewModeTag
       ?
@@ -116,9 +117,6 @@ export default class Article extends PureComponent {
       tags = []
     }
 
-    console.log(' state  render', state.bookmarkStatus)
-
-    const style = styles(props);
 
     return (
       <View style={style.globalContainer}>

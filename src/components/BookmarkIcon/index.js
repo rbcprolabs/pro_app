@@ -50,15 +50,14 @@ export default class BookmarkIcon extends PureComponent {
 
   checkBookmarkStatus = () => {
     const { favorites, article } = this.props;
-
-    let status = find(favorites, {
+    const bookmarkStatus = find(favorites, {
       title: article.title,
       published: article.published,
       lead: article.lead
     }) ? true : false;
 
     this.setState({
-      bookmarkStatus: status
+      bookmarkStatus
     });
   }
 
@@ -69,11 +68,12 @@ export default class BookmarkIcon extends PureComponent {
     this.setState({
       bookmarkStatus: !state.bookmarkStatus
     }, () => {
-      if (typeof props.onPress == 'function') {
-        props.onPress();
-      }
+      setTimeout(() => {
+        if (typeof props.onPress == 'function') {
+          props.onPress();
+        }
+      }, 0)
     });
-
   }
 
 }

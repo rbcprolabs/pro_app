@@ -292,11 +292,10 @@ class ArticleDetail extends Component {
 
     }
 
-    addFavorite = (id) => {
+    addFavorite = () => {
         const { props } = this;
-        console.log('addFavorite ')
-        props.setFavorite(props.article)
 
+        props.setFavorite(props.article)
     }
 
 }

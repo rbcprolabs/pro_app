@@ -4,6 +4,7 @@ import {
   Text
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { find } from 'lodash';
 
 import Button from 'app/components/Button';
 
@@ -15,7 +16,8 @@ export default class Follow extends PureComponent {
     super(props);
 
     this.state = {
-      bottom: configStyles.SPACE_BOTTOM + configStyles.PADDING
+      bottom: configStyles.SPACE_BOTTOM + configStyles.PADDING,
+      followStatus: false
     }
   }
 
@@ -23,9 +25,10 @@ export default class Follow extends PureComponent {
     name: PropTypes.string,
     size: PropTypes.number,
     color: PropTypes.string,
-    followNow: PropTypes.bool,
+    followList: PropTypes.array,
+    tag: PropTypes.object,
     getSizes: PropTypes.func,
-
+    onPress: PropTypes.func,
 
     // styling
     style: PropTypes.object,
@@ -35,8 +38,11 @@ export default class Follow extends PureComponent {
   static defaultProps = {
     image: 'http://photo.torba.com/images/kolominov/c128/Jw3AGpn5gAqq8zfU6u3Q.jpg',
     name: 'star',
-    followNow: false,
 
+  }
+
+  componentWillMount() {
+    this.checkFallowStatus()
   }
 
   render() {
@@ -61,7 +67,7 @@ export default class Follow extends PureComponent {
         </View>
         <View style={style.buttonContainer}>
           <Button
-            text={!props.followNow ? 'Следить +15₽' : 'Отписка'}
+            text={!state.followStatus ? 'Следить +15₽' : 'Отписка'}
             type='2'
             style={style.button}
             onPress={this.onPress}
@@ -73,11 +79,26 @@ export default class Follow extends PureComponent {
   }
 
   onPress = () => {
-    const { props } = this;
+    const { props, state } = this;
 
-    if (props.onPress) {
-      props.onPress()
-    }
+    this.setState({
+      followStatus: !state.followStatus
+    }, () => {
+      setTimeout(() => {
+        if (typeof props.onPress == 'function') {
+          props.onPress();
+        }
+      }, 0)
+    });
+  }
+
+  checkFallowStatus = () => {
+    const { followList, tag } = this.props;
+    const followStatus = find(followList, tag) ? true : false;
+  
+    this.setState({
+      followStatus
+    })
   }
 
   getHeight = (e) => {

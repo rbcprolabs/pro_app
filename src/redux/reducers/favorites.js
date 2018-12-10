@@ -33,7 +33,6 @@ export default function favorites(
       }) : list = [...list, favorite]
 
       AsincStorage.set('favorites', list);
-      console.log('set reducers favorite')
 
       return {
         ...state,

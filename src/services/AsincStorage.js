@@ -2,10 +2,9 @@ import { AsyncStorage } from "react-native"
 
 export default {
     set(key, data) {
-        console.log('set asinc', key, data)
-        AsyncStorage.getAllKeys().then(res => {
-            console.log('keys ', res)
-        });
+        // AsyncStorage.getAllKeys().then(res => {
+        //     console.log('keys ', res)
+        // });
         return AsyncStorage.setItem(key, JSON.stringify(data));
     },
 

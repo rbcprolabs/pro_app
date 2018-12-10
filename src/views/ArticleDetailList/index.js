@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
     View,
     Text,
+    FlatList,
     StatusBar
 } from 'react-native';
 
@@ -32,20 +33,17 @@ class ArticleDetailList extends Component {
     };
 
     state = {
-        loading: false
-    }
-
-    componentWillMount() {
-        this.followNowCheck(this.props)
+        loading: false,
+        articles: []
     }
 
     componentWillReceiveProps(np) {
-        const { props } = this;
+        if (np.articles.length > 0) {
 
-        if (!isEqual(props.followList, np.followList)) {
-            this.followNowCheck(np);
+            this.setState({
+                articles: np.articles
+            })
         }
-
     }
 
     render() {
@@ -69,6 +67,18 @@ class ArticleDetailList extends Component {
 
                     {props.articles.map(item => this.articleItem({ item }))}
 
+                    {/* Todo: переделать фильтр и флет лист для быстрого рендера */}
+                    {/* <FlatList
+                        data={props.articles}
+                        extraData={props}
+                        keyExtractor={this.keyExtractor}
+                        renderItem={this.articleItem}
+                        style={[style.container]}
+                        initialNumToRender={10}
+                        maxToRenderPerBatch={10}
+                        onEndReachedThreshold={0.5}
+                    /> */}
+
                 </View>
             </Content>
         );
@@ -77,7 +87,7 @@ class ArticleDetailList extends Component {
     articleItem = ({ item }) => {
         const { props } = this;
         const categoryFound = find(item.parsingDataFiltered, { 'type': props.type });
-
+       
         if (categoryFound && find(categoryFound.items, { 'term': props.tag.term })) {
             return (
                 <Article
@@ -94,6 +104,15 @@ class ArticleDetailList extends Component {
         }
     }
 
+    // filterArticles = ()=>{
+    //     const {state} = this;
+
+        
+
+    // }
+
+    keyExtractor = item => item.id
+
     topPart = (style) => (
         <View style={style.header}>
             <ButtonIcon
@@ -107,12 +126,13 @@ class ArticleDetailList extends Component {
         </View>
     )
 
-    bottomPart = (props, state) => (
+    bottomPart = props => (
         <Follow
             title={props.tag.term}
             // image={props.image}
             visible={true}
-            followNow={state.followNow}
+            followList={props.followList}
+            tag={props.tag}
             onPress={this.onPressFollow}
             getSizes={this.getSizesFollow}
         />
@@ -122,7 +142,7 @@ class ArticleDetailList extends Component {
         Actions.pop()
     }
 
-    onPress = (id) => {
+    onPress = id => {
         console.log('presses id ', id)
 
     }
@@ -132,17 +152,6 @@ class ArticleDetailList extends Component {
 
         props.setFollow(props.tag);
 
-    }
-
-    followNowCheck = (np) => {
-        const { props } = this;
-        const followNow = find(np.followList, props.tag) ? true : false;
-
-        this.setState({
-            followNow
-        })
-
-        return followNow;
     }
 
     getSizesFollow = (sizes) => {
