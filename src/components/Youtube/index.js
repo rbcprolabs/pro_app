@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import YouTube from 'react-native-youtube';
 import PropTypes from 'prop-types';
@@ -6,7 +6,7 @@ import { youtubeKey } from 'app/config/api';
 
 import styles from './styles';
 
-export default class Youtube extends Component {
+export default class Youtube extends PureComponent {
   constructor(props) {
     super(props);
 

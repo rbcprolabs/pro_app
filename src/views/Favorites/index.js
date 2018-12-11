@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import {
     View,
     Text,
+    FlatList,
     StatusBar
 } from 'react-native';
+import PropTypes from 'prop-types';
+
 
 import {
     Actions
@@ -18,25 +21,11 @@ import * as configStyles from 'app/config/style';
 import * as routes from "app/config/sceneKeys";
 import styles from './styles';
 
-class Favorites extends Component {
+class Favorites extends PureComponent {
 
-    static defaultProps = {
-
-    };
-
-    state = {
-        loading: false
-    }
-
-    componentDidMount() {
-        // setTimeout(()=>{
-        //     this.setState({
-        //         loading: false
-        //     })
-        // }, 2000)
-
-
-
+    static propTypes = {
+        articles: PropTypes.array,
+        followList: PropTypes.array,
     }
 
     render() {
@@ -48,7 +37,6 @@ class Favorites extends Component {
         return (
             <Content
                 style={style.container}
-                showLoading={state.loading}
             >
                 <StatusBar
                     {...configStyles.STATUS_BAR}
@@ -59,22 +47,33 @@ class Favorites extends Component {
                     {props.articles.length == 0 &&
                         <Text>Вам ничего не нравится</Text>
                     }
-                    {props.articles.map(article =>
-                        <Article
-                            key={article.id}
-                            article={article}
-                            type={types[Math.floor(Math.random() * types.length)]}
-                            followList={props.followList}
-                            onPressTag={this.onPressTag}
-                        />
-                    )}
+
+                    <FlatList
+                        data={props.articles}
+                        extraData={props.articles}
+                        keyExtractor={this.keyExtractor}
+                        renderItem={this.articleItem}
+                        initialNumToRender={5}
+                        maxToRenderPerBatch={2}
+                        onEndReachedThreshold={0.5}
+                    />
                 </View>
             </Content>
         );
     }
 
-    onPressTag = (data) => {
-        Actions.push(routes.ARTICLES_DETAIL_LIST.key, { ...data });
+    keyExtractor = item => item.id
+
+    articleItem = ({ item }) => {
+        const { props } = this;
+
+        return (
+            <Article
+                article={item}
+                type='default'
+                followList={props.followList}
+            />
+        )
     }
 
 }

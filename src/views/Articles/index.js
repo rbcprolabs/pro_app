@@ -50,8 +50,6 @@ class Articles extends PureComponent {
         InitialData('favorites', props.setFavorite);
         InitialData('follow', props.setFollow);
 
-        state.articles.length == 0 ? this.setState({ loading: true }) : false
-
         // Actions.push([routes.LOADING], {
         //     show: true
         // })
@@ -59,11 +57,14 @@ class Articles extends PureComponent {
 
     }
 
+    
+
 
     componentDidMount() {
         const { props, state } = this;
 
         if (state.articles.length == 0) {
+            this.setState({ loading: true })
             this.getArticles()
         }
 

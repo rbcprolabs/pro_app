@@ -11,7 +11,6 @@ import {
 import {
     Actions
 } from 'react-native-router-flux';
-import { find, isEqual } from 'lodash';
 
 import { setFollow } from 'app/redux/actions/follow'
 import { setFavorite } from 'app/redux/actions/favorites'
@@ -37,13 +36,8 @@ class ArticleDetailList extends Component {
         articles: []
     }
 
-    componentWillReceiveProps(np) {
-        if (np.articles.length > 0) {
-
-            this.setState({
-                articles: np.articles
-            })
-        }
+    componentDidMount() {
+        this.filterArticles();
     }
 
     render() {
@@ -65,19 +59,15 @@ class ArticleDetailList extends Component {
 
                 <View style={style.content}>
 
-                    {props.articles.map(item => this.articleItem({ item }))}
-
-                    {/* Todo: переделать фильтр и флет лист для быстрого рендера */}
-                    {/* <FlatList
-                        data={props.articles}
-                        extraData={props}
+                    <FlatList
+                        data={state.articles}
+                        extraData={state.articles}
                         keyExtractor={this.keyExtractor}
                         renderItem={this.articleItem}
-                        style={[style.container]}
                         initialNumToRender={10}
                         maxToRenderPerBatch={10}
                         onEndReachedThreshold={0.5}
-                    /> */}
+                    />
 
                 </View>
             </Content>
@@ -86,30 +76,36 @@ class ArticleDetailList extends Component {
 
     articleItem = ({ item }) => {
         const { props } = this;
-        const categoryFound = find(item.parsingDataFiltered, { 'type': props.type });
-       
-        if (categoryFound && find(categoryFound.items, { 'term': props.tag.term })) {
-            return (
-                <Article
-                    key={item.id}
-                    article={item}
-                    bookmark={true}
-                    type='withDescription'
-                    followList={props.followList}
-                    favorites={props.favorites}
-                    setFavorite={props.setFavorite}
-                    disableTags={true}
-                />
-            )
-        }
+
+        return (
+            <Article
+                key={item.id}
+                article={item}
+                bookmark={true}
+                type='withDescription'
+                followList={props.followList}
+                favorites={props.favorites}
+                setFavorite={props.setFavorite}
+                disableTags={true}
+            />
+        )
     }
 
-    // filterArticles = ()=>{
-    //     const {state} = this;
+    filterArticles = () => {
+        const { props } = this;
+        const articles = props.articles.filter(item => {
+            const byCategory = item.parsingDataFiltered.find(el => el.type === props.type);
 
-        
+            if (byCategory) {
+                return byCategory.items.find(el => el.term === props.tag.term)
+            }
+        })
 
-    // }
+        this.setState({
+            articles
+        })
+
+    }
 
     keyExtractor = item => item.id
 
@@ -154,7 +150,7 @@ class ArticleDetailList extends Component {
 
     }
 
-    getSizesFollow = (sizes) => {
+    getSizesFollow = sizes => {
         this.setState({
             paddingBottom: sizes.paddingBottom
         })
