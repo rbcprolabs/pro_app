@@ -104,10 +104,11 @@ class Articles extends PureComponent {
                     renderItem={this.articleItem}
                     refreshing={state.refreshing}
                     onRefresh={this.onSwipeDown}
-                    style={[style.container, style.content]}
-                    initialNumToRender={5}
-                    maxToRenderPerBatch={2}
-                    onEndReachedThreshold={0.5}
+                    style={[ style.content]}
+                    initialNumToRender={10}
+                    maxToRenderPerBatch={5}
+                    onEndReached={(e)=>console.log('test', e)}
+                    onEndReachedThreshold={1}
                 />
 
             </Content>
@@ -198,6 +199,7 @@ class Articles extends PureComponent {
                     favorites={props.favorites}
                     setFavorite={props.setFavorite}
                     followList={props.followList}
+                    index={index}
                 />
                 {/* : false} */}
 

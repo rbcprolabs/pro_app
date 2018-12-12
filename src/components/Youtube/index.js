@@ -54,10 +54,10 @@ export default class Youtube extends PureComponent {
         showinfo={props.showinfo}
         rel={props.rel}
         ref={component => this._youTubeRef = component}
-        onReady={this.onReady}
-        onChangeState={this.onChangeState}
-        onChangeQuality={this.onChangeQuality}
-        onChangeFullscreen={this.onChangeFullscreen}
+        //onReady={this.onReady}
+        // onChangeState={this.onChangeState}
+        //onChangeQuality={this.onChangeQuality}
+        //onChangeFullscreen={this.onChangeFullscreen}
         onError={this.onChangeQuality}
         style={style.player}
       />

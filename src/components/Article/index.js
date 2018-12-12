@@ -117,7 +117,6 @@ export default class Article extends PureComponent {
       tags = []
     }
 
-
     return (
       <View style={style.globalContainer}>
         {/* Image part */}
@@ -142,7 +141,7 @@ export default class Article extends PureComponent {
             style={[
               style.container,
             ]}>
-           
+
             {props.bookmark &&
               <BookmarkIcon
                 article={article}
@@ -249,7 +248,7 @@ export default class Article extends PureComponent {
     )
   }
 
- 
+
   getTagsIndexes = (array, count) => {
     const indexes = [];
     const getIndexes = () => {
