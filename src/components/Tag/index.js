@@ -5,6 +5,7 @@ import {
   Text,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import Mixpanel from 'react-native-mixpanel';
 
 
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -82,6 +83,7 @@ export default class Tag extends PureComponent {
   onPress = () => {
     const { props } = this;
 
+    Mixpanel.track(`Pressed to tag's ${props.convert ? 'subscribe' : 'unsubscribe'}`)
     if (props.onPress) {
       props.onPress()
     }

@@ -7,6 +7,7 @@ import {
     FlatList,
     StatusBar
 } from 'react-native';
+import Mixpanel from 'react-native-mixpanel';
 
 import {
     Actions
@@ -135,7 +136,9 @@ class ArticleDetailList extends Component {
     )
 
     backAction = () => {
-        Actions.pop()
+        Actions.pop();
+        Mixpanel.track(`Closed similar tag modal window`)
+
     }
 
     onPress = id => {

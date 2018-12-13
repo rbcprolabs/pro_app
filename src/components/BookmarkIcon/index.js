@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import Mixpanel from 'react-native-mixpanel';
 import { find } from 'lodash';
 
 import ButtonIcon from 'app/components/ButtonIcon';
@@ -69,6 +70,8 @@ export default class BookmarkIcon extends PureComponent {
       bookmarkStatus: !state.bookmarkStatus
     }, () => {
       setTimeout(() => {
+        Mixpanel.track(`Pressed to bookmark: ${!state.bookmarkStatus ? 'add' : 'remove'}`)
+
         if (typeof props.onPress == 'function') {
           props.onPress();
         }

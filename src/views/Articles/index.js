@@ -21,8 +21,6 @@ import Article from 'app/components/Article';
 import OneTagOfArticles from 'app/components/OneTagOfArticles';
 import MostPopularTags from 'app/components/MostPopularTags';
 import InitialData from 'app/bootstrap/InitialData';
-import Youtube from 'app/components/Youtube';
-
 
 
 import * as routes from "app/config/sceneKeys";

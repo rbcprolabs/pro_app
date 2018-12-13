@@ -4354,6 +4354,10 @@ react-native-iphone-x-helper@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.0.tgz#9f8a376eb00bc712115abff4420318a0063fa796"
 
+react-native-mixpanel@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-mixpanel/-/react-native-mixpanel-1.1.1.tgz#012580fb1b42b6c0ee35d0af0a24af68cfa79b89"
+
 "react-native-photo-view@git+https://github.com/tomtom94/react-native-photo-view.git":
   version "1.5.2"
   resolved "git+https://github.com/tomtom94/react-native-photo-view.git#a2b2b6ebad313b8dec00174d41dfab1445628747"
@@ -4404,9 +4408,9 @@ react-native-vector-icons@^6.0.2:
     prop-types "^15.6.2"
     yargs "^8.0.2"
 
-"react-native-youtube@https://github.com/inProgress-team/react-native-youtube.git":
+"react-native-youtube@git+https://github.com/inProgress-team/react-native-youtube.git":
   version "1.1.0"
-  resolved "https://github.com/inProgress-team/react-native-youtube.git#1c2d9dca67653dd540ea850ec53a221a12493e09"
+  resolved "git+https://github.com/inProgress-team/react-native-youtube.git#1c2d9dca67653dd540ea850ec53a221a12493e09"
   dependencies:
     prop-types "^15.5.0"
 

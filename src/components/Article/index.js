@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ImageBackground
 } from 'react-native';
+import Mixpanel from 'react-native-mixpanel';
 import {
   Actions
 } from 'react-native-router-flux';
@@ -275,6 +276,7 @@ export default class Article extends PureComponent {
       article: props.article,
       previewModeTag: props.previewModeTag
     });
+    Mixpanel.track(`Pressing to title, opening detail page`)
   }
 
   onPressFavorite = () => {

@@ -148,6 +148,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-mixpanel')
     implementation project(':react-native-photo-view')
     implementation project(':react-native-youtube')
     implementation project(':react-native-vector-icons')

@@ -11,6 +11,8 @@ import { connect } from 'react-redux';
 
 import Rox from 'rox-react-native';
 import ReduxContainer from 'app/bootstrap/Redux';
+import Mixpanel from 'react-native-mixpanel';
+import { mixPanelToken } from 'app/config/api';
 import InitialData from 'app/bootstrap/InitialData';
 import { setFavorite } from 'app/redux/actions/favorites';
 
@@ -36,7 +38,7 @@ export default class App extends Component {
 
     componentWillMount() {
         // InitialData();
-        
+        Mixpanel.sharedInstanceWithToken(mixPanelToken)
 
     }
 

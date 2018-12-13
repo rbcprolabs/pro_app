@@ -4,6 +4,7 @@ import {
   Text
 } from 'react-native';
 import PropTypes from 'prop-types';
+import Mixpanel from 'react-native-mixpanel';
 import { find } from 'lodash';
 
 import Button from 'app/components/Button';
@@ -85,6 +86,7 @@ export default class Follow extends PureComponent {
       followStatus: !state.followStatus
     }, () => {
       setTimeout(() => {
+        Mixpanel.track(`Pressed to ${!state.followStatus ? 'unsubscribe' : 'subscribe'}`)
         if (typeof props.onPress == 'function') {
           props.onPress();
         }
@@ -95,7 +97,7 @@ export default class Follow extends PureComponent {
   checkFallowStatus = () => {
     const { followList, tag } = this.props;
     const followStatus = find(followList, tag) ? true : false;
-  
+
     this.setState({
       followStatus
     })
