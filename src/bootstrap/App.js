@@ -7,14 +7,12 @@ import {
     Tabs,
     Modal
 } from 'react-native-router-flux';
-import { connect } from 'react-redux';
 
 import Rox from 'rox-react-native';
 import ReduxContainer from 'app/bootstrap/Redux';
+import Sentry from 'app/bootstrap/Sentry';
 import Mixpanel from 'react-native-mixpanel';
 import { mixPanelToken } from 'app/config/api';
-import InitialData from 'app/bootstrap/InitialData';
-import { setFavorite } from 'app/redux/actions/favorites';
 
 
 
@@ -39,7 +37,12 @@ export default class App extends Component {
     componentWillMount() {
         // InitialData();
         Mixpanel.sharedInstanceWithToken(mixPanelToken)
+        Sentry.init();
 
+    }
+
+    componentDidCatch(error, errorInfo) {
+        Sentry.onError(error, errorInfo);
     }
 
     render() {
@@ -48,26 +51,21 @@ export default class App extends Component {
         // GLOBAL.XMLHttpRequest = GLOBAL.originalXMLHttpRequest || GLOBAL.XMLHttpRequest;
 
         Rox.setup("5bd03940fd54c84192765520")
-        // let favorites;
+        const flags = {
+            titleColors: new Rox.Variant('White', ['White', 'Blue', 'Green', 'Yellow']),
+          };
 
-        // if((favorites = await AsincStorage.get('favorites'))){
-
-        // };
-
-
-        // const flags = {
-        //     articlesView: new Rox.Flag(true)
-        //   };
-        // Rox.register('TEST', flags);
-
-
+        console.log('ROX ', Rox)
+        // console.log('ROX Variant', new Rox.Variant().getValue('TEST.titleColors'))
+        console.log('ROX Variant',  Rox.Variant())
+        // console.log('ROX overrides ', Rox.showOverrides())
         // if (flags.articlesView.isEnabled()) {
         //     console.log('articlesView is enabled');
         //     alert('articlesView is enabled')
         //   }else{
         //       alert(JSON.stringify(flags.articlesView.isEnabled()))
         //   }
-        
+
         return (
             <ReduxContainer>
                 <Router sceneStyle={style.routerContainer}>

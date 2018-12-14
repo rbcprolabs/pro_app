@@ -1,18 +1,30 @@
 import axios from 'axios';
+import Contentful from 'app/bootstrap/Contentful';
 
 export default {
+
+  articles: {
+    get: () =>
+      Contentful().getEntries({
+        content_type: 'articles',
+        order: '-fields.published'
+      })
+  },
+
+  cards: {
+    get: () =>
+      Contentful().getEntries({
+        content_type: 'cards',
+        order: '-fields.published'
+      })
+  },
 
   categories: {
 
     get: data => {
-      const imageProp = {
-        image_width: "32",
-        image_height: "32",
-      }
       return axios({
         data: {
           getType: "getCategories",
-          ...imageProp,
           ...data,
         }
       })
@@ -20,28 +32,7 @@ export default {
         .catch(() => {
           return Promise.reject({
             'status': false,
-            'description': 'Ошибка сервера'
-          });
-        });
-    },
-
-    get_by_id: id => {
-      const imageProp = {
-        image_width: "150",
-        image_height: "150",
-      }
-      return axios({
-        data: {
-          getType: "getCategories",
-          category_id: id,
-          ...imageProp,
-        }
-      })
-        .then(res => res.data)
-        .catch(() => {
-          return Promise.reject({
-            'status': false,
-            'description': 'Ошибка сервера'
+            'description': 'Ошибка получения категорий'
           });
         });
     }

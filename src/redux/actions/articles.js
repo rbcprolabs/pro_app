@@ -1,13 +1,21 @@
 import { ARTICLES, CARDS } from '../types';
-import Contentful from 'app/bootstrap/Contentful';
-
+import api from 'app/redux/api';
 
 export const getArticles = () => dispatch =>
 
-  Contentful().getEntries({
-    content_type: 'articles',
-    order: '-fields.published'
-  })
+  // Contentful().getEntries({
+  //   content_type: 'articles',
+  //   order: '-fields.published'
+  // })
+  //   .then(
+  //     responce => dispatch({
+  //       type: ARTICLES.get,
+  //       content_type: 'articles',
+  //       responce
+  //     })
+
+  //   )
+  api.articles.get()
     .then(
       responce => dispatch({
         type: ARTICLES.get,
@@ -28,10 +36,7 @@ export const getArticles = () => dispatch =>
 
 export const getCards = () => dispatch =>
 
-  Contentful().getEntries({
-    content_type: 'cards',
-    order: '-fields.published'
-  })
+  api.cards.get()
     .then(
       responce => dispatch({
         type: ARTICLES.get,
