@@ -8,17 +8,17 @@ import {
     Modal
 } from 'react-native-router-flux';
 
-import Rox from 'rox-react-native';
 import ReduxContainer from 'app/bootstrap/Redux';
 import Sentry from 'app/bootstrap/Sentry';
+// import Rollout from 'app/bootstrap/Rollout';
 import Mixpanel from 'react-native-mixpanel';
-import { mixPanelToken } from 'app/config/api';
-
+import {
+    mixPanelToken,
+} from 'app/config/api';
 
 
 import * as routes from "app/config/sceneKeys";
 import styles from './styles';
-
 
 // Redux
 import Categories from 'app/views/Categories';
@@ -28,9 +28,6 @@ import ArticleDetail from 'app/views/ArticleDetail';
 import Favorites from 'app/views/Favorites';
 import Settings from 'app/views/Settings';
 // END Redux
-
-import AsincStorage from 'app/services/AsincStorage';
-
 
 export default class App extends Component {
 
@@ -50,28 +47,10 @@ export default class App extends Component {
         // For network debug
         // GLOBAL.XMLHttpRequest = GLOBAL.originalXMLHttpRequest || GLOBAL.XMLHttpRequest;
 
-        Rox.setup("5bd03940fd54c84192765520")
-        const flags = {
-            titleColors: new Rox.Variant('White', ['White', 'Blue', 'Green', 'Yellow']),
-          };
-
-        console.log('ROX ', Rox)
-        // console.log('ROX Variant', new Rox.Variant().getValue('TEST.titleColors'))
-        console.log('ROX Variant',  Rox.Variant())
-        // console.log('ROX overrides ', Rox.showOverrides())
-        // if (flags.articlesView.isEnabled()) {
-        //     console.log('articlesView is enabled');
-        //     alert('articlesView is enabled')
-        //   }else{
-        //       alert(JSON.stringify(flags.articlesView.isEnabled()))
-        //   }
-
         return (
             <ReduxContainer>
                 <Router sceneStyle={style.routerContainer}>
-                    <Modal
-                        hideNavBar
-                    >
+                    <Modal hideNavBar>
 
                         <Stack key="root">
 

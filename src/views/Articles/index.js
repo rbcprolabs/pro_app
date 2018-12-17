@@ -14,6 +14,7 @@ import {
     clearArticles,
     getCards
 } from 'app/redux/actions/articles';
+import { setSettings } from 'app/redux/actions/settings';
 import { setFavorite } from 'app/redux/actions/favorites';
 import { setFollow } from 'app/redux/actions/follow';
 import Content from 'app/components/Content';
@@ -21,6 +22,8 @@ import Article from 'app/components/Article';
 import OneTagOfArticles from 'app/components/OneTagOfArticles';
 import MostPopularTags from 'app/components/MostPopularTags';
 import InitialData from 'app/bootstrap/InitialData';
+import Rollout from 'app/bootstrap/Rollout';
+
 
 
 import * as routes from "app/config/sceneKeys";
@@ -47,6 +50,7 @@ class Articles extends PureComponent {
 
         InitialData('favorites', props.setFavorite);
         InitialData('follow', props.setFollow);
+        Rollout(props.setSettings);
 
         // Actions.push([routes.LOADING], {
         //     show: true
@@ -55,7 +59,7 @@ class Articles extends PureComponent {
 
     }
 
-    
+
 
 
     componentDidMount() {
@@ -102,10 +106,10 @@ class Articles extends PureComponent {
                     renderItem={this.articleItem}
                     refreshing={state.refreshing}
                     onRefresh={this.onSwipeDown}
-                    style={[ style.content]}
+                    style={[style.content]}
                     initialNumToRender={10}
                     maxToRenderPerBatch={5}
-                    onEndReached={(e)=>console.log('test', e)}
+                    onEndReached={(e) => console.log('test', e)}
                     onEndReachedThreshold={1}
                 />
 
@@ -243,7 +247,8 @@ function mapDispatchToProps(dispatch) {
         clearArticles: bindActionCreators(clearArticles, dispatch),
         getCards: bindActionCreators(getCards, dispatch),
         setFavorite: bindActionCreators(setFavorite, dispatch),
-        setFollow: bindActionCreators(setFollow, dispatch)
+        setFollow: bindActionCreators(setFollow, dispatch),
+        setSettings: bindActionCreators(setSettings, dispatch)
     }
 }
 

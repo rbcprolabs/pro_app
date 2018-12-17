@@ -15,3 +15,7 @@ export const FOLLOW = {
 export const FAVORITES = {
   set: 'set_favorite'
 }
+
+export const SETTINGS = {
+  set: 'set_settings'
+}
