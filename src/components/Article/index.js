@@ -40,6 +40,7 @@ export default class Article extends PureComponent {
     bookmark: PropTypes.bool,
     disableTags: PropTypes.bool,
     type: PropTypes.string,
+    rollout: PropTypes.object,
     tagOnes: PropTypes.array,
     setFavorite: PropTypes.func,
     onPressTag: PropTypes.func,
@@ -55,6 +56,7 @@ export default class Article extends PureComponent {
     followList: [],
     previewModeTag: true,
     tagOnes: [],
+    rollout: {},
     disableTags: false
   }
 
@@ -98,10 +100,10 @@ export default class Article extends PureComponent {
 
   render() {
     const { props, state } = this;
-    const { article } = props;
+    const { article, rollout } = props;
     const view = state.types[props.type] || state.types['default'];
     const published = `${moment(article.published).format('DD.MM.YY, h:mm')} | ${article.sources.fields.name}`;
-    const tagsPreview = props.type === 'selected' || props.type == 'youtube' ? ['tags'] : (props.previewModeTag ? ['industries', 'companies'] : false);
+    const tagsPreview = props.type === 'selected' || props.type == 'youtube' ? ['tags'] : (props.previewModeTag ? this.tagsTypeShow() : false);
     const style = styles(props);
 
     let tags = props.previewModeTag
@@ -200,7 +202,9 @@ export default class Article extends PureComponent {
                 />
               }
 
-              {view.lead && article.lead &&
+              {view.lead
+                && article.lead
+                && rollout.BusketCardShowLead &&
                 <Text style={[
                   style.lead,
                   style.leadСontainer
@@ -249,6 +253,33 @@ export default class Article extends PureComponent {
     )
   }
 
+
+  tagsTypeShow = () => {
+    const { rollout } = this.props;
+    const result = [];
+
+    if (rollout.ArticlesListShowIndustries) {
+      result.push('industries')
+    }
+
+    if (rollout.ArticlesListShowCompanies) {
+      result.push('companies')
+    }
+
+    if (rollout.ArticlesListShowTags) {
+      result.push('tags')
+    }
+
+    if (rollout.ArticlesListShowFunctions) {
+      result.push('functions')
+    }
+
+    if (rollout.ArticlesListShowDataSources) {
+      result.push('datasources')
+    }
+
+    return result
+  }
 
   getTagsIndexes = (array, count) => {
     const indexes = [];

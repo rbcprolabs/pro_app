@@ -1,6 +1,6 @@
 import { FAVORITES } from '../types';
 import { find, remove } from 'lodash';
-import AsincStorage from 'app/services/AsincStorage';
+import AsyncStorage from 'app/services/AsyncStorage';
 
 
 export default function favorites(
@@ -32,7 +32,7 @@ export default function favorites(
         lead: favorite.lead
       }) : list = [...list, favorite]
 
-      AsincStorage.set('favorites', list);
+      AsyncStorage.set('favorites', list);
 
       return {
         ...state,

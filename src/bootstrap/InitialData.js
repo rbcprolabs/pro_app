@@ -1,10 +1,10 @@
 import Rollout from 'app/bootstrap/Rollout';
-import AsincStorage from 'app/services/AsincStorage';
+import AsyncStorage from 'app/services/AsyncStorage';
 
 export default async (key, set) => {
   let data;
 
-  if ((data = await AsincStorage.get(key))) {
+  if ((data = await AsyncStorage.get(key))) {
     set(data)
   }
 }

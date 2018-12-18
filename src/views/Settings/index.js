@@ -6,7 +6,7 @@ import {
     Text,
     StatusBar
 } from 'react-native';
-import AsincStorage from 'app/services/AsincStorage';
+import AsyncStorage from 'app/services/AsyncStorage';
 
 
 import { getArticles } from 'app/redux/actions/articles'
@@ -64,7 +64,7 @@ class Settings extends Component {
     }
 
     onPress = () => {
-        AsincStorage.clear().then(() => {
+        AsyncStorage.clear().then(() => {
             alert('Все подписки удалены')
         })
     }

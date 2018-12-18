@@ -1,31 +1,56 @@
 import Rox from 'rox-react-native';
 import { roxToken } from 'app/config/api';
+import AsyncStorage from 'app/services/AsyncStorage';
 
 
-export default async setSettings => {
+export default async () => {
   const flags = {
-    depositTurnedOn: new Rox.Flag(),
-    colorsVariant: new Rox.Variant('red', ['green', 'blue']),
-    useCDN: new Rox.Configuration(true),
+    BusketCardShowLead: new Rox.Flag(false),
+    BusketCardForceToTop: new Rox.Flag(false),
+    ArticlesListShowIndustries: new Rox.Flag(true),
+    ArticlesListShowCompanies: new Rox.Flag(true),
+    ArticlesListShowTags: new Rox.Flag(false),
+    ArticlesListShowFunctions: new Rox.Flag(false),
+    ArticlesListShowDataSources: new Rox.Flag(false),
+    BusketCardArticlesThreshold: new Rox.Configuration(3),
+    BusketCardTermsLimit: new Rox.Configuration(3),
+    BusketCardHierarchyLevel: new Rox.Configuration(2),
+    RecommendedTagArticlesThreshold: new Rox.Configuration(1)
   }
 
-  Rox.register('BankerFlags', flags)
+  Rox.register('Flags', flags)
 
   await Rox.setup(roxToken, {
     freeze: Rox.FreezeOptions.freezeOptionNone,
+    version: '0.0.0',
     impressionHandler: (reportingValue, experiment) => {
       console.log('flag impression', reportingValue, experiment);
     }
   });
-  
-  const color = flags.colorsVariant.getValue();
-  const depositTurnedOn = flags.depositTurnedOn.isEnabled();
 
-  console.log('depositTurnedOn ', depositTurnedOn)
-  console.log('colorsVariant ', color)
- 
-  setSettings({
-    color,
-    depositTurnedOn
-  })
+  // For variants or configuration
+  // flags[name].getValue()
+  // For flags 
+  // flags[name].isEnabled()
+
+
+
+  const result = {
+    BusketCardShowLead: flags.BusketCardShowLead.isEnabled(),
+    BusketCardForceToTop: flags.BusketCardForceToTop.isEnabled(),
+    ArticlesListShowIndustries: flags.ArticlesListShowIndustries.isEnabled(),
+    ArticlesListShowCompanies: flags.ArticlesListShowCompanies.isEnabled(),
+    ArticlesListShowTags: flags.ArticlesListShowTags.isEnabled(),
+    ArticlesListShowFunctions: flags.ArticlesListShowFunctions.isEnabled(),
+    ArticlesListShowDataSources: flags.ArticlesListShowDataSources.isEnabled(),
+    BusketCardArticlesThreshold: flags.BusketCardArticlesThreshold.getValue(),
+    BusketCardTermsLimit: flags.BusketCardTermsLimit.getValue(),
+    BusketCardHierarchyLevel: flags.BusketCardHierarchyLevel.getValue(),
+    RecommendedTagArticlesThreshold: flags.RecommendedTagArticlesThreshold.getValue(),
+  }
+
+  //AsyncStorage('rollout', result)
+
+
+  return result;
 }

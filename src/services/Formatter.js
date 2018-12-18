@@ -1,5 +1,6 @@
 import { uniqWith, isEqual } from 'lodash';
 import moment from 'moment';
+import AsyncStorage from 'app/services/AsyncStorage';
 
 const Formatter = {
 
@@ -113,9 +114,13 @@ const Formatter = {
     return filtered.map(obj => obj.data);
   },
 
-  repeatTags(list, length = 3) {
-    let similarAll = [];
+  repeatTags(list) {
     const result = [];
+    // const length =  ? AsyncStorage.get('rollout').ArticlesListTermsLimit : 3
+    const length = 3
+    let similarAll = [];
+    const test = this.rollout();
+    // console.log('test this.rollout', test)
 
     list.forEach(item => {
       item.parsingDataFiltered.forEach(el => {
@@ -145,7 +150,7 @@ const Formatter = {
       .sort((a, b) => b.id.length - a.id.length)
       .splice(0, length)
       .map(item => {
-        const id = this.randomFromArray(item.id, 3);
+        const id = this.randomFromArray(item.id, length);
         const articles = [];
 
         id.map(id => {
@@ -191,6 +196,15 @@ const Formatter = {
     } else {
       return '000000000000'
     }
+  },
+
+  rollout() {
+    let result = {};
+    // AsyncStorage.get('rollout').then(res => {
+    //   console.log('res ', res)
+    //   result = res;
+    // })
+    return result;
   }
   // }
   // clearSimilarTags(array) {

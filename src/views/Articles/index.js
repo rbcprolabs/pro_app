@@ -50,7 +50,13 @@ class Articles extends PureComponent {
 
         InitialData('favorites', props.setFavorite);
         InitialData('follow', props.setFollow);
-        Rollout(props.setSettings);
+
+        // TODO: сделать работу через asyncStorage
+        Rollout().then(res=>{
+            console.log('res' , res)
+            props.setSettings(res)
+        })
+        
 
         // Actions.push([routes.LOADING], {
         //     show: true
@@ -58,9 +64,6 @@ class Articles extends PureComponent {
 
 
     }
-
-
-
 
     componentDidMount() {
         const { props, state } = this;
@@ -201,6 +204,7 @@ class Articles extends PureComponent {
                     favorites={props.favorites}
                     setFavorite={props.setFavorite}
                     followList={props.followList}
+                    rollout={props.rollout}
                     index={index}
                 />
                 {/* : false} */}
@@ -238,6 +242,7 @@ function mapStateToProps(state) {
         basketCards: state.articles.basketCards,
         favorites: state.favorites.list,
         followList: state.follow.list,
+        rollout: state.settings.rollout,
     }
 }
 

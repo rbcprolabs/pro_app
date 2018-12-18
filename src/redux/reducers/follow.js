@@ -1,6 +1,6 @@
 import { FOLLOW } from '../types';
 import { find, remove } from 'lodash';
-import AsincStorage from 'app/services/AsincStorage';
+import AsyncStorage from 'app/services/AsyncStorage';
 
 
 export default function follow(
@@ -23,7 +23,7 @@ export default function follow(
 
       find(list, action.follow) ? remove(list, action.follow) : list = [...list, action.follow]
       
-      AsincStorage.set('follow', list);
+      AsyncStorage.set('follow', list);
       
       return {
         ...state,

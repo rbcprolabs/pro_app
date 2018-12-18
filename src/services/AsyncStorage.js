@@ -16,11 +16,11 @@ export default {
     },
     clear() {
         console.log('clear asinc')
-        return  AsyncStorage.clear()
+        return AsyncStorage.clear()
     },
 
     removeItem(key) {
         console.log('remove item asinc')
-        return  AsyncStorage.removeItem(key)
+        return AsyncStorage.removeItem(key)
     }
 }
