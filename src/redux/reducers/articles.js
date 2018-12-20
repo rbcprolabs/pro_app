@@ -4,8 +4,8 @@ import uuid from 'uuid/v1';
 
 const initialState = {
   list: [],
-    basketCards: [],
-    mostPopularTags: {},
+  basketCards: [],
+  mostPopularTags: {},
 }
 
 export default function articles(
@@ -24,7 +24,7 @@ export default function articles(
   const addTags = (fields, name, isFalt) => {
     if (!fields[name] || typeof fields[name] !== 'string') return;
 
-    const items = Formatter.createTags(fields[name], isFalt);
+    const items = Formatter.createTags(fields[name], isFalt, name);
 
     fields.parsingData.push({
       type: name,
@@ -37,6 +37,7 @@ export default function articles(
     })
 
   }
+
 
   if (responce && responce.items) {
     responce.items.map(item => {
@@ -105,7 +106,7 @@ export default function articles(
     )
 
     for (let key in mostPopularTags) {
-      mostPopularTags[key] = Formatter.mostPopular(mostPopularTags[key], 4)
+      Formatter.mostPopular(mostPopularTags[key], 4).then(res=>mostPopularTags[key]=res)
     }
 
     basketCards = Formatter.repeatTags(list);
@@ -134,7 +135,7 @@ export default function articles(
 
 
   // Merge old and new data
-  mostPopularTags = mergeData(state.mostPopularTags, mostPopularTags);
+  mostPopularTags =  mergeData(state.mostPopularTags, mostPopularTags);
   list = mergeData(state.list, list)
     .sort((a, b) => Formatter.convertDateForSorting(b.published) - Formatter.convertDateForSorting(a.published));
 

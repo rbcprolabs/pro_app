@@ -101,24 +101,11 @@ export default class Article extends PureComponent {
   render() {
     const { props, state } = this;
     const { article, rollout } = props;
+    const tags = this.tagsFilter();;
     const view = state.types[props.type] || state.types['default'];
     const published = `${moment(article.published).format('DD.MM.YY, h:mm')} | ${article.sources.fields.name}`;
-    const tagsPreview = props.type === 'selected' || props.type == 'youtube' ? ['tags'] : (props.previewModeTag ? this.tagsTypeShow() : false);
     const style = styles(props);
 
-    let tags = props.previewModeTag
-      ?
-      props.article.parsingDataFiltered.filter(tagList =>
-        tagsPreview.find(preview =>
-          tagList.type == preview
-        )
-      )
-      :
-      props.article.parsingDataFiltered;
-
-    if (props.disableTags) {
-      tags = []
-    }
 
     return (
       <View style={style.globalContainer}>
@@ -253,6 +240,32 @@ export default class Article extends PureComponent {
     )
   }
 
+  tagsFilter = () => {
+    const { props } = this;
+    const tagsPreview = props.type === 'selected' || props.type == 'youtube' ? ['tags'] : (props.previewModeTag ? this.tagsTypeShow() : false);
+    const result = [];
+    let tags = props.previewModeTag
+      ?
+      props.article.parsingDataFiltered.filter(tagList =>
+        tagsPreview.find(preview =>
+          tagList.type == preview
+        )
+      )
+      :
+      props.article.parsingDataFiltered;
+
+    if (props.disableTags) {
+      tags = []
+    }
+
+    tags.map(el => el.items.map(item => {
+      if (props.rollout.ArticlesListTermsLimit > result.length) {
+        result.push(item);
+      }
+    }))
+
+    return result
+  }
 
   tagsTypeShow = () => {
     const { rollout } = this.props;
@@ -298,7 +311,6 @@ export default class Article extends PureComponent {
       tagsIndexes: indexes
     })
   }
-
 
   onPressTitle = () => {
     const { props } = this;

@@ -22,9 +22,9 @@ export default function follow(
       }
 
       find(list, action.follow) ? remove(list, action.follow) : list = [...list, action.follow]
-      
+
       AsyncStorage.set('follow', list);
-      
+
       return {
         ...state,
         list

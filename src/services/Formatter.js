@@ -8,7 +8,7 @@ const Formatter = {
     return str.charAt(0).toUpperCase() + str.slice(1)
   },
 
-  createTags(list, isFalt) {
+  createTags(list, isFalt, type) {
     const result = [];
     const splitDotComma = this.splitAction(list, ';');
 
@@ -20,7 +20,8 @@ const Formatter = {
         const request = {
           term: splitSplash[0],
           fullTerm: res,
-          level: 1
+          level: 1,
+          type
         }
 
         //splitSplash[0].length > 0 ? request.description = splitSplash[1] : splitSplash[1];
@@ -39,7 +40,8 @@ const Formatter = {
           term: parent,
           extendedTerm: parent,
           fullTerm: parent,
-          level: 1
+          level: 1,
+          type
         })
       }
 
@@ -50,7 +52,8 @@ const Formatter = {
           term,
           extendedTerm: prev !== child ? `${parent}/${term}` : prev,
           fullTerm: prev !== child ? `${beforePath}/${term}` : prev,
-          level: i
+          level: i,
+          type
         };
 
         result.push(collected)
@@ -78,23 +81,24 @@ const Formatter = {
 
     if (!isFlat) {
       // надо оставить только второй уровень. Держим в уме, что если ни одного элемента 2-го уровня не нашли, то в array только первый уровень
-      filtered = array.filter(item => item.level === 1);
+      filtered = array.filter(item => item.level === 1)
     }
 
     if (filtered.length === 0) {
-      filtered = [...array];
+      filtered = [...array]
     }
 
     // теперь надо ограничить количество терминов для отображения
-    return filtered.splice(0, 2);
+    return filtered.splice(0, 2)
   },
 
   clearSimalarObjects(array) {
     return uniqWith(array, isEqual);
   },
 
-  mostPopular(arr, length) {
+  async mostPopular(arr, length) {
     const counter = [];
+    const rollout = await this.rollout();
 
     arr.map(item => {
       const index = counter.findIndex(obj => isEqual(obj.data, item));
@@ -109,17 +113,19 @@ const Formatter = {
       }
     })
 
-    const filtered = counter.sort((a, b) => b.count - a.count).splice(0, length);
-
-    return filtered.map(obj => obj.data);
+    return counter
+      .sort((a, b) => b.count - a.count)
+      .filter(el => el.count + 1 >= rollout.RecommendedTagArticlesThreshold)
+      .splice(0, length)
+      .map(obj => obj.data)
   },
 
   repeatTags(list) {
     const result = [];
     // const length =  ? AsyncStorage.get('rollout').ArticlesListTermsLimit : 3
-    const length = 3
+    const length = 3;
     let similarAll = [];
-    const test = this.rollout();
+    // const test = await this.rollout();
     // console.log('test this.rollout', test)
 
     list.forEach(item => {
@@ -191,57 +197,12 @@ const Formatter = {
   },
 
   convertDateForSorting(date) {
-    if (date) {
-      return moment.unix(moment(date).unix()).valueOf()
-    } else {
-      return '000000000000'
-    }
+    return date ? moment.unix(moment(date).unix()).valueOf() : '000000000000'
   },
 
   rollout() {
-    let result = {};
-    // AsyncStorage.get('rollout').then(res => {
-    //   console.log('res ', res)
-    //   result = res;
-    // })
-    return result;
+    return AsyncStorage.get('rollout')
   }
-  // }
-  // clearSimilarTags(array) {
-  //   const firstLevels = array.filter(item => item.level == 1);
-  //   const removedSimilar = uniqWith(firstLevels, isEqual);
-  //   const slashArray = [];
-
-  //   removedSimilar.map(item => {
-  //     slashArray.push(this.splitAction(item.fullTerm, '/'))
-  //   });
-
-  //   slashArray.map((item, i) =>
-  //     slashArray.map((el, indexSecond) => {
-
-  //       // Clear similar for first level
-  //       if (item.length == 1
-  //         && el.length > 1
-  //         && el[0] == item[0]
-  //       ) {
-  //         removedSimilar.splice(i, 1)
-  //       }
-
-  //       // Create two linees
-  //       if (i !== indexSecond
-  //         && item[1] == el[1]
-  //         && slashArray[i].length > 1
-  //       ) {
-  //         removedSimilar[i].term = slashArray[i][0];
-  //         removedSimilar[i].description = slashArray[i][1];
-  //       }
-  //     })
-
-  //   )
-
-  //   return removedSimilar
-  // }
-
 }
 
 export default Formatter;

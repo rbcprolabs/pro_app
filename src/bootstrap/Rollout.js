@@ -12,6 +12,7 @@ export default async () => {
     ArticlesListShowTags: new Rox.Flag(false),
     ArticlesListShowFunctions: new Rox.Flag(false),
     ArticlesListShowDataSources: new Rox.Flag(false),
+    ArticlesListTermsLimit: new Rox.Configuration(3),
     BusketCardArticlesThreshold: new Rox.Configuration(3),
     BusketCardTermsLimit: new Rox.Configuration(3),
     BusketCardHierarchyLevel: new Rox.Configuration(2),
@@ -33,8 +34,6 @@ export default async () => {
   // For flags 
   // flags[name].isEnabled()
 
-
-
   const result = {
     BusketCardShowLead: flags.BusketCardShowLead.isEnabled(),
     BusketCardForceToTop: flags.BusketCardForceToTop.isEnabled(),
@@ -43,14 +42,12 @@ export default async () => {
     ArticlesListShowTags: flags.ArticlesListShowTags.isEnabled(),
     ArticlesListShowFunctions: flags.ArticlesListShowFunctions.isEnabled(),
     ArticlesListShowDataSources: flags.ArticlesListShowDataSources.isEnabled(),
+    ArticlesListTermsLimit: flags.BusketCardArticlesThreshold.getValue(),
     BusketCardArticlesThreshold: flags.BusketCardArticlesThreshold.getValue(),
     BusketCardTermsLimit: flags.BusketCardTermsLimit.getValue(),
     BusketCardHierarchyLevel: flags.BusketCardHierarchyLevel.getValue(),
     RecommendedTagArticlesThreshold: flags.RecommendedTagArticlesThreshold.getValue(),
   }
-
-  //AsyncStorage('rollout', result)
-
 
   return result;
 }

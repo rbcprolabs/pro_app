@@ -7,6 +7,7 @@ import {
     FlatList
 } from 'react-native';
 import { maxBy, isEqual, difference } from 'lodash';
+import uuid from 'uuid/v1';
 import { Actions } from 'react-native-router-flux';
 
 import {
@@ -22,7 +23,7 @@ import Article from 'app/components/Article';
 import OneTagOfArticles from 'app/components/OneTagOfArticles';
 import MostPopularTags from 'app/components/MostPopularTags';
 import InitialData from 'app/bootstrap/InitialData';
-import Rollout from 'app/bootstrap/Rollout';
+import AsyncStorage from 'app/services/AsyncStorage';
 
 
 
@@ -46,22 +47,11 @@ class Articles extends PureComponent {
     }
 
     componentWillMount() {
-        const { props, state } = this;
+        const { props } = this;
 
         InitialData('favorites', props.setFavorite);
         InitialData('follow', props.setFollow);
-
-        // TODO: сделать работу через asyncStorage
-        Rollout().then(res=>{
-            console.log('res' , res)
-            props.setSettings(res)
-        })
-        
-
-        // Actions.push([routes.LOADING], {
-        //     show: true
-        // })
-
+        InitialData('rollout', props.setSettings);
 
     }
 
@@ -139,10 +129,12 @@ class Articles extends PureComponent {
             props.getArticles(),
             props.getCards()
         ]).then(() => {
-            this.setState({
-                loading: false,
-                refreshing: false
-            })
+            setTimeout(() => {
+                this.setState({
+                    loading: false,
+                    refreshing: false
+                })
+            }, 2000)
 
             if (typeof cb == 'function') {
                 cb();
@@ -154,6 +146,7 @@ class Articles extends PureComponent {
 
     articleItem = ({ item, index }) => {
         const { props, state } = this;
+        const style = styles(props);
         let type = 'default';
         let indexShow = 0;
         let popularType = false;
@@ -183,6 +176,16 @@ class Articles extends PureComponent {
 
         return (
             <View key={item.id}>
+                {props.rollout.BusketCardForceToTop && index == 0 &&
+                    props.basketCards.map((item, i) =>
+                        <OneTagOfArticles
+                            key={uuid()}
+                            data={item}
+                            followList={props.followList}
+                            style={i == 0 ? style.firstArticle : {}}
+                        />
+                    )
+                }
                 {popularType &&
                     <MostPopularTags
                         tags={props.mostPopularTags[popularType]}
@@ -190,6 +193,7 @@ class Articles extends PureComponent {
                     />
                 }
                 {popularType
+                    && !props.rollout.BusketCardForceToTop
                     && props.basketCards[indexShow] &&
                     <OneTagOfArticles
                         data={props.basketCards[indexShow]}
@@ -205,7 +209,7 @@ class Articles extends PureComponent {
                     setFavorite={props.setFavorite}
                     followList={props.followList}
                     rollout={props.rollout}
-                    index={index}
+                    style={index == 0 && !props.rollout.BusketCardForceToTop ? style.firstArticle : {}}
                 />
                 {/* : false} */}
 

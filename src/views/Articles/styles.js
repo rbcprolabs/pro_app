@@ -24,5 +24,12 @@ export default props =>
 
     ]),
 
+    firstArticle: StyleSheet.flatten([
+      {
+        marginTop: styles.INTENT,
+      }
+
+    ]),
+
   });
 

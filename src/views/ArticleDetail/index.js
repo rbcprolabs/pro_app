@@ -85,9 +85,9 @@ class ArticleDetail extends Component {
 
                     {article.media &&
                         <View>
-                            {this.text(article.media.fields.description)}
+                            {this.text(article.media[0].fields.title)}
                             <Image
-                                url={article.media.fields.file.url}
+                                url={article.media[0].fields.file.url}
                                 activeZoom={true}
                             />
                         </View>

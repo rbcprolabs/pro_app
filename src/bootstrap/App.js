@@ -10,12 +10,12 @@ import {
 
 import ReduxContainer from 'app/bootstrap/Redux';
 import Sentry from 'app/bootstrap/Sentry';
-// import Rollout from 'app/bootstrap/Rollout';
+import Rollout from 'app/bootstrap/Rollout';
 import Mixpanel from 'react-native-mixpanel';
 import {
     mixPanelToken,
 } from 'app/config/api';
-
+import AsyncStorage from 'app/services/AsyncStorage';
 
 import * as routes from "app/config/sceneKeys";
 import styles from './styles';
@@ -35,6 +35,10 @@ export default class App extends Component {
         // InitialData();
         Mixpanel.sharedInstanceWithToken(mixPanelToken)
         Sentry.init();
+
+        Rollout().then(res => {
+            AsyncStorage.set('rollout', res)
+        });
 
     }
 

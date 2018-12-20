@@ -136,7 +136,7 @@ export default class Loading extends PureComponent {
     clearInterval(this.changeWords);
 
     if (props.afterClose == 'function') {
-      props.afterClose()
+        props.afterClose()
     }
   }
 }

@@ -47,13 +47,9 @@ export default class TagsList extends PureComponent {
     const { props } = this;
 
     if (props.randomMode) {
-      const categoryIndex = Math.floor(Math.random() * props.tags.length);
-      const tagIndex = Math.floor(Math.random() * props.tags[categoryIndex].items.length);
-      const tagSelected = props.tags[categoryIndex].items[tagIndex];
+      const tagSelected = props.tags[Math.floor(Math.random() * props.tags.length)];
 
       this.setState({
-        categoryIndex,
-        tagIndex,
         tagSelected
       })
     }
@@ -74,7 +70,23 @@ export default class TagsList extends PureComponent {
     )
   }
 
-  tags = (style) => this.props.tags.map(data => {
+  tags = (style) => this.props.tags.map((data, index) => {
+    if (!data.items) {
+      return (
+        <Tag
+          key={uuid()}
+          tag={data}
+          active={find(this.props.followList, data) ? true : false}
+          onPress={() => this.onPress({
+            categoryIndex: index,
+            type: data.type,
+            tag
+          })}
+        />
+      )
+    }
+
+
     let title = '';
 
     switch (data.type) {
@@ -117,7 +129,6 @@ export default class TagsList extends PureComponent {
             tag={tag}
             active={find(this.props.followList, tag) ? true : false}
             onPress={() => this.onPress({
-              categoryIndex: i,
               type: data.type,
               tag
             })}
@@ -139,8 +150,7 @@ export default class TagsList extends PureComponent {
         style={{ marginTop: 0 }}
         active={find(props.followList, state.tagSelected) ? true : false}
         onPress={() => this.onPress({
-          categoryIndex: state.categoryIndex,
-          type: props.tags[state.categoryIndex].type,
+          type: state.tagSelected.type,
           tag: state.tagSelected
         })}
       />

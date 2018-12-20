@@ -45,6 +45,10 @@ export default class Tag extends PureComponent {
 
 
   render() {
+    if(!this.props.tag){
+      return null
+    }
+    
     const { props, state } = this;
     const { tag } = props;
     const style = styles(props);
@@ -57,6 +61,7 @@ export default class Tag extends PureComponent {
     if (props.active) {
       colorIcon = configStyles.COLOR_3
     }
+  
 
     return (
       <TouchableOpacity

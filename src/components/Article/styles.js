@@ -18,9 +18,9 @@ export default props =>
       props.type == 'selected' && {
         backgroundColor: styles.COLOR_2,
       },
-      props.index === 0 && {
-        marginTop: styles.INTENT,
-      },
+      // props.index === 0 && {
+      //   marginTop: styles.INTENT,
+      // },
       props.style && {
         ...props.style
       },
