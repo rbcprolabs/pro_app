@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
 import {
   View,
+  Text,
   TouchableOpacity,
 } from 'react-native';
 import {
   Actions
 } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
-import { find,  } from 'lodash';
+import { find, } from 'lodash';
 
 
 import Tag from 'app/components/Tag';
@@ -21,14 +22,14 @@ export default class OneTagOfArticles extends PureComponent {
   static propTypes = {
     data: PropTypes.object,
     followList: PropTypes.array,
-
+    rollout: PropTypes.object,
     // styling
     style: PropTypes.object,
     iconStyle: PropTypes.object
   }
 
   static defaultProps = {
- 
+
   }
 
   constructor(props) {
@@ -44,7 +45,7 @@ export default class OneTagOfArticles extends PureComponent {
     const { props, state } = this;
   }
 
-  
+
   render() {
     const { props, state } = this;
     const style = styles(props);
@@ -67,6 +68,7 @@ export default class OneTagOfArticles extends PureComponent {
             })}
           />
         </View>
+
         <View style={[style.container, style.content]}>
           {props.data.articles.map((article, i) =>
 
@@ -78,6 +80,7 @@ export default class OneTagOfArticles extends PureComponent {
 
               <TextNumeric
                 text={article.title}
+                lead={props.rollout.BusketCardShowLead ? article.lead : ''}
                 number={i}
                 textStyle={style.title}
                 disableNumber={true}

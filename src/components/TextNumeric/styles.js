@@ -52,16 +52,29 @@ export default props =>
       },
     ]),
 
+    textContainer: StyleSheet.flatten([
+      {
+        flexShrink: 1,
+        flexGrow: 1,
+      },
+    ]),
+    
     text: StyleSheet.flatten([
       {
         fontSize: styles.FONT_SIZE,
-        color: styles.COLOR_2,
-        flexShrink: 1,
-        flexGrow: 1,
+        color: styles.COLOR_2,  
       },
       props.textStyle && {
         ...props.textStyle
       }
+    ]),
+
+    lead: StyleSheet.flatten([
+      {
+        fontSize: styles.FONT_SIZE-3,
+        color: styles.COLOR_2,
+        marginTop:styles.INTENT/2,
+      },
     ]),
 
 

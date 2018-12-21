@@ -1,20 +1,8 @@
 import { ARTICLES, CARDS } from '../types';
 import api from 'app/redux/api';
 
-export const getArticles = () => dispatch =>
+export const getArticles = () => (dispatch) =>
 
-  // Contentful().getEntries({
-  //   content_type: 'articles',
-  //   order: '-fields.published'
-  // })
-  //   .then(
-  //     responce => dispatch({
-  //       type: ARTICLES.get,
-  //       content_type: 'articles',
-  //       responce
-  //     })
-
-  //   )
   api.articles.get()
     .then(
       responce => dispatch({
@@ -33,6 +21,8 @@ export const getArticles = () => dispatch =>
         })
       }
     );
+
+
 
 export const getCards = () => dispatch =>
 

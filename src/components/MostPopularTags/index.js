@@ -34,7 +34,7 @@ export default class MostPopularTags extends PureComponent {
   render() {
     const { props } = this;
     const style = styles(props);
-    if(!props.tags){
+    if (!props.tags) {
       return null
     }
 
@@ -48,6 +48,7 @@ export default class MostPopularTags extends PureComponent {
           <View style={style.headerLine} />
           <Text style={style.headerText}>{props.title}</Text>
         </View>
+
 
         <View style={style.content}>
           {props.tags.map((tag, i) =>

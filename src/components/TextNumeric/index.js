@@ -11,6 +11,7 @@ export default class TextNumeric extends PureComponent {
 
   static propTypes = {
     text: PropTypes.string,
+    lead: PropTypes.string,
     number: PropTypes.number,
     disableNumber: PropTypes.bool,
 
@@ -21,6 +22,7 @@ export default class TextNumeric extends PureComponent {
 
   static defaultProps = {
     text: '',
+    lead: '',
     disableNumber: false,
     number: 0,
   }
@@ -38,9 +40,16 @@ export default class TextNumeric extends PureComponent {
           props.number == 0 ? style.itemFirst : {}
         ]}
       >
-        <Text style={style.text}>
-          {props.text}
-        </Text>
+        <View style={style.textContainer}>
+          <Text style={style.text}>
+            {props.text}
+          </Text>
+          {props.lead !== '' &&
+            <Text style={style.lead}>
+              {props.lead}
+            </Text>
+          }
+        </View>
 
         {!props.disableNumber &&
           <Text style={style.count}>

@@ -94,19 +94,18 @@ export default function articles(
     })
 
     list.map(article =>
-      article.parsingDataFiltered.map(category => {
-        return category.items.map(item => {
+      article.parsingDataFiltered.map(category =>
+        category.items.map(item => {
           if (!mostPopularTags[category.type]) {
             mostPopularTags[category.type] = []
           }
           mostPopularTags[category.type].push(item)
         })
-      }
       )
     )
 
     for (let key in mostPopularTags) {
-      Formatter.mostPopular(mostPopularTags[key], 4).then(res=>mostPopularTags[key]=res)
+      Formatter.mostPopular(mostPopularTags[key], 4).then(res => mostPopularTags[key] = res)
     }
 
     basketCards = Formatter.repeatTags(list);
@@ -135,7 +134,7 @@ export default function articles(
 
 
   // Merge old and new data
-  mostPopularTags =  mergeData(state.mostPopularTags, mostPopularTags);
+  mostPopularTags = mergeData(state.mostPopularTags, mostPopularTags);
   list = mergeData(state.list, list)
     .sort((a, b) => Formatter.convertDateForSorting(b.published) - Formatter.convertDateForSorting(a.published));
 

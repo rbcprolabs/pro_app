@@ -23,7 +23,7 @@ export default async () => {
 
   await Rox.setup(roxToken, {
     freeze: Rox.FreezeOptions.freezeOptionNone,
-    version: '0.0.0',
+    version: '0.1.0',
     impressionHandler: (reportingValue, experiment) => {
       console.log('flag impression', reportingValue, experiment);
     }

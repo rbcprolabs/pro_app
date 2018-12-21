@@ -70,24 +70,12 @@ export default class TagsList extends PureComponent {
     )
   }
 
-  tags = (style) => this.props.tags.map((data, index) => {
-    if (!data.items) {
-      return (
-        <Tag
-          key={uuid()}
-          tag={data}
-          active={find(this.props.followList, data) ? true : false}
-          onPress={() => this.onPress({
-            categoryIndex: index,
-            type: data.type,
-            tag
-          })}
-        />
-      )
-    }
-
-
+  tags = style => this.props.tags.map(data => {
     let title = '';
+
+    if (!data.items) {
+      return this.tagItem(data)
+    }
 
     switch (data.type) {
       case 'companies':
@@ -123,20 +111,26 @@ export default class TagsList extends PureComponent {
         {this.props.typeVisible &&
           <Text style={style.title}>{title}</Text>
         }
-        {data.items.map((tag, i) =>
-          <Tag
-            key={uuid()}
-            tag={tag}
-            active={find(this.props.followList, tag) ? true : false}
-            onPress={() => this.onPress({
-              type: data.type,
-              tag
-            })}
-          />
-        )}
+        {data.items.map(tag => this.tagItem(tag))}
       </View>
     )
   })
+
+  tagItem = tag => {
+    const { props } = this;
+
+    return (
+      <Tag
+        key={uuid()}
+        tag={tag}
+        active={find(props.followList, tag) ? true : false}
+        onPress={() => this.onPress({
+          type: tag.type,
+          tag
+        })}
+      />
+    )
+  }
 
 
   randomMode = () => {

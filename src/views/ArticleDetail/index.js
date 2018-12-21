@@ -54,7 +54,7 @@ class ArticleDetail extends Component {
         const { state, props } = this;
         const { article } = props;
         const style = styles(props);
-        console.log('props.article ', article);
+
         return (
             <Content
                 style={style.container}
@@ -302,7 +302,8 @@ class ArticleDetail extends Component {
 
 function mapStateToProps(state) {
     return {
-        favorites: state.favorites.list
+        favorites: state.favorites.list,
+        followList: state.follow.list,
     }
 }
 

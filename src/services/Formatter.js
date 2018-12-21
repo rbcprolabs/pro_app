@@ -4,8 +4,32 @@ import AsyncStorage from 'app/services/AsyncStorage';
 
 const Formatter = {
 
-  firstLetterUpperCase(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1)
+  convertDateForSorting(date) {
+    return date ? moment.unix(moment(date).unix()).valueOf() : '000000000000'
+  },
+
+  clearSimalarObjects(array) {
+    return uniqWith(array, isEqual);
+  },
+
+  clearSimilarTags(array, isFlat) {
+    let filtered = [];
+
+    if (!array.length) {
+      return array
+    }
+
+    if (!isFlat) {
+      // надо оставить только второй уровень. Держим в уме, что если ни одного элемента 2-го уровня не нашли, то в array только первый уровень
+      filtered = array.filter(item => item.level === 1)
+    }
+
+    if (filtered.length === 0) {
+      filtered = [...array]
+    }
+
+    // теперь надо ограничить количество терминов для отображения
+    return filtered.splice(0, 2)
   },
 
   createTags(list, isFalt, type) {
@@ -26,6 +50,10 @@ const Formatter = {
 
         //splitSplash[0].length > 0 ? request.description = splitSplash[1] : splitSplash[1];
 
+        if(request.term.length==0){
+          return 
+        }
+        
         if (splitSplash[1]) {
           request.description = splitSplash[1]
         }
@@ -68,32 +96,8 @@ const Formatter = {
     return result.reduce(uniqueTermsFilter, []);
   },
 
-  splitAction(text, symbol) {
-    return text.split(symbol).map(item => item.trim())
-  },
-
-  clearSimilarTags(array, isFlat) {
-    let filtered = [];
-
-    if (!array.length) {
-      return array
-    }
-
-    if (!isFlat) {
-      // надо оставить только второй уровень. Держим в уме, что если ни одного элемента 2-го уровня не нашли, то в array только первый уровень
-      filtered = array.filter(item => item.level === 1)
-    }
-
-    if (filtered.length === 0) {
-      filtered = [...array]
-    }
-
-    // теперь надо ограничить количество терминов для отображения
-    return filtered.splice(0, 2)
-  },
-
-  clearSimalarObjects(array) {
-    return uniqWith(array, isEqual);
+  firstLetterUpperCase(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1)
   },
 
   async mostPopular(arr, length) {
@@ -119,14 +123,33 @@ const Formatter = {
       .splice(0, length)
       .map(obj => obj.data)
   },
+ 
+  splitAction(text, symbol) {
+    return text.split(symbol).map(item => item.trim())
+  },
+
+  randomFromArray(arr, count = 1) {
+    const indexes = [];
+    const getRandomIndex = (selectedIndexes) => {
+      const index = Math.floor(arr.length * Math.random());
+      const findIndex = selectedIndexes.find(el => el == index);
+
+      return findIndex ? getRandomIndex(selectedIndexes) : selectedIndexes.push(JSON.stringify(index))
+    }
+
+    for (let i = 0; i < count; i++) {
+      getRandomIndex(indexes)
+    }
+
+    return arr.filter((item, i) =>
+      indexes.find(indexSelect =>
+        JSON.stringify(i) === indexSelect))
+  },
 
   repeatTags(list) {
     const result = [];
-    // const length =  ? AsyncStorage.get('rollout').ArticlesListTermsLimit : 3
     const length = 3;
     let similarAll = [];
-    // const test = await this.rollout();
-    // console.log('test this.rollout', test)
 
     list.forEach(item => {
       item.parsingDataFiltered.forEach(el => {
@@ -176,28 +199,6 @@ const Formatter = {
       })
 
     return result
-  },
-
-  randomFromArray(arr, count = 1) {
-    const indexes = [];
-    const getRandomIndex = (selectedIndexes) => {
-      const index = Math.floor(arr.length * Math.random());
-      const findIndex = selectedIndexes.find(el => el == index);
-
-      return findIndex ? getRandomIndex(selectedIndexes) : selectedIndexes.push(JSON.stringify(index))
-    }
-
-    for (let i = 0; i < count; i++) {
-      getRandomIndex(indexes)
-    }
-
-    return arr.filter((item, i) =>
-      indexes.find(indexSelect =>
-        JSON.stringify(i) === indexSelect))
-  },
-
-  convertDateForSorting(date) {
-    return date ? moment.unix(moment(date).unix()).valueOf() : '000000000000'
   },
 
   rollout() {

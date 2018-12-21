@@ -182,6 +182,7 @@ class Articles extends PureComponent {
                             key={uuid()}
                             data={item}
                             followList={props.followList}
+                            rollout={props.rollout}
                             style={i == 0 ? style.firstArticle : {}}
                         />
                     )
@@ -198,6 +199,7 @@ class Articles extends PureComponent {
                     <OneTagOfArticles
                         data={props.basketCards[indexShow]}
                         followList={props.followList}
+                        rollout={props.rollout}
                     />
                 }
                 {/* {item.title == 'В центре Москвы объем свободных торговых площадей сократился на 4%' ? */}
