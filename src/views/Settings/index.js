@@ -59,8 +59,31 @@ class Settings extends Component {
                         onPress={this.onPress}
                     />
                 </View>
+                {this.rollout()}
             </Content>
         );
+    }
+
+    rollout = () => {
+        const { props } = this;
+        const style = styles(props);
+        const result = [];
+
+        for (let key in props.rollout) {
+            console.log('props.rollout[key]', props.rollout[key])
+            result.push({
+                key: key,
+                value: props.rollout[key]
+            })
+        }
+
+        return (result.map(item =>
+            <View key={item.key} style={style.containerText}>
+                <Text>{item.key}</Text>
+                <Text>{JSON.stringify(item.value)}</Text>
+            </View>
+        ))
+
     }
 
     onPress = () => {
@@ -74,7 +97,7 @@ class Settings extends Component {
 function mapStateToProps(state) {
     console.log('state ', state)
     return {
-        articles: state.articles
+        rollout: state.settings.rollout,
     }
 }
 
