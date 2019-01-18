@@ -99,7 +99,7 @@ class Articles extends PureComponent {
                     renderItem={this.articleItem}
                     refreshing={state.refreshing}
                     onRefresh={this.onSwipeDown}
-                    style={[style.content]}
+                    contentContainerStyle={[style.content]}
                     initialNumToRender={10}
                     maxToRenderPerBatch={5}
                     onEndReached={(e) => console.log('test', e)}

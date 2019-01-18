@@ -7,8 +7,7 @@ export default props =>
     container: StyleSheet.flatten([
       {
         backgroundColor: styles.COLOR_5, 
-        
-        // flex: 1
+        flex: 1
       }
 
     ]),
